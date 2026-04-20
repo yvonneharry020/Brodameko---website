@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - BrodaMeko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    /* ===== TOKENS ===== */
+    :root {
+      --bg-main: #0d1645;
+      --bg-dark: #080e2c;
+      --card:    #1a2569;
+      --yellow:  #f5c518;
+      --pink:    #ff4d8d;
+      --white:   #ffffff;
+      --dim:     rgba(255,255,255,0.65);
+      --font-h:  'Syne', sans-serif;
+      --font-b:  'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after {
+      margin:     0;
+      padding:    0;
+      box-sizing: border-box;
+    }
+    html {
+      scroll-behavior: smooth;
+      overflow-x:      hidden;
+    }
+    body {
+      background:  var(--bg-main);
+      color:       var(--white);
+      font-family: var(--font-b);
+      line-height: 1.6;
+      overflow-x:  hidden;
+      width:       100%;
+    }
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; }
+
+    /* ===== MOBILE MENU ===== */
+    .mm {
+      position:       fixed;
+      inset:          0;
+      background:     var(--bg-dark);
+      z-index:        9999;
+      display:        flex;
+      flex-direction: column;
+      padding:        24px 28px;
+      transform:      translateX(100%);
+      transition:     transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .mm.open { transform: translateX(0); }
+    .mm-top {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      margin-bottom:   48px;
+    }
+    .mm-btn {
+      width:           46px;
+      height:          46px;
+      border-radius:   50%;
+      border:          1.5px solid rgba(255,255,255,0.18);
+      background:      transparent;
+      color:           var(--white);
+      font-size:       20px;
+      cursor:          pointer;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+    }
+    .mm nav {
+      display:        flex;
+      flex-direction: column;
+    }
+    .mm nav a {
+      color:         rgba(255,255,255,0.72);
+      font-family:   var(--font-h);
+      font-size:     26px;
+      font-weight:   600;
+      padding:       18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      transition:    color .2s;
+    }
+    .mm nav a:hover  { color: var(--white); }
+    .mm nav a.mm-cta { color: var(--yellow); border-bottom: none; margin-top: 4px; }
+
+    /* ===== HEADER ===== */
+    header {
+      background:    var(--bg-dark);
+      position:      sticky;
+      top:           0;
+      z-index:       1000;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      width:         100%;
+    }
+    .hdr {
+      max-width:       1200px;
+      margin:          0 auto;
+      padding:         0 28px;
+      height:          70px;
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+    }
+    .logo img { height: 34px; width: auto; }
+    .nav-d {
+      display:     flex;
+      align-items: center;
+      gap:         32px;
+    }
+    .nav-d a {
+      color:       rgba(255,255,255,0.82);
+      font-size:   15px;
+      font-weight: 500;
+      transition:  color .2s;
+    }
+    .nav-d a:hover { color: #fff; }
+    .nav-pill {
+      color:         var(--yellow);
+      border:        1.5px solid var(--yellow);
+      border-radius: 100px;
+      padding:       8px 20px;
+      font-size:     14px;
+      font-weight:   700;
+      transition:    background .2s, color .2s;
+    }
+    .nav-pill:hover {
+      background: var(--yellow);
+      color:      var(--bg-dark);
+    }
+    .burger {
+      display:        none;
+      flex-direction: column;
+      gap:            5px;
+      background:     none;
+      border:         none;
+      cursor:         pointer;
+      padding:        4px;
+    }
+    .burger span {
+      display:       block;
+      width:         26px;
+      height:        2px;
+      background:    var(--white);
+      border-radius: 2px;
+    }
+
+    /* ===== SECTION TAG ===== */
+    .stag {
+      display:        flex;
+      align-items:    center;
+      gap:            12px;
+      font-size:      11.5px;
+      font-weight:    700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color:          var(--yellow);
+      margin-bottom:  18px;
+    }
+    .stag::before {
+      content:     '';
+      display:     block;
+      width:       28px;
+      height:      2px;
+      background:  var(--yellow);
+      flex-shrink: 0;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: var(--bg-main);
+      padding:    84px 28px 80px;
+      width:      100%;
+      text-align: center;
+    }
+    .hero-in              { max-width: 780px; margin: 0 auto; }
+    .hero .stag           { justify-content: center; }
+    .hero .stag::before   { display: none; }
+    .hero-stag {
+      display:         inline-flex;
+      align-items:     center;
+      gap:             10px;
+      font-size:       11.5px;
+      font-weight:     700;
+      letter-spacing:  .18em;
+      text-transform:  uppercase;
+      color:           var(--yellow);
+      margin-bottom:   24px;
+      justify-content: center;
+    }
+    .hero-stag::before,
+    .hero-stag::after {
+      content:     '';
+      display:     block;
+      width:       28px;
+      height:      2px;
+      background:  var(--yellow);
+      flex-shrink: 0;
+    }
+    .hero h1 {
+      font-family:   var(--font-h);
+      font-weight:   800;
+      line-height:   1.06;
+      font-size:     clamp(38px, 7vw, 72px);
+      margin-bottom: 28px;
+    }
+    .hero h1 .wh { display: block; color: var(--white); }
+    .hero h1 .yl { display: block; color: var(--yellow); }
+    .hero-sub {
+      font-size:   16px;
+      color:       var(--dim);
+      line-height: 1.75;
+      max-width:   420px;
+      margin:      0 auto;
+    }
+
+    /* ===== ORIGIN ===== */
+    .origin {
+      background:  var(--bg-dark);
+      padding:     76px 28px 80px;
+      width:       100%;
+      border-top:  1px solid rgba(255,255,255,0.06);
+    }
+    .origin-in { max-width: 780px; margin: 0 auto; }
+    .origin h2 {
+      font-family:   var(--font-h);
+      font-weight:   800;
+      line-height:   1.1;
+      font-size:     clamp(30px, 5vw, 48px);
+      margin-bottom: 32px;
+    }
+    .origin h2 .wh        { display: block; color: var(--white); }
+    .origin h2 .yl        { display: block; color: var(--yellow); }
+    .origin p {
+      font-size:     16px;
+      color:         var(--dim);
+      line-height:   1.85;
+      margin-bottom: 24px;
+    }
+    .origin p:last-child  { margin-bottom: 0; }
+    .origin p strong      { color: var(--white); font-weight: 700; }
+
+    /* ===== STATS ===== */
+    .stats-section {
+      background: var(--bg-main);
+      padding:    72px 28px 80px;
+      width:      100%;
+    }
+    .stats-in   { max-width: 860px; margin: 0 auto; }
+    .stats-grid {
+      display:               grid;
+      grid-template-columns: 1fr 1fr;
+      gap:                   14px;
+    }
+    .stat-card {
+      background:    var(--card);
+      border:        1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding:       36px 28px;
+    }
+    .stat-num {
+      font-family:   var(--font-h);
+      font-size:     clamp(44px, 7vw, 64px);
+      font-weight:   800;
+      color:         var(--yellow);
+      line-height:   1;
+      margin-bottom: 10px;
+    }
+    .stat-label {
+      font-size:   15px;
+      color:       var(--dim);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* ===== VALUES ===== */
+    .values {
+      background:  var(--bg-dark);
+      padding:     76px 28px 80px;
+      width:       100%;
+      border-top:  1px solid rgba(255,255,255,0.06);
+    }
+    .values-in { max-width: 1200px; margin: 0 auto; }
+    .values h2 {
+      font-family:   var(--font-h);
+      font-weight:   800;
+      line-height:   1.08;
+      font-size:     clamp(30px, 5vw, 50px);
+      margin-bottom: 44px;
+    }
+    .values h2 .wh { display: block; color: var(--white); }
+    .values h2 .yl { display: block; color: var(--yellow); }
+    .vals-grid {
+      display:               grid;
+      grid-template-columns: 1fr 1fr;
+      gap:                   16px;
+    }
+    .val-card {
+      background:    var(--card);
+      border:        1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding:       30px 26px;
+    }
+    .val-icon {
+      font-size:     36px;
+      margin-bottom: 16px;
+      line-height:   1;
+      display:       block;
+    }
+    .val-title {
+      font-family:   var(--font-h);
+      font-size:     20px;
+      font-weight:   700;
+      color:         var(--white);
+      margin-bottom: 12px;
+    }
+    .val-desc {
+      font-size:   14.5px;
+      color:       var(--dim);
+      line-height: 1.75;
+    }
+
+    /* ===== LEGAL CARD ===== */
+    .legal-wrap {
+      background: var(--bg-main);
+      padding:    0 28px 80px;
+      width:      100%;
+    }
+    .legal-in { max-width: 1200px; margin: 0 auto; }
+    .legal-card {
+      background:    rgba(255,255,255,0.04);
+      border:        1px solid rgba(255,255,255,0.1);
+      border-radius: 18px;
+      padding:       36px 32px;
+      text-align:    center;
+    }
+    .legal-card p {
+      font-family:    var(--font-h);
+      font-size:      clamp(15px, 2vw, 18px);
+      font-weight:    600;
+      color:          rgba(255,255,255,0.75);
+      line-height:    1.6;
+      letter-spacing: .02em;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background:  var(--bg-dark);
+      border-top:  1px solid rgba(255,255,255,0.07);
+      padding:     58px 28px 0;
+      width:       100%;
+    }
+    .ft-in  { max-width: 1200px; margin: 0 auto; }
+    .ft-top {
+      display:               grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+      gap:                   44px;
+      padding-bottom:        44px;
+      border-bottom:         1px solid rgba(255,255,255,0.07);
+    }
+    .ft-brand img { height: 32px; width: auto; margin-bottom: 14px; }
+    .ft-tag {
+      font-size:     13.5px;
+      color:         rgba(255,255,255,.48);
+      line-height:   1.72;
+      margin-bottom: 22px;
+      max-width:     270px;
+    }
+    .socials { display: flex; gap: 10px; }
+    .soc {
+      width:           42px;
+      height:          42px;
+      border-radius:   10px;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      flex-shrink:     0;
+      overflow:        hidden;
+    }
+    .soc-ig { background: linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+    .soc-x  { background: #000; }
+    .soc-fb { background: #1877F2; }
+    .soc-tt { background: #010101; }
+    .ft-col h4 {
+      font-family:    var(--font-b);
+      font-size:      11px;
+      font-weight:    700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom:  18px;
+      color:          var(--white);
+    }
+    .ft-col a {
+      display:       block;
+      font-size:     14px;
+      color:         rgba(255,255,255,.55);
+      margin-bottom: 12px;
+      transition:    color .2s;
+    }
+    .ft-col a:hover { color: var(--white); }
+    .ft-contact p {
+      font-size:     13.5px;
+      color:         rgba(255,255,255,.55);
+      line-height:   1.7;
+      margin-bottom: 8px;
+    }
+    .ft-bot {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      padding:         18px 0;
+      flex-wrap:       wrap;
+      gap:             10px;
+    }
+    .ft-bot p { font-size: 12.5px; color: rgba(255,255,255,.35); }
+    .ft-legal { display: flex; gap: 18px; }
+    .ft-legal a {
+      font-size:  12.5px;
+      color:      rgba(255,255,255,.35);
+      transition: color .2s;
+    }
+    .ft-legal a:hover { color: rgba(255,255,255,.65); }
+
+    /* ===== SCROLL-TO-TOP ===== */
+    .stb {
+      position:        fixed;
+      bottom:          22px;
+      right:           22px;
+      width:           38px;
+      height:          38px;
+      background:      var(--yellow);
+      border:          none;
+      border-radius:   9px;
+      cursor:          pointer;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      z-index:         999;
+      opacity:         0;
+      transform:       translateY(16px);
+      transition:      opacity .3s, transform .3s;
+    }
+    .stb.on {
+      opacity:   1;
+      transform: translateY(0);
+    }
+    .stb svg {
+      width:  15px;
+      height: 15px;
+      color:  var(--bg-dark);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .nav-d  { display: none; }
+      .burger { display: flex; }
+      .ft-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .vals-grid  { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 580px) {
+      .hdr           { height: 60px; padding: 0 16px; }
+      .logo img      { height: 28px; }
+      .hero          { padding: 52px 16px 56px; }
+      .origin        { padding: 56px 16px 60px; }
+      .stats-section { padding: 52px 16px 60px; }
+      .values        { padding: 56px 16px 60px; }
+      .legal-wrap    { padding: 0 16px 60px; }
+      footer         { padding: 46px 16px 0; }
+      .ft-top        { grid-template-columns: 1fr; gap: 24px; }
+      .ft-bot        { flex-direction: column; align-items: flex-start; }
+      .stat-card     { padding: 26px 20px; }
+      .stb           { width: 34px; height: 34px; bottom: 14px; right: 14px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ===== MOBILE MENU OVERLAY ===== -->
+<div class="mm" id="mm">
+  <div class="mm-top">
+    <button class="mm-btn" onclick="mmClose()">&#10005;</button>
+    <button class="mm-btn">&middot;&middot;&middot;</button>
+  </div>
+  <nav>
+    <a href="https://brodameko.app/">Home</a>
+    <a href="https://brodameko.app/how-it-works/">How It Works</a>
+    <a href="https://brodameko.app/about-us/">About Us</a>
+    <a href="https://brodameko.app/contact/">Contact</a>
+    <a href="https://brodameko.app/car-owner-join-waitlist/" class="mm-cta">Car Owner? Join Waitlist &#8594;</a>
+  </nav>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="hdr">
+    <a href="https://brodameko.app/" class="logo">
+      <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko">
+    </a>
+    <nav class="nav-d">
+      <a href="https://brodameko.app/">Home</a>
+      <a href="https://brodameko.app/how-it-works/">How It Works</a>
+      <a href="https://brodameko.app/about-us/">About Us</a>
+      <a href="https://brodameko.app/contact/">Contact</a>
+      <a href="https://brodameko.app/car-owner-join-waitlist/" class="nav-pill">Car Owner? Join Waitlist &#8594;</a>
+    </nav>
+    <button class="burger" onclick="mmOpen()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-in">
+    <div class="hero-stag">OUR STORY</div>
+    <h1>
+      <span class="wh">We&rsquo;re Building</span>
+      <span class="yl">Africa&rsquo;s Most Trusted</span>
+      <span class="wh">Auto Platform.</span>
+    </h1>
+    <p class="hero-sub">BrodaMeko is a product built in Lagos, designed for Africa.</p>
+  </div>
+</section>
+
+<!-- ===== ORIGIN ===== -->
+<section class="origin">
+  <div class="origin-in">
+    <div class="stag">The Origin</div>
+    <h2>
+      <span class="wh">Why We Built</span>
+      <span class="yl">BrodaMeko.</span>
+    </h2>
+    <p>Every driver in Lagos has a story. A car that broke down on the third mainland bridge. A mechanic who disappeared after collecting money. A spare part that turned out to be fake. A job that was &ldquo;fixed&rdquo; but failed again two days later. <strong>We got tired of hearing those stories because we lived them too.</strong></p>
+    <p>BrodaMeko started from a simple conviction: the mechanic-to-car-owner relationship in Nigeria is broken at the trust layer. Not because mechanics are bad &mdash; most are skilled, hardworking people. But because there was no infrastructure to make them visible, accountable, and accessible in a way drivers could rely on.</p>
+    <p><strong>So we built that infrastructure.</strong> A platform where mechanics are verified before they show up. Where prices are agreed before the job starts. Where payments are protected. Where records exist. Where good work is rewarded and poor work has consequences.</p>
+    <p>BrodaMeko is not an app. It is a trust system for the auto-services industry starting in Lagos, building toward every city in Africa and the rest of the world.</p>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section class="stats-section">
+  <div class="stats-in">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num" data-target="247">0</div>
+        <div class="stat-label">Mechanics registered before public launch</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-target="89">0</div>
+        <div class="stat-label">Spare parts sellers on the platform</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-target="1840">0</div>
+        <div class="stat-label">Car owners on the early waitlist</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" data-target="12">0</div>
+        <div class="stat-label">Lagos areas with active coverage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VALUES ===== -->
+<section class="values">
+  <div class="values-in">
+    <div class="stag">Our Values</div>
+    <h2>
+      <span class="wh">What We Stand For.</span>
+      <span class="yl">Every Single Day.</span>
+    </h2>
+    <div class="vals-grid">
+      <div class="val-card">
+        <span class="val-icon">&#128269;</span>
+        <div class="val-title">Radical Transparency</div>
+        <p class="val-desc">Every price, every fee, every deduction is visible. We believe opaque pricing is a form of dishonesty. BrodaMeko shows everything.</p>
+      </div>
+      <div class="val-card">
+        <span class="val-icon">&#129309;</span>
+        <div class="val-title">Mechanic Dignity</div>
+        <p class="val-desc">Nigerian mechanics are skilled professionals who deserve to be treated as such. We built this platform to elevate the trade, not exploit it.</p>
+      </div>
+      <div class="val-card">
+        <span class="val-icon">&#128737;</span>
+        <div class="val-title">Driver Safety</div>
+        <p class="val-desc">No car owner should fear being stranded or overcharged. BrodaMeko gives every driver a fast, safe, predictable way to get help.</p>
+      </div>
+      <div class="val-card">
+        <span class="val-icon">&#128200;</span>
+        <div class="val-title">Local First</div>
+        <p class="val-desc">We are a Lagos-born platform solving Lagos problems first. We won&rsquo;t expand until the foundation here is solid, trusted, and proven.</p>
+      </div>
+      <div class="val-card">
+        <span class="val-icon">&#9889;</span>
+        <div class="val-title">Speed as Respect</div>
+        <p class="val-desc">When your car breaks down, every minute matters. We treat response speed as a form of respect for the user&rsquo;s time and stress level.</p>
+      </div>
+      <div class="val-card">
+        <span class="val-icon">&#129504;</span>
+        <div class="val-title">Data-Driven Quality</div>
+        <p class="val-desc">Ratings, response times, completion rates &mdash; we use real data to reward excellence and identify problems before they hurt users.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEGAL CARD ===== -->
+<div class="legal-wrap">
+  <div class="legal-in">
+    <div class="legal-card">
+      <p>BrodaMeko is a product of OMOLUABI PARAPO CONSERVATIVE LIMITED.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-top">
+
+      <div class="ft-brand">
+        <a href="https://brodameko.app/">
+          <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko">
+        </a>
+        <p class="ft-tag">Your Car&rsquo;s Best Friend, Anywhere. Building Africa&rsquo;s most trusted auto-services network, starting in Lagos.</p>
+        <div class="socials">
+          <!-- FLAG: replace # with Brodameko Instagram profile URL -->
+          <a href="#" class="soc soc-ig" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="1.6"/>
+              <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.6"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko X (Twitter) profile URL -->
+          <a href="#" class="soc soc-x" aria-label="X">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko Facebook profile URL -->
+          <a href="#" class="soc soc-fb" aria-label="Facebook">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="white">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko TikTok profile URL -->
+          <a href="#" class="soc soc-tt" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.2 8.2 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="ft-col">
+        <h4>Platform</h4>
+        <!-- FLAG: replace # with Apple App Store download URL -->
+        <a href="#">Apple App Store</a>
+        <!-- FLAG: replace # with Google Play Store download URL -->
+        <a href="#">Google Play Store</a>
+        <a href="https://brodameko.app/car-owner-join-waitlist/">Car Owner Waitlist</a>
+      </div>
+
+      <div class="ft-col">
+        <h4>Company</h4>
+        <a href="https://brodameko.app/about-us/">About Us</a>
+        <a href="https://brodameko.app/contact/">Contact</a>
+        <!-- FLAG: replace # with FAQ page URL -->
+        <a href="#">FAQ</a>
+      </div>
+
+      <div class="ft-col ft-contact">
+        <h4>Contact</h4>
+        <p>294, Herbert Macaulay Way,<br>Sabo, Yaba, Lagos.</p>
+        <p>+234 706 245 2620</p>
+        <p>brodameko@gmail.com</p>
+      </div>
+
+    </div>
+    <div class="ft-bot">
+      <p>&copy; 2026 BrodaMeko. All rights reserved.</p>
+      <div class="ft-legal">
+        <!-- FLAG: replace # with Privacy Policy page URL -->
+        <a href="#">Privacy Policy</a>
+        <!-- FLAG: replace # with Terms of Use page URL -->
+        <a href="#">Terms of Use</a>
+        <!-- FLAG: replace # with Cookie Policy page URL -->
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="stb" id="stb" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<script>
+  /* Mobile menu */
+  function mmOpen()  { document.getElementById('mm').classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function mmClose() { document.getElementById('mm').classList.remove('open'); document.body.style.overflow = ''; }
+
+  /* Scroll-to-top */
+  var stb = document.getElementById('stb');
+  window.addEventListener('scroll', function() { stb.classList.toggle('on', window.scrollY > 300); });
+
+  /* ===== ANIMATED COUNTERS ===== */
+  function animateCount(el) {
+    var target = +el.dataset.target;
+    var dur    = 2200;
+    var steps  = dur / 16;
+    var inc    = target / steps;
+    var cur    = 0;
+    /* Reset to 0 each time we animate */
+    el.textContent = '0';
+    var t = setInterval(function() {
+      cur += inc;
+      if (cur >= target) {
+        cur = target;
+        clearInterval(t);
+      }
+      el.textContent = Math.floor(cur).toLocaleString();
+    }, 16);
+  }
+
+  /* IntersectionObserver — restarts every time element enters viewport */
+  var counters = document.querySelectorAll('.stat-num');
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        animateCount(e.target);
+      }
+    });
+  }, { threshold: 0.45 });
+
+  counters.forEach(function(c) { io.observe(c); });
+</script>
+</body>
+</html>
