@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works &mdash; BrodaMeko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    /* ============ RESET & ROOT ============ */
+    html,
+    body {
+      margin:     0 !important;
+      padding:    0 !important;
+      overflow-x: hidden !important;
+      background: #040b3d !important;
+    }
+
+    body.elementor-page,
+    body.page,
+    body {
+      background: #040b3d !important;
+    }
+
+    #bm-hiw-page,
+    #bm-hiw-page * {
+      box-sizing: border-box;
+    }
+
+    #bm-hiw-page {
+      --bm-bg:            #040b3d;
+      --bm-bg-2:          #08124f;
+      --bm-card:          #1b2367;
+      --bm-card-2:        #11184f;
+      --bm-border:        rgba(255, 255, 255, 0.09);
+      --bm-border-soft:   rgba(255, 255, 255, 0.06);
+      --bm-text:          #f2f4ff;
+      --bm-text-soft:     #aeb4d8;
+      --bm-yellow:        #ffd61f;
+      --bm-yellow-2:      #ffe45c;
+      --bm-pink:          #ff3b86;
+      --bm-pink-border:   rgba(255, 59, 134, 0.45);
+      --bm-shadow-yellow: 0 0 0 1px rgba(255, 214, 31, 0.35), 0 0 30px rgba(255, 214, 31, 0.12);
+      --bm-shadow-pink:   0 0 0 1px rgba(255, 59, 134, 0.32), 0 0 30px rgba(255, 59, 134, 0.12);
+      --bm-radius:        26px;
+      --bm-max:           1240px;
+
+      width:      100%;
+      min-height: 100vh;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 50% 0%, rgba(31, 58, 138, 0.18), transparent 28%),
+        #040b3d;
+      background-size: 140px 140px, 140px 140px, auto, auto;
+      color:       var(--bm-text);
+      font-family: "Instrument Sans", sans-serif;
+      position:    relative;
+      overflow:    hidden;
+    }
+
+    #bm-hiw-page a {
+      text-decoration: none;
+      color:           inherit;
+    }
+
+    #bm-hiw-page button {
+      font-family: inherit;
+    }
+
+    #bm-hiw-page .bm-shell {
+      width:    100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    #bm-hiw-page .bm-container {
+      width:  min(var(--bm-max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* ============ HEADER ============ */
+    #bm-hiw-page .bm-header {
+      position:   sticky;
+      top:        0;
+      z-index:    999;
+      width:      100%;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(28, 63, 170, 0.24), transparent 55%),
+        rgba(2, 8, 42, 0.98);
+      backdrop-filter:         blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    #bm-hiw-page .bm-header-inner {
+      width:           min(var(--bm-max), calc(100% - 40px));
+      margin:          0 auto;
+      min-height:      104px;
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      gap:             24px;
+    }
+
+    #bm-hiw-page .bm-logo-link {
+      display:     inline-flex;
+      align-items: center;
+      min-width:   0;
+      flex:        0 1 auto;
+    }
+
+    #bm-hiw-page .bm-logo {
+      display:   block;
+      width:     clamp(240px, 30vw, 470px);
+      max-width: 100%;
+      height:    auto;
+    }
+
+    #bm-hiw-page .bm-nav {
+      display:     flex;
+      align-items: center;
+      gap:         14px;
+      flex-wrap:   wrap;
+    }
+
+    #bm-hiw-page .bm-nav a {
+      font-size:   15px;
+      font-weight: 600;
+      color:       var(--bm-text-soft);
+      transition:  0.25s ease;
+    }
+
+    #bm-hiw-page .bm-nav a:hover,
+    #bm-hiw-page .bm-nav a.bm-active {
+      color: #fff;
+    }
+
+    #bm-hiw-page .bm-nav .bm-waitlist-link {
+      border:        1px solid rgba(255, 214, 31, 0.28);
+      padding:       12px 18px;
+      border-radius: 14px;
+      color:         var(--bm-yellow);
+    }
+
+    #bm-hiw-page .bm-menu-btn {
+      display:         none;
+      width:           62px;
+      height:          62px;
+      border:          none;
+      background:      transparent;
+      border-radius:   16px;
+      align-items:     center;
+      justify-content: center;
+      position:        relative;
+      cursor:          pointer;
+      flex-shrink:     0;
+    }
+
+    #bm-hiw-page .bm-menu-btn span {
+      position:      absolute;
+      width:         34px;
+      height:        3px;
+      background:    #fff;
+      border-radius: 3px;
+      transition:    0.25s ease;
+    }
+
+    #bm-hiw-page .bm-menu-btn span:nth-child(1) { transform: translateY(-10px); }
+    #bm-hiw-page .bm-menu-btn span:nth-child(2) { transform: translateY(0); }
+    #bm-hiw-page .bm-menu-btn span:nth-child(3) { transform: translateY(10px); }
+
+    #bm-hiw-page .bm-menu-btn.is-open span:nth-child(1) { transform: rotate(45deg); }
+    #bm-hiw-page .bm-menu-btn.is-open span:nth-child(2) { opacity: 0; }
+    #bm-hiw-page .bm-menu-btn.is-open span:nth-child(3) { transform: rotate(-45deg); }
+
+    /* ============ MOBILE MENU ============ */
+    #bm-hiw-page .bm-mobile-menu {
+      display:       none;
+      padding:       0 20px 24px;
+      border-top:    1px solid rgba(255, 255, 255, 0.06);
+      background:    rgba(2, 8, 42, 0.98);
+    }
+
+    #bm-hiw-page .bm-mobile-menu.is-open {
+      display: block;
+    }
+
+    #bm-hiw-page .bm-mobile-menu a {
+      display:       block;
+      padding:       18px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+      color:         var(--bm-text-soft);
+      font-size:     28px;
+      font-weight:   600;
+      line-height:   1.15;
+    }
+
+    #bm-hiw-page .bm-mobile-menu a:last-child {
+      border-bottom: none;
+      color:         var(--bm-yellow);
+    }
+
+    /* ============ HERO ============ */
+    #bm-hiw-page .bm-hero {
+      padding:    110px 0 90px;
+      text-align: center;
+    }
+
+    #bm-hiw-page .bm-kicker {
+      display:        inline-flex;
+      align-items:    center;
+      gap:            18px;
+      color:          var(--bm-yellow);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size:      16px;
+      font-weight:    700;
+      margin-bottom:  38px;
+    }
+
+    #bm-hiw-page .bm-kicker::before {
+      content:       "";
+      width:         36px;
+      height:        4px;
+      border-radius: 99px;
+      background:    var(--bm-yellow);
+      display:       inline-block;
+    }
+
+    #bm-hiw-page .bm-hero-title,
+    #bm-hiw-page .bm-section-title {
+      font-family:    "Syne", sans-serif;
+      font-weight:    800;
+      line-height:    0.94;
+      letter-spacing: -2px;
+      color:          #fff;
+      margin:         0;
+    }
+
+    #bm-hiw-page .bm-hero-title {
+      font-size: clamp(60px, 10vw, 118px);
+    }
+
+    #bm-hiw-page .bm-yellow {
+      color: var(--bm-yellow);
+    }
+
+    #bm-hiw-page .bm-hero-sub {
+      max-width:   980px;
+      margin:      34px auto 0;
+      color:       var(--bm-text-soft);
+      font-size:   clamp(21px, 2vw, 28px);
+      line-height: 1.55;
+    }
+
+    /* ============ SECTION BLOCKS ============ */
+    #bm-hiw-page .bm-section {
+      padding:    88px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    #bm-hiw-page .bm-panel {
+      background: rgba(255, 255, 255, 0.02);
+      border-top:    1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    #bm-hiw-page .bm-section-title {
+      font-size:     clamp(46px, 7vw, 92px);
+      margin-bottom: 34px;
+    }
+
+    /* ============ TABS ============ */
+    #bm-hiw-page .bm-tab-wrap {
+      margin-top: 34px;
+    }
+
+    #bm-hiw-page .bm-tabs {
+      width:                 min(100%, 1080px);
+      background:            rgba(0, 0, 0, 0.22);
+      border:                1px solid rgba(255, 255, 255, 0.08);
+      border-radius:         26px;
+      padding:               12px;
+      display:               grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:                   12px;
+      margin-bottom:         36px;
+    }
+
+    #bm-hiw-page .bm-tab-btn {
+      appearance:      none;
+      border:          1px solid transparent;
+      background:      transparent;
+      color:           var(--bm-text-soft);
+      border-radius:   22px;
+      min-height:      116px;
+      font-family:     "Instrument Sans", sans-serif;
+      font-weight:     700;
+      font-size:       20px;
+      line-height:     1.2;
+      padding:         18px;
+      display:         flex;
+      flex-direction:  column;
+      align-items:     center;
+      justify-content: center;
+      gap:             10px;
+      cursor:          pointer;
+      transition:      0.28s ease;
+      text-align:      center;
+      outline:         none;
+      box-shadow:      inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+    }
+
+    #bm-hiw-page .bm-tab-btn:hover,
+    #bm-hiw-page .bm-tab-btn:focus-visible {
+      border-color: rgba(255, 214, 31, 0.55);
+      transform:    translateY(-1px);
+    }
+
+    #bm-hiw-page .bm-tab-btn.bm-active {
+      background:  #d9ff00;
+      color:       #000;
+      border-color: var(--bm-yellow);
+      box-shadow:  var(--bm-shadow-yellow);
+    }
+
+    #bm-hiw-page .bm-tab-btn .bm-tab-emoji {
+      font-size:   28px;
+      line-height: 1;
+    }
+
+    /* ============ TAB PANELS ============ */
+    #bm-hiw-page .bm-tab-panels {
+      position:   relative;
+      min-height: 560px;
+    }
+
+    #bm-hiw-page .bm-tab-panel {
+      display:   none;
+      opacity:   0;
+      transform: translateY(18px);
+    }
+
+    #bm-hiw-page .bm-tab-panel.bm-show {
+      display:   block;
+      animation: bmFadeSlide 0.45s ease forwards;
+    }
+
+    @keyframes bmFadeSlide {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============ STEP CARDS ============ */
+    #bm-hiw-page .bm-step-grid {
+      display:               grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:                   28px;
+    }
+
+    #bm-hiw-page .bm-step-card,
+    #bm-hiw-page .bm-feature-card {
+      background:    #1a2263;
+      border:        1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 30px;
+      padding:       34px 34px 36px;
+      transition:    0.28s ease;
+      position:      relative;
+      overflow:      hidden;
+    }
+
+    #bm-hiw-page .bm-step-card::after,
+    #bm-hiw-page .bm-feature-card::after {
+      content:        "";
+      position:       absolute;
+      inset:          0;
+      border-radius:  inherit;
+      pointer-events: none;
+      box-shadow:     inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+    }
+
+    #bm-hiw-page .bm-step-card:hover,
+    #bm-hiw-page .bm-step-card:active,
+    #bm-hiw-page .bm-step-card.is-touched,
+    #bm-hiw-page .bm-feature-card:hover,
+    #bm-hiw-page .bm-feature-card:active,
+    #bm-hiw-page .bm-feature-card.is-touched {
+      border-color: rgba(255, 214, 31, 0.58);
+      box-shadow:   var(--bm-shadow-yellow);
+      transform:    translateY(-2px);
+    }
+
+    #bm-hiw-page .bm-step-head {
+      display:     flex;
+      align-items: flex-start;
+      gap:         24px;
+    }
+
+    #bm-hiw-page .bm-step-badge {
+      flex:            0 0 auto;
+      width:           78px;
+      height:          78px;
+      border-radius:   20px;
+      background:      #d9ff00;
+      color:           #000;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      font-family:     "Syne", sans-serif;
+      font-size:       34px;
+      font-weight:     800;
+      line-height:     1;
+      box-shadow:      0 12px 24px rgba(0, 0, 0, 0.14);
+    }
+
+    #bm-hiw-page .bm-step-title {
+      margin:         0 0 12px;
+      color:          #fff;
+      font-size:      30px;
+      line-height:    1.25;
+      font-weight:    700;
+      letter-spacing: -0.7px;
+    }
+
+    #bm-hiw-page .bm-step-copy {
+      margin:      0;
+      color:       var(--bm-text-soft);
+      font-size:   19px;
+      line-height: 1.65;
+    }
+
+    /* ============ OWNER CTA ============ */
+    #bm-hiw-page .bm-owner-cta-wrap {
+      margin-top:      38px;
+      display:         flex;
+      justify-content: center;
+    }
+
+    #bm-hiw-page .bm-owner-cta {
+      display:         inline-flex;
+      align-items:     center;
+      justify-content: center;
+      min-width:       420px;
+      max-width:       100%;
+      padding:         22px 34px;
+      background:      #d9ff00;
+      color:           #000;
+      border-radius:   20px;
+      font-size:       22px;
+      font-weight:     700;
+      line-height:     1.2;
+      border:          1px solid var(--bm-yellow);
+      box-shadow:      var(--bm-shadow-yellow);
+      transition:      0.28s ease;
+      text-align:      center;
+    }
+
+    #bm-hiw-page .bm-owner-cta:hover {
+      transform:  translateY(-2px);
+      background: #ffe45c;
+    }
+
+    /* ============ FEATURES ============ */
+    #bm-hiw-page .bm-feature-grid {
+      display:               grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:                   28px;
+      margin-top:            34px;
+    }
+
+    #bm-hiw-page .bm-feature-card {
+      text-align:      center;
+      min-height:      410px;
+      display:         flex;
+      flex-direction:  column;
+      align-items:     center;
+      justify-content: flex-start;
+      gap:             16px;
+      padding-top:     42px;
+      padding-bottom:  42px;
+    }
+
+    #bm-hiw-page .bm-feature-icon {
+      font-size:     52px;
+      line-height:   1;
+      margin-bottom: 10px;
+    }
+
+    #bm-hiw-page .bm-feature-title {
+      margin:         0;
+      font-family:    "Syne", sans-serif;
+      font-size:      38px;
+      line-height:    1.15;
+      letter-spacing: -1px;
+      color:          #fff;
+    }
+
+    #bm-hiw-page .bm-feature-copy {
+      margin:      0;
+      max-width:   90%;
+      color:       var(--bm-text-soft);
+      font-size:   19px;
+      line-height: 1.7;
+    }
+
+    /* ============ FOOTER ============ */
+    #bm-hiw-page .bm-footer {
+      margin-top: 90px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding:    72px 0 34px;
+      background: transparent;
+    }
+
+    #bm-hiw-page .bm-footer-grid {
+      display:               grid;
+      grid-template-columns: 1.2fr 1fr 1fr 1fr;
+      gap:                   34px;
+    }
+
+    #bm-hiw-page .bm-footer-logo {
+      display:       inline-flex;
+      align-items:   center;
+      margin-bottom: 24px;
+    }
+
+    #bm-hiw-page .bm-footer-logo img {
+      width:   clamp(220px, 24vw, 360px);
+      height:  auto;
+      display: block;
+    }
+
+    #bm-hiw-page .bm-footer-copy {
+      margin:      0 0 28px;
+      color:       var(--bm-text-soft);
+      font-size:   20px;
+      line-height: 1.6;
+      max-width:   520px;
+    }
+
+    #bm-hiw-page .bm-socials {
+      display:   flex;
+      gap:       14px;
+      flex-wrap: wrap;
+    }
+
+    #bm-hiw-page .bm-socials a {
+      width:           58px;
+      height:          58px;
+      border-radius:   18px;
+      display:         inline-flex;
+      align-items:     center;
+      justify-content: center;
+      background:      rgba(255, 255, 255, 0.03);
+      border:          1px solid rgba(255, 255, 255, 0.08);
+      transition:      0.25s ease;
+    }
+
+    #bm-hiw-page .bm-socials a:hover {
+      border-color: rgba(255, 214, 31, 0.58);
+      box-shadow:   var(--bm-shadow-yellow);
+      transform:    translateY(-2px);
+    }
+
+    #bm-hiw-page .bm-socials svg {
+      width:  24px;
+      height: 24px;
+      fill:   #fff;
+    }
+
+    #bm-hiw-page .bm-footer h4 {
+      margin:         0 0 18px;
+      color:          #fff;
+      font-size:      22px;
+      letter-spacing: 4px;
+      font-weight:    700;
+      text-transform: uppercase;
+    }
+
+    #bm-hiw-page .bm-footer-links {
+      display:        flex;
+      flex-direction: column;
+      gap:            16px;
+    }
+
+    #bm-hiw-page .bm-footer-links a,
+    #bm-hiw-page .bm-footer-links div {
+      color:       var(--bm-text-soft);
+      font-size:   20px;
+      line-height: 1.55;
+    }
+
+    #bm-hiw-page .bm-footer-links a:hover {
+      color: #fff;
+    }
+
+    #bm-hiw-page .bm-contact-highlight {
+      color: var(--bm-yellow) !important;
+    }
+
+    #bm-hiw-page .bm-footer-bottom {
+      margin-top:      34px;
+      padding-top:     26px;
+      border-top:      1px solid rgba(255, 255, 255, 0.07);
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      gap:             20px;
+      flex-wrap:       wrap;
+    }
+
+    #bm-hiw-page .bm-footer-bottom p,
+    #bm-hiw-page .bm-footer-bottom a {
+      color:       var(--bm-text-soft);
+      font-size:   17px;
+      line-height: 1.6;
+      margin:      0;
+    }
+
+    #bm-hiw-page .bm-footer-bottom strong {
+      color:       var(--bm-yellow);
+      font-weight: 700;
+    }
+
+    #bm-hiw-page .bm-legal {
+      display:   flex;
+      gap:       26px;
+      flex-wrap: wrap;
+    }
+
+    /* ============ SCROLL TOP ============ */
+    #bm-hiw-page .bm-scroll-top {
+      position:        fixed;
+      right:           22px;
+      bottom:          22px;
+      width:           88px;
+      height:          88px;
+      border-radius:   26px;
+      border:          none;
+      background:      var(--bm-yellow);
+      color:           #05103a;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      box-shadow:      0 0 38px rgba(255, 214, 31, 0.24);
+      cursor:          pointer;
+      z-index:         999;
+      transition:      0.25s ease;
+    }
+
+    #bm-hiw-page .bm-scroll-top:hover {
+      transform:  translateY(-2px);
+      background: #ffe45c;
+    }
+
+    #bm-hiw-page .bm-scroll-top svg {
+      width:  34px;
+      height: 34px;
+      fill:   #05103a;
+    }
+
+    /* ============ REVEAL ============ */
+    #bm-hiw-page .bm-reveal {
+      opacity:    0;
+      transform:  translateY(26px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    #bm-hiw-page .bm-reveal.is-visible {
+      opacity:   1;
+      transform: translateY(0);
+    }
+
+    /* ============ FORCE PAGE MATCH ============ */
+    #bm-hiw-page {
+      background:       #040b3d !important;
+      background-image: none !important;
+    }
+
+    #bm-hiw-page::before,
+    #bm-hiw-page::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    #bm-hiw-page .bm-header {
+      background:              #02083a !important;
+      background-image:        none !important;
+      backdrop-filter:         none !important;
+      -webkit-backdrop-filter: none !important;
+      border-bottom:           1px solid rgba(255, 255, 255, 0.08) !important;
+      box-shadow:              none !important;
+    }
+
+    #bm-hiw-page .bm-header-inner {
+      background: transparent !important;
+    }
+
+    #bm-hiw-page .bm-footer {
+      background:       #02083a !important;
+      background-image: none !important;
+      border-top:       1px solid rgba(255, 255, 255, 0.07) !important;
+    }
+
+    #bm-hiw-page .bm-footer::before,
+    #bm-hiw-page .bm-footer::after {
+      display: none !important;
+      content: none !important;
+    }
+
+    #bm-hiw-page .bm-panel,
+    #bm-hiw-page .bm-section,
+    #bm-hiw-page .bm-shell {
+      background:       transparent !important;
+      background-image: none !important;
+    }
+
+    #bm-hiw-page .bm-container {
+      background: transparent !important;
+    }
+
+    #bm-hiw-page .bm-header,
+    #bm-hiw-page .bm-footer,
+    #bm-hiw-page,
+    #bm-hiw-page .bm-panel,
+    #bm-hiw-page .bm-section {
+      box-shadow: none !important;
+    }
+
+    /* Fix: smaller yellow scroll-up button */
+    #bm-hiw-page .bm-scroll-top {
+      width:         72px !important;
+      height:        72px !important;
+      border-radius: 20px !important;
+      right:         20px !important;
+      bottom:        20px !important;
+      box-shadow:    0 0 28px rgba(255, 208, 0, 0.22) !important;
+    }
+
+    #bm-hiw-page .bm-scroll-top svg {
+      width:  26px !important;
+      height: 26px !important;
+    }
+
+    /* ============ RESPONSIVE — 1180px ============ */
+    @media (max-width: 1180px) {
+      #bm-hiw-page .bm-header-inner,
+      #bm-hiw-page .bm-container {
+        width: calc(100% - 34px);
+      }
+
+      #bm-hiw-page .bm-step-grid,
+      #bm-hiw-page .bm-feature-grid,
+      #bm-hiw-page .bm-footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #bm-hiw-page .bm-footer-grid > :first-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* ============ RESPONSIVE — 900px ============ */
+    @media (max-width: 900px) {
+      #bm-hiw-page .bm-nav      { display: none; }
+      #bm-hiw-page .bm-menu-btn { display: inline-flex; }
+
+      #bm-hiw-page .bm-header-inner { min-height: 92px; }
+      #bm-hiw-page .bm-hero         { padding: 78px 0 70px; }
+      #bm-hiw-page .bm-section      { padding: 68px 0; }
+
+      #bm-hiw-page .bm-tabs {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      #bm-hiw-page .bm-step-grid,
+      #bm-hiw-page .bm-feature-grid,
+      #bm-hiw-page .bm-footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #bm-hiw-page .bm-step-title   { font-size: 24px; }
+
+      #bm-hiw-page .bm-step-copy,
+      #bm-hiw-page .bm-feature-copy,
+      #bm-hiw-page .bm-footer-copy,
+      #bm-hiw-page .bm-footer-links a,
+      #bm-hiw-page .bm-footer-links div {
+        font-size: 18px;
+      }
+
+      #bm-hiw-page .bm-feature-title { font-size: 32px; }
+      #bm-hiw-page .bm-feature-card  { min-height: auto; }
+    }
+
+    /* ============ RESPONSIVE — 640px ============ */
+    @media (max-width: 640px) {
+      #bm-hiw-page .bm-container,
+      #bm-hiw-page .bm-header-inner {
+        width: calc(100% - 26px);
+      }
+
+      #bm-hiw-page .bm-logo      { width: min(64vw, 300px); }
+
+      #bm-hiw-page .bm-menu-btn  { width: 58px; height: 58px; }
+      #bm-hiw-page .bm-menu-btn span { width: 30px; }
+
+      #bm-hiw-page .bm-kicker {
+        font-size:     12px;
+        letter-spacing: 2px;
+        gap:           12px;
+        margin-bottom: 24px;
+      }
+
+      #bm-hiw-page .bm-kicker::before { width: 28px; height: 3px; }
+
+      #bm-hiw-page .bm-hero-title {
+        font-size:      44px;
+        line-height:    0.98;
+        letter-spacing: -1.4px;
+      }
+
+      #bm-hiw-page .bm-hero-sub {
+        font-size:   16px;
+        line-height: 1.65;
+        margin-top:  24px;
+      }
+
+      #bm-hiw-page .bm-section-title {
+        font-size:      34px;
+        line-height:    0.98;
+        letter-spacing: -1px;
+        margin-bottom:  24px;
+      }
+
+      #bm-hiw-page .bm-tabs {
+        padding:       10px;
+        gap:           8px;
+        border-radius: 22px;
+      }
+
+      #bm-hiw-page .bm-tab-btn {
+        min-height:    118px;
+        font-size:     17px;
+        padding:       16px 10px;
+        border-radius: 18px;
+      }
+
+      #bm-hiw-page .bm-tab-btn .bm-tab-emoji { font-size: 24px; }
+      #bm-hiw-page .bm-tab-panels            { min-height: auto; }
+
+      #bm-hiw-page .bm-step-grid,
+      #bm-hiw-page .bm-feature-grid {
+        gap: 18px;
+      }
+
+      #bm-hiw-page .bm-step-card,
+      #bm-hiw-page .bm-feature-card {
+        border-radius: 24px;
+        padding:       24px 22px 26px;
+      }
+
+      #bm-hiw-page .bm-step-head {
+        gap:         16px;
+        align-items: flex-start;
+      }
+
+      #bm-hiw-page .bm-step-badge {
+        width:         58px;
+        height:        58px;
+        border-radius: 16px;
+        font-size:     24px;
+      }
+
+      #bm-hiw-page .bm-step-title {
+        font-size:     18px;
+        line-height:   1.35;
+        margin-bottom: 10px;
+      }
+
+      #bm-hiw-page .bm-step-copy { font-size: 14px; line-height: 1.75; }
+
+      #bm-hiw-page .bm-owner-cta {
+        min-width:     100%;
+        width:         100%;
+        padding:       20px 24px;
+        font-size:     17px;
+        border-radius: 18px;
+      }
+
+      #bm-hiw-page .bm-feature-card {
+        text-align: center;
+        min-height: auto;
+        gap:        12px;
+      }
+
+      #bm-hiw-page .bm-feature-icon  { font-size: 38px; }
+
+      #bm-hiw-page .bm-feature-title {
+        font-size:   22px;
+        line-height: 1.2;
+      }
+
+      #bm-hiw-page .bm-feature-copy {
+        font-size:   14px;
+        line-height: 1.8;
+        max-width:   100%;
+      }
+
+      #bm-hiw-page .bm-footer {
+        margin-top: 70px;
+        padding:    58px 0 24px;
+      }
+
+      #bm-hiw-page .bm-footer-logo img { width: min(72vw, 280px); }
+
+      #bm-hiw-page .bm-footer-copy {
+        font-size:     15px;
+        line-height:   1.7;
+        margin-bottom: 22px;
+      }
+
+      #bm-hiw-page .bm-socials a {
+        width:         48px;
+        height:        48px;
+        border-radius: 15px;
+      }
+
+      #bm-hiw-page .bm-socials svg { width: 20px; height: 20px; }
+
+      #bm-hiw-page .bm-footer h4 { font-size: 14px; letter-spacing: 3px; }
+
+      #bm-hiw-page .bm-footer-links a,
+      #bm-hiw-page .bm-footer-links div {
+        font-size:   15px;
+        line-height: 1.7;
+      }
+
+      #bm-hiw-page .bm-footer-bottom p,
+      #bm-hiw-page .bm-footer-bottom a {
+        font-size: 14px;
+      }
+
+      #bm-hiw-page .bm-legal { gap: 16px 22px; }
+
+      #bm-hiw-page .bm-scroll-top {
+        width:         82px;
+        height:        82px;
+        border-radius: 24px;
+      }
+
+      #bm-hiw-page .bm-scroll-top svg { width: 30px; height: 30px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="bm-hiw-page">
+  <div class="bm-shell">
+
+    <!-- HEADER -->
+    <header class="bm-header">
+      <div class="bm-header-inner">
+        <a class="bm-logo-link" href="https://brodameko.app/">
+          <img class="bm-logo" src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko logo">
+        </a>
+        <nav class="bm-nav">
+          <a href="https://brodameko.app/">Home</a>
+          <a href="/how-it-works/" class="bm-active">How It Works</a>
+          <a href="/about-us/">About Us</a>
+          <a href="/contact/">Contact</a>
+          <a href="/car-owner-join-waitlist/" class="bm-waitlist-link">Car Owner? Join Waitlist &#8594;</a>
+        </nav>
+        <button class="bm-menu-btn" id="bmMenuBtn" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="bm-mobile-menu" id="bmMobileMenu">
+        <a href="https://brodameko.app/">Home</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us/">About Us</a>
+        <a href="/contact/">Contact</a>
+        <a href="/car-owner-join-waitlist/">Car Owner? Join Waitlist &#8594;</a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="bm-hero">
+      <div class="bm-container">
+        <div class="bm-kicker bm-reveal">Platform Guide</div>
+        <h1 class="bm-hero-title bm-reveal">
+          How <span class="bm-yellow">BrodaMeko</span><br>Works.
+        </h1>
+        <p class="bm-hero-sub bm-reveal">
+          One platform. Three user types. Every step explained for mechanics, sellers, and car owners.
+        </p>
+      </div>
+    </section>
+
+    <!-- PICK YOUR ROLE -->
+    <section class="bm-panel">
+      <div class="bm-container">
+        <section class="bm-section">
+          <h2 class="bm-section-title bm-reveal">
+            Pick Your Role.<br><span class="bm-yellow">See Your Journey.</span>
+          </h2>
+
+          <div class="bm-tab-wrap">
+            <div class="bm-tabs bm-reveal" id="bmTabs">
+              <button class="bm-tab-btn bm-active" data-tab="mechanic">
+                <span class="bm-tab-emoji">&#128295;</span>
+                <span>Mechanic</span>
+              </button>
+              <button class="bm-tab-btn" data-tab="seller">
+                <span class="bm-tab-emoji">&#128230;</span>
+                <span>Seller</span>
+              </button>
+              <button class="bm-tab-btn" data-tab="owner">
+                <span class="bm-tab-emoji">&#128663;</span>
+                <span>Car Owner</span>
+              </button>
+            </div>
+
+            <div class="bm-tab-panels">
+
+              <!-- MECHANIC -->
+              <div class="bm-tab-panel bm-show" data-panel="mechanic">
+                <div class="bm-step-grid">
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">01</div>
+                      <div>
+                        <h3 class="bm-step-title">Download the Mechanic App</h3>
+                        <p class="bm-step-copy">Get BrodaMeko Mechanic from the App Store or Google Play. It&rsquo;s completely free to download and to join.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">02</div>
+                      <div>
+                        <h3 class="bm-step-title">Create Your Profile</h3>
+                        <p class="bm-step-copy">Enter your details, upload a profile photo, and describe your service specialties and areas of coverage.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">03</div>
+                      <div>
+                        <h3 class="bm-step-title">Submit Verification</h3>
+                        <p class="bm-step-copy">Upload your valid Nigerian ID and trade documentation. Our team reviews and approves within 24 hours.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">04</div>
+                      <div>
+                        <h3 class="bm-step-title">Go Live on the Map</h3>
+                        <p class="bm-step-copy">Once approved, toggle online. Your verified profile appears on the BrodaMeko map for car owners in your area.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">05</div>
+                      <div>
+                        <h3 class="bm-step-title">Receive &amp; Accept Job Requests</h3>
+                        <p class="bm-step-copy">Car owners send job requests. You get a notification with job details, location, and the car issue. Accept or decline.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">06</div>
+                      <div>
+                        <h3 class="bm-step-title">Navigate, Complete &amp; Get Paid</h3>
+                        <p class="bm-step-copy">Use in-app navigation to reach the customer. Chat if needed. Mark job complete. Payment is released instantly to your wallet.</p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+
+              <!-- SELLER -->
+              <div class="bm-tab-panel" data-panel="seller">
+                <div class="bm-step-grid">
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">01</div>
+                      <div>
+                        <h3 class="bm-step-title">Download the Seller App</h3>
+                        <p class="bm-step-copy">Get BrodaMeko Seller from the App Store or Google Play. Free to download, free to join.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">02</div>
+                      <div>
+                        <h3 class="bm-step-title">Register Your Business</h3>
+                        <p class="bm-step-copy">Enter your shop name, contact details, and business location. Upload a shop photo and basic business information.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">03</div>
+                      <div>
+                        <h3 class="bm-step-title">Business Verification</h3>
+                        <p class="bm-step-copy">Submit your business ID and registration details. Our team verifies your shop within 24&ndash;48 hours.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">04</div>
+                      <div>
+                        <h3 class="bm-step-title">List Your Parts Catalog</h3>
+                        <p class="bm-step-copy">Add your parts inventory &mdash; photos, names, descriptions, and prices. Start with your fastest-moving items.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">05</div>
+                      <div>
+                        <h3 class="bm-step-title">Receive Order Requests</h3>
+                        <p class="bm-step-copy">Car owners and mechanics near you send order requests through the app. You get a notification with full order details.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">06</div>
+                      <div>
+                        <h3 class="bm-step-title">Confirm, Fulfill &amp; Get Paid</h3>
+                        <p class="bm-step-copy">Accept the order, confirm availability, arrange delivery or pickup. Payment is released to your wallet on confirmation.</p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+
+              <!-- OWNER -->
+              <div class="bm-tab-panel" data-panel="owner">
+                <div class="bm-step-grid">
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">01</div>
+                      <div>
+                        <h3 class="bm-step-title">Join the Waitlist First</h3>
+                        <p class="bm-step-copy">The car owner app is launching soon. Join the waitlist now to get early access when your area goes live.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">02</div>
+                      <div>
+                        <h3 class="bm-step-title">Download &amp; Open the App</h3>
+                        <p class="bm-step-copy">When launched, download BrodaMeko from the App Store or Google Play. Open it &mdash; your location is detected automatically.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">03</div>
+                      <div>
+                        <h3 class="bm-step-title">Describe Your Car Issue</h3>
+                        <p class="bm-step-copy">Know the problem? Describe it and get matched to the right mechanic. Not sure? Book a diagnostics expert first.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">04</div>
+                      <div>
+                        <h3 class="bm-step-title">Get Matched to a Verified Mechanic</h3>
+                        <p class="bm-step-copy">BrodaMeko shows you nearby verified mechanics with ratings, specialties, and estimated arrival time. You choose.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">05</div>
+                      <div>
+                        <h3 class="bm-step-title">Track in Real Time &amp; Chat</h3>
+                        <p class="bm-step-copy">Watch your mechanic&rsquo;s location update live. Use in-app chat to communicate directly. No phone number needed.</p>
+                      </div>
+                    </div>
+                  </article>
+                  <article class="bm-step-card bm-reveal">
+                    <div class="bm-step-head">
+                      <div class="bm-step-badge">06</div>
+                      <div>
+                        <h3 class="bm-step-title">Confirm &amp; Pay Securely</h3>
+                        <p class="bm-step-copy">Agree to the price before work starts. Pay through secure escrow. Release payment after you confirm the job is done.</p>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+                <div class="bm-owner-cta-wrap bm-reveal">
+                  <a class="bm-owner-cta" href="/car-owner-join-waitlist/">Join Car Owner Waitlist &#8594;</a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="bm-section">
+      <div class="bm-container">
+        <div class="bm-kicker bm-reveal">Platform Features</div>
+        <h2 class="bm-section-title bm-reveal">
+          Everything You Need.<br><span class="bm-yellow">Nothing You Don&rsquo;t.</span>
+        </h2>
+        <div class="bm-feature-grid">
+          <article class="bm-feature-card bm-reveal">
+            <div class="bm-feature-icon">&#128205;</div>
+            <h3 class="bm-feature-title">Real-Time GPS Matching</h3>
+            <p class="bm-feature-copy">Automatically finds verified mechanics and sellers within your area using live location data.</p>
+          </article>
+          <article class="bm-feature-card bm-reveal">
+            <div class="bm-feature-icon">&#128274;</div>
+            <h3 class="bm-feature-title">Escrow Payment</h3>
+            <p class="bm-feature-copy">All payments are held safely until job completion. No one gets paid until the work is confirmed done.</p>
+          </article>
+          <article class="bm-feature-card bm-reveal">
+            <div class="bm-feature-icon">&#128172;</div>
+            <h3 class="bm-feature-title">In-App Chat</h3>
+            <p class="bm-feature-copy">Car owners and mechanics communicate directly through the app without sharing personal phone numbers.</p>
+          </article>
+          <article class="bm-feature-card bm-reveal">
+            <div class="bm-feature-icon">&#128506;</div>
+            <h3 class="bm-feature-title">Turn-by-Turn Navigation</h3>
+            <p class="bm-feature-copy">Mechanics get in-app navigation to the customer&rsquo;s exact location. No address confusion, no wasted time.</p>
+          </article>
+          <article class="bm-feature-card bm-reveal">
+            <div class="bm-feature-icon">&#11088;</div>
+            <h3 class="bm-feature-title">Ratings &amp; Reviews</h3>
+            <p class="bm-feature-copy">Both parties rate each other after every job. Quality is rewarded. Bad actors are removed from the platform.</p>
+          </article>
+          <article class="bm-feature-card bm-reveal">
+            <div class="bm-feature-icon">&#128188;</div>
+            <h3 class="bm-feature-title">Earnings Wallet</h3>
+            <p class="bm-feature-copy">Mechanics and sellers have a built-in wallet showing all earnings, deductions, and payout history in real time.</p>
+          </article>
+          <article class="bm-feature-card bm-reveal">
+            <div class="bm-feature-icon">&#128737;</div>
+            <h3 class="bm-feature-title">Dispute Resolution</h3>
+            <p class="bm-feature-copy">Dedicated admin review for any job disputes. Evidence-based, fair, and fast &mdash; protecting both sides honestly.</p>
+          </article>
+          <article class="bm-feature-card bm-reveal">
+            <div class="bm-feature-icon">&#128230;</div>
+            <h3 class="bm-feature-title">Spare Parts Marketplace</h3>
+            <p class="bm-feature-copy">Car owners and mechanics can order verified auto parts from nearby sellers directly through the app.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bm-footer">
+      <div class="bm-container">
+        <div class="bm-footer-grid">
+
+          <!-- Brand + socials -->
+          <div>
+            <a class="bm-footer-logo" href="https://brodameko.app/">
+              <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko logo">
+            </a>
+            <p class="bm-footer-copy">
+              Your Car&rsquo;s Best Friend, Anywhere. Building Africa&rsquo;s most trusted auto-services network, starting in Lagos.
+            </p>
+            <div class="bm-socials">
+              <!-- FLAG: replace # with BrodaMeko Instagram profile URL -->
+              <a href="#" target="_blank" aria-label="Instagram">
+                <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.65 1.65a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"/></svg>
+              </a>
+              <!-- FLAG: replace # with BrodaMeko X (Twitter) profile URL -->
+              <a href="#" target="_blank" aria-label="X">
+                <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.25l-4.9-6.41L6.46 22H3.35l7.25-8.29L1 2h6.4l4.43 5.84L18.9 2Zm-1.1 18h1.72L6.46 3.9H4.61L17.8 20Z"/></svg>
+              </a>
+              <!-- FLAG: replace # with BrodaMeko Facebook profile URL -->
+              <a href="#" target="_blank" aria-label="Facebook">
+                <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.76c0-.92.25-1.55 1.57-1.55H16.6V4.35c-.28-.03-1.24-.11-2.36-.11-2.34 0-3.94 1.43-3.94 4.06v2.48H7.65V14h2.65v8h3.2Z"/></svg>
+              </a>
+              <!-- FLAG: replace # with BrodaMeko TikTok profile URL -->
+              <a href="#" target="_blank" aria-label="TikTok">
+                <svg viewBox="0 0 24 24"><path d="M14.8 3c.2 1.7 1.2 3.1 2.8 3.9 1 .5 2 .7 3 .7v3.1c-1.3 0-2.5-.3-3.6-.8v5.8c0 3.2-2.6 5.8-5.8 5.8S5.4 18.9 5.4 15.7 8 9.9 11.2 9.9c.3 0 .6 0 .9.1v3.2a2.9 2.9 0 0 0-.9-.15 2.65 2.65 0 0 0 0 5.3 2.65 2.65 0 0 0 2.65-2.65V3h.95Z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Platform -->
+          <div>
+            <h4>Platform</h4>
+            <div class="bm-footer-links">
+              <a href="https://brodameko.app/#download-section">Download App</a>
+              <a href="/how-it-works/">How It Works</a>
+              <a href="/car-owner-join-waitlist/">Car Owner Waitlist</a>
+              <a href="https://brodameko.app/#why-join-now">For Mechanics</a>
+              <a href="https://brodameko.app/#why-join-now">For Sellers</a>
+            </div>
+          </div>
+
+          <!-- Company -->
+          <div>
+            <h4>Company</h4>
+            <div class="bm-footer-links">
+              <a href="/about-us/">About Us</a>
+              <a href="/contact/">Contact</a>
+              <!-- FLAG: replace # with BrodaMeko FAQ page URL -->
+              <a href="#">FAQ</a>
+              <!-- FLAG: replace # with BrodaMeko Press &amp; Media page URL -->
+              <a href="#">Press &amp; Media</a>
+              <!-- FLAG: replace # with BrodaMeko Careers page URL -->
+              <a href="#">Careers</a>
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h4>Contact</h4>
+            <div class="bm-footer-links">
+              <div class="bm-contact-highlight">294, Herbert Macaulay Way,<br>Sabo, Yaba, Lagos.</div>
+              <div>+234 706 245 2620</div>
+              <div>brodameko@gmail.com</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="bm-footer-bottom">
+          <p>&copy; 2026 BrodaMeko. All rights reserved.</p>
+          <div class="bm-legal">
+            <!-- FLAG: replace # with BrodaMeko Privacy Policy page URL -->
+            <a href="#">Privacy Policy</a>
+            <!-- FLAG: replace # with BrodaMeko Terms of Use page URL -->
+            <a href="#">Terms of Use</a>
+            <!-- FLAG: replace # with BrodaMeko Cookie Policy page URL -->
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /.bm-shell -->
+
+  <button class="bm-scroll-top" id="bmScrollTop" aria-label="Scroll to top">
+    <svg viewBox="0 0 24 24"><path d="M12 4l7 7-2.1 2.1-3.4-3.4V20h-3V9.7l-3.4 3.4L5 11l7-7Z"/></svg>
+  </button>
+
+</div><!-- /#bm-hiw-page -->
+
+<script>
+  (function () {
+    var root = document.getElementById('bm-hiw-page');
+    if (!root) { return; }
+
+    // ── Mobile menu ────────────────────────────────────────────────────────────
+    var menuBtn    = root.querySelector('#bmMenuBtn');
+    var mobileMenu = root.querySelector('#bmMobileMenu');
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', function() {
+        menuBtn.classList.toggle('is-open');
+        mobileMenu.classList.toggle('is-open');
+      });
+    }
+
+    // ── Tabs ──────────────────────────────────────────────────────────────────
+    var tabButtons = root.querySelectorAll('.bm-tab-btn');
+    var tabPanels  = root.querySelectorAll('.bm-tab-panel');
+
+    function activateTab(tabName) {
+      tabButtons.forEach(function(btn) {
+        btn.classList.toggle('bm-active', btn.getAttribute('data-tab') === tabName);
+      });
+
+      tabPanels.forEach(function(panel) {
+        var show = panel.getAttribute('data-panel') === tabName;
+        panel.classList.remove('bm-show');
+        if (show) { panel.classList.add('bm-show'); }
+      });
+
+      setTimeout(function() { observeReveal(); }, 60);
+    }
+
+    tabButtons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        activateTab(btn.getAttribute('data-tab'));
+      });
+
+      btn.addEventListener('touchstart', function() {
+        tabButtons.forEach(function(b) { b.classList.remove('is-touched'); });
+        btn.classList.add('is-touched');
+        setTimeout(function() { btn.classList.remove('is-touched'); }, 500);
+      }, { passive: true });
+    });
+
+    // ── Touch / click yellow border on cards ──────────────────────────────────
+    var touchCards = root.querySelectorAll('.bm-step-card, .bm-feature-card');
+    touchCards.forEach(function(card) {
+      card.addEventListener('touchstart', function() {
+        touchCards.forEach(function(c) { c.classList.remove('is-touched'); });
+        card.classList.add('is-touched');
+        setTimeout(function() { card.classList.remove('is-touched'); }, 700);
+      }, { passive: true });
+
+      card.addEventListener('click', function() {
+        touchCards.forEach(function(c) { c.classList.remove('is-touched'); });
+        card.classList.add('is-touched');
+        setTimeout(function() { card.classList.remove('is-touched'); }, 700);
+      });
+    });
+
+    // ── Scroll reveal ─────────────────────────────────────────────────────────
+    var observer;
+    function observeReveal() {
+      if (observer) { observer.disconnect(); }
+
+      var items = root.querySelectorAll('.bm-reveal');
+      observer  = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) { entry.target.classList.add('is-visible'); }
+        });
+      }, { threshold: 0.12 });
+
+      items.forEach(function(item) { observer.observe(item); });
+    }
+    observeReveal();
+
+    // ── Scroll to top ─────────────────────────────────────────────────────────
+    var scrollBtn = root.querySelector('#bmScrollTop');
+    if (scrollBtn) {
+      scrollBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
