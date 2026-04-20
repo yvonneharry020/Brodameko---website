@@ -1,0 +1,22 @@
+Brodameko Website — Page Inventory
+=====================================
+
+App: Brodameko (iOS & Android)
+Purpose: Informational website — drives users to download the app
+
+App Features:
+  - Find & book professional mechanics
+  - Request towing service (GPS-based)
+  - Marketplace for car spare parts
+
+Pages:
+  1. home.html                    — Hero, app overview, core features, download CTAs
+  2. about.html                   — What Brodameko is, the mission, the team
+  3. how-it-works.html            — Step-by-step guide for car owners & mechanics
+  4. faqs.html                    — Frequently asked questions
+  5. contact-us.html              — Contact form and support details
+  6. car-owner-join-waitlist.html — Waitlist registration for car owners
+
+App Store Links:
+  - Apple App Store: TBC
+  - Google Play Store: TBC
