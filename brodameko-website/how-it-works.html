@@ -3,1449 +3,931 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>How It Works &mdash; BrodaMeko</title>
+  <title>How It Works - BrodaMeko</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
 
-    /* ============ RESET & ROOT ============ */
-    html,
-    body {
-      margin:     0 !important;
-      padding:    0 !important;
-      overflow-x: hidden !important;
-      background: #040b3d !important;
+    /* ===== TOKENS ===== */
+    :root {
+      --bg-main: #0d1645;
+      --bg-dark: #080e2c;
+      --card:    #1a2569;
+      --yellow:  #f5c518;
+      --lime:    #ccff00;
+      --pink:    #ff4d8d;
+      --white:   #ffffff;
+      --dim:     rgba(255,255,255,0.65);
+      --font-h:  'Syne', sans-serif;
+      --font-b:  'Plus Jakarta Sans', sans-serif;
     }
 
-    body.elementor-page,
-    body.page,
-    body {
-      background: #040b3d !important;
-    }
-
-    #bm-hiw-page,
-    #bm-hiw-page * {
+    /* ===== RESET ===== */
+    *, *::before, *::after {
+      margin:     0;
+      padding:    0;
       box-sizing: border-box;
     }
-
-    #bm-hiw-page {
-      --bm-bg:            #040b3d;
-      --bm-bg-2:          #08124f;
-      --bm-card:          #1b2367;
-      --bm-card-2:        #11184f;
-      --bm-border:        rgba(255, 255, 255, 0.09);
-      --bm-border-soft:   rgba(255, 255, 255, 0.06);
-      --bm-text:          #f2f4ff;
-      --bm-text-soft:     #aeb4d8;
-      --bm-yellow:        #ffd61f;
-      --bm-yellow-2:      #ffe45c;
-      --bm-pink:          #ff3b86;
-      --bm-pink-border:   rgba(255, 59, 134, 0.45);
-      --bm-shadow-yellow: 0 0 0 1px rgba(255, 214, 31, 0.35), 0 0 30px rgba(255, 214, 31, 0.12);
-      --bm-shadow-pink:   0 0 0 1px rgba(255, 59, 134, 0.32), 0 0 30px rgba(255, 59, 134, 0.12);
-      --bm-radius:        26px;
-      --bm-max:           1240px;
-
-      width:      100%;
-      min-height: 100vh;
-      background:
-        linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-        radial-gradient(circle at 50% 0%, rgba(31, 58, 138, 0.18), transparent 28%),
-        #040b3d;
-      background-size: 140px 140px, 140px 140px, auto, auto;
-      color:       var(--bm-text);
-      font-family: "Instrument Sans", sans-serif;
-      position:    relative;
-      overflow:    hidden;
+    html {
+      scroll-behavior: smooth;
+      overflow-x:      hidden;
     }
-
-    #bm-hiw-page a {
-      text-decoration: none;
-      color:           inherit;
-    }
-
-    #bm-hiw-page button {
-      font-family: inherit;
-    }
-
-    #bm-hiw-page .bm-shell {
-      width:    100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    #bm-hiw-page .bm-container {
-      width:  min(var(--bm-max), calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    /* ============ HEADER ============ */
-    #bm-hiw-page .bm-header {
-      position:   sticky;
-      top:        0;
-      z-index:    999;
-      width:      100%;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(28, 63, 170, 0.24), transparent 55%),
-        rgba(2, 8, 42, 0.98);
-      backdrop-filter:         blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    #bm-hiw-page .bm-header-inner {
-      width:           min(var(--bm-max), calc(100% - 40px));
-      margin:          0 auto;
-      min-height:      104px;
-      display:         flex;
-      align-items:     center;
-      justify-content: space-between;
-      gap:             24px;
-    }
-
-    #bm-hiw-page .bm-logo-link {
-      display:     inline-flex;
-      align-items: center;
-      min-width:   0;
-      flex:        0 1 auto;
-    }
-
-    #bm-hiw-page .bm-logo {
-      display:   block;
-      width:     clamp(240px, 30vw, 470px);
-      max-width: 100%;
-      height:    auto;
-    }
-
-    #bm-hiw-page .bm-nav {
-      display:     flex;
-      align-items: center;
-      gap:         14px;
-      flex-wrap:   wrap;
-    }
-
-    #bm-hiw-page .bm-nav a {
-      font-size:   15px;
-      font-weight: 600;
-      color:       var(--bm-text-soft);
-      transition:  0.25s ease;
-    }
-
-    #bm-hiw-page .bm-nav a:hover,
-    #bm-hiw-page .bm-nav a.bm-active {
-      color: #fff;
-    }
-
-    #bm-hiw-page .bm-nav .bm-waitlist-link {
-      border:        1px solid rgba(255, 214, 31, 0.28);
-      padding:       12px 18px;
-      border-radius: 14px;
-      color:         var(--bm-yellow);
-    }
-
-    #bm-hiw-page .bm-menu-btn {
-      display:         none;
-      width:           62px;
-      height:          62px;
-      border:          none;
-      background:      transparent;
-      border-radius:   16px;
-      align-items:     center;
-      justify-content: center;
-      position:        relative;
-      cursor:          pointer;
-      flex-shrink:     0;
-    }
-
-    #bm-hiw-page .bm-menu-btn span {
-      position:      absolute;
-      width:         34px;
-      height:        3px;
-      background:    #fff;
-      border-radius: 3px;
-      transition:    0.25s ease;
-    }
-
-    #bm-hiw-page .bm-menu-btn span:nth-child(1) { transform: translateY(-10px); }
-    #bm-hiw-page .bm-menu-btn span:nth-child(2) { transform: translateY(0); }
-    #bm-hiw-page .bm-menu-btn span:nth-child(3) { transform: translateY(10px); }
-
-    #bm-hiw-page .bm-menu-btn.is-open span:nth-child(1) { transform: rotate(45deg); }
-    #bm-hiw-page .bm-menu-btn.is-open span:nth-child(2) { opacity: 0; }
-    #bm-hiw-page .bm-menu-btn.is-open span:nth-child(3) { transform: rotate(-45deg); }
-
-    /* ============ MOBILE MENU ============ */
-    #bm-hiw-page .bm-mobile-menu {
-      display:       none;
-      padding:       0 20px 24px;
-      border-top:    1px solid rgba(255, 255, 255, 0.06);
-      background:    rgba(2, 8, 42, 0.98);
-    }
-
-    #bm-hiw-page .bm-mobile-menu.is-open {
-      display: block;
-    }
-
-    #bm-hiw-page .bm-mobile-menu a {
-      display:       block;
-      padding:       18px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      color:         var(--bm-text-soft);
-      font-size:     28px;
-      font-weight:   600;
-      line-height:   1.15;
-    }
-
-    #bm-hiw-page .bm-mobile-menu a:last-child {
-      border-bottom: none;
-      color:         var(--bm-yellow);
-    }
-
-    /* ============ HERO ============ */
-    #bm-hiw-page .bm-hero {
-      padding:    110px 0 90px;
-      text-align: center;
-    }
-
-    #bm-hiw-page .bm-kicker {
-      display:        inline-flex;
-      align-items:    center;
-      gap:            18px;
-      color:          var(--bm-yellow);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size:      16px;
-      font-weight:    700;
-      margin-bottom:  38px;
-    }
-
-    #bm-hiw-page .bm-kicker::before {
-      content:       "";
-      width:         36px;
-      height:        4px;
-      border-radius: 99px;
-      background:    var(--bm-yellow);
-      display:       inline-block;
-    }
-
-    #bm-hiw-page .bm-hero-title,
-    #bm-hiw-page .bm-section-title {
-      font-family:    "Syne", sans-serif;
-      font-weight:    800;
-      line-height:    0.94;
-      letter-spacing: -2px;
-      color:          #fff;
-      margin:         0;
-    }
-
-    #bm-hiw-page .bm-hero-title {
-      font-size: clamp(60px, 10vw, 118px);
-    }
-
-    #bm-hiw-page .bm-yellow {
-      color: var(--bm-yellow);
-    }
-
-    #bm-hiw-page .bm-hero-sub {
-      max-width:   980px;
-      margin:      34px auto 0;
-      color:       var(--bm-text-soft);
-      font-size:   clamp(21px, 2vw, 28px);
-      line-height: 1.55;
-    }
-
-    /* ============ SECTION BLOCKS ============ */
-    #bm-hiw-page .bm-section {
-      padding:    88px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    #bm-hiw-page .bm-panel {
-      background: rgba(255, 255, 255, 0.02);
-      border-top:    1px solid rgba(255, 255, 255, 0.04);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    #bm-hiw-page .bm-section-title {
-      font-size:     clamp(46px, 7vw, 92px);
-      margin-bottom: 34px;
-    }
-
-    /* ============ TABS ============ */
-    #bm-hiw-page .bm-tab-wrap {
-      margin-top: 34px;
-    }
-
-    #bm-hiw-page .bm-tabs {
-      width:                 min(100%, 1080px);
-      background:            rgba(0, 0, 0, 0.22);
-      border:                1px solid rgba(255, 255, 255, 0.08);
-      border-radius:         26px;
-      padding:               12px;
-      display:               grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:                   12px;
-      margin-bottom:         36px;
-    }
-
-    #bm-hiw-page .bm-tab-btn {
-      appearance:      none;
-      border:          1px solid transparent;
-      background:      transparent;
-      color:           var(--bm-text-soft);
-      border-radius:   22px;
-      min-height:      116px;
-      font-family:     "Instrument Sans", sans-serif;
-      font-weight:     700;
-      font-size:       20px;
-      line-height:     1.2;
-      padding:         18px;
-      display:         flex;
-      flex-direction:  column;
-      align-items:     center;
-      justify-content: center;
-      gap:             10px;
-      cursor:          pointer;
-      transition:      0.28s ease;
-      text-align:      center;
-      outline:         none;
-      box-shadow:      inset 0 0 0 1px rgba(255, 255, 255, 0.03);
-    }
-
-    #bm-hiw-page .bm-tab-btn:hover,
-    #bm-hiw-page .bm-tab-btn:focus-visible {
-      border-color: rgba(255, 214, 31, 0.55);
-      transform:    translateY(-1px);
-    }
-
-    #bm-hiw-page .bm-tab-btn.bm-active {
-      background:  #d9ff00;
-      color:       #000;
-      border-color: var(--bm-yellow);
-      box-shadow:  var(--bm-shadow-yellow);
-    }
-
-    #bm-hiw-page .bm-tab-btn .bm-tab-emoji {
-      font-size:   28px;
-      line-height: 1;
-    }
-
-    /* ============ TAB PANELS ============ */
-    #bm-hiw-page .bm-tab-panels {
-      position:   relative;
-      min-height: 560px;
-    }
-
-    #bm-hiw-page .bm-tab-panel {
-      display:   none;
-      opacity:   0;
-      transform: translateY(18px);
-    }
-
-    #bm-hiw-page .bm-tab-panel.bm-show {
-      display:   block;
-      animation: bmFadeSlide 0.45s ease forwards;
-    }
-
-    @keyframes bmFadeSlide {
-      from { opacity: 0; transform: translateY(18px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ============ STEP CARDS ============ */
-    #bm-hiw-page .bm-step-grid {
-      display:               grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:                   28px;
-    }
-
-    #bm-hiw-page .bm-step-card,
-    #bm-hiw-page .bm-feature-card {
-      background:    #1a2263;
-      border:        1px solid rgba(255, 255, 255, 0.07);
-      border-radius: 30px;
-      padding:       34px 34px 36px;
-      transition:    0.28s ease;
-      position:      relative;
-      overflow:      hidden;
-    }
-
-    #bm-hiw-page .bm-step-card::after,
-    #bm-hiw-page .bm-feature-card::after {
-      content:        "";
-      position:       absolute;
-      inset:          0;
-      border-radius:  inherit;
-      pointer-events: none;
-      box-shadow:     inset 0 0 0 1px rgba(255, 255, 255, 0.025);
-    }
-
-    #bm-hiw-page .bm-step-card:hover,
-    #bm-hiw-page .bm-step-card:active,
-    #bm-hiw-page .bm-step-card.is-touched,
-    #bm-hiw-page .bm-feature-card:hover,
-    #bm-hiw-page .bm-feature-card:active,
-    #bm-hiw-page .bm-feature-card.is-touched {
-      border-color: rgba(255, 214, 31, 0.58);
-      box-shadow:   var(--bm-shadow-yellow);
-      transform:    translateY(-2px);
-    }
-
-    #bm-hiw-page .bm-step-head {
-      display:     flex;
-      align-items: flex-start;
-      gap:         24px;
-    }
-
-    #bm-hiw-page .bm-step-badge {
-      flex:            0 0 auto;
-      width:           78px;
-      height:          78px;
-      border-radius:   20px;
-      background:      #d9ff00;
-      color:           #000;
-      display:         flex;
-      align-items:     center;
-      justify-content: center;
-      font-family:     "Syne", sans-serif;
-      font-size:       34px;
-      font-weight:     800;
-      line-height:     1;
-      box-shadow:      0 12px 24px rgba(0, 0, 0, 0.14);
-    }
-
-    #bm-hiw-page .bm-step-title {
-      margin:         0 0 12px;
-      color:          #fff;
-      font-size:      30px;
-      line-height:    1.25;
-      font-weight:    700;
-      letter-spacing: -0.7px;
-    }
-
-    #bm-hiw-page .bm-step-copy {
-      margin:      0;
-      color:       var(--bm-text-soft);
-      font-size:   19px;
-      line-height: 1.65;
-    }
-
-    /* ============ OWNER CTA ============ */
-    #bm-hiw-page .bm-owner-cta-wrap {
-      margin-top:      38px;
-      display:         flex;
-      justify-content: center;
-    }
-
-    #bm-hiw-page .bm-owner-cta {
-      display:         inline-flex;
-      align-items:     center;
-      justify-content: center;
-      min-width:       420px;
-      max-width:       100%;
-      padding:         22px 34px;
-      background:      #d9ff00;
-      color:           #000;
-      border-radius:   20px;
-      font-size:       22px;
-      font-weight:     700;
-      line-height:     1.2;
-      border:          1px solid var(--bm-yellow);
-      box-shadow:      var(--bm-shadow-yellow);
-      transition:      0.28s ease;
-      text-align:      center;
-    }
-
-    #bm-hiw-page .bm-owner-cta:hover {
-      transform:  translateY(-2px);
-      background: #ffe45c;
-    }
-
-    /* ============ FEATURES ============ */
-    #bm-hiw-page .bm-feature-grid {
-      display:               grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:                   28px;
-      margin-top:            34px;
-    }
-
-    #bm-hiw-page .bm-feature-card {
-      text-align:      center;
-      min-height:      410px;
-      display:         flex;
-      flex-direction:  column;
-      align-items:     center;
-      justify-content: flex-start;
-      gap:             16px;
-      padding-top:     42px;
-      padding-bottom:  42px;
-    }
-
-    #bm-hiw-page .bm-feature-icon {
-      font-size:     52px;
-      line-height:   1;
-      margin-bottom: 10px;
-    }
-
-    #bm-hiw-page .bm-feature-title {
-      margin:         0;
-      font-family:    "Syne", sans-serif;
-      font-size:      38px;
-      line-height:    1.15;
-      letter-spacing: -1px;
-      color:          #fff;
-    }
-
-    #bm-hiw-page .bm-feature-copy {
-      margin:      0;
-      max-width:   90%;
-      color:       var(--bm-text-soft);
-      font-size:   19px;
-      line-height: 1.7;
-    }
-
-    /* ============ FOOTER ============ */
-    #bm-hiw-page .bm-footer {
-      margin-top: 90px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding:    72px 0 34px;
-      background: transparent;
-    }
-
-    #bm-hiw-page .bm-footer-grid {
-      display:               grid;
-      grid-template-columns: 1.2fr 1fr 1fr 1fr;
-      gap:                   34px;
-    }
-
-    #bm-hiw-page .bm-footer-logo {
-      display:       inline-flex;
-      align-items:   center;
-      margin-bottom: 24px;
-    }
-
-    #bm-hiw-page .bm-footer-logo img {
-      width:   clamp(220px, 24vw, 360px);
-      height:  auto;
-      display: block;
-    }
-
-    #bm-hiw-page .bm-footer-copy {
-      margin:      0 0 28px;
-      color:       var(--bm-text-soft);
-      font-size:   20px;
+    body {
+      background:  var(--bg-main);
+      color:       var(--white);
+      font-family: var(--font-b);
       line-height: 1.6;
-      max-width:   520px;
+      overflow-x:  hidden;
+      width:       100%;
     }
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; }
 
-    #bm-hiw-page .bm-socials {
-      display:   flex;
-      gap:       14px;
-      flex-wrap: wrap;
-    }
-
-    #bm-hiw-page .bm-socials a {
-      width:           58px;
-      height:          58px;
-      border-radius:   18px;
-      display:         inline-flex;
-      align-items:     center;
-      justify-content: center;
-      background:      rgba(255, 255, 255, 0.03);
-      border:          1px solid rgba(255, 255, 255, 0.08);
-      transition:      0.25s ease;
-    }
-
-    #bm-hiw-page .bm-socials a:hover {
-      border-color: rgba(255, 214, 31, 0.58);
-      box-shadow:   var(--bm-shadow-yellow);
-      transform:    translateY(-2px);
-    }
-
-    #bm-hiw-page .bm-socials svg {
-      width:  24px;
-      height: 24px;
-      fill:   #fff;
-    }
-
-    #bm-hiw-page .bm-footer h4 {
-      margin:         0 0 18px;
-      color:          #fff;
-      font-size:      22px;
-      letter-spacing: 4px;
-      font-weight:    700;
-      text-transform: uppercase;
-    }
-
-    #bm-hiw-page .bm-footer-links {
+    /* ===== MOBILE MENU ===== */
+    .mm {
+      position:       fixed;
+      inset:          0;
+      background:     var(--bg-dark);
+      z-index:        9999;
       display:        flex;
       flex-direction: column;
-      gap:            16px;
+      padding:        24px 28px;
+      transform:      translateX(100%);
+      transition:     transform .35s cubic-bezier(.4,0,.2,1);
     }
-
-    #bm-hiw-page .bm-footer-links a,
-    #bm-hiw-page .bm-footer-links div {
-      color:       var(--bm-text-soft);
-      font-size:   20px;
-      line-height: 1.55;
-    }
-
-    #bm-hiw-page .bm-footer-links a:hover {
-      color: #fff;
-    }
-
-    #bm-hiw-page .bm-contact-highlight {
-      color: var(--bm-yellow) !important;
-    }
-
-    #bm-hiw-page .bm-footer-bottom {
-      margin-top:      34px;
-      padding-top:     26px;
-      border-top:      1px solid rgba(255, 255, 255, 0.07);
+    .mm.open { transform: translateX(0); }
+    .mm-top {
       display:         flex;
-      align-items:     center;
       justify-content: space-between;
-      gap:             20px;
-      flex-wrap:       wrap;
+      align-items:     center;
+      margin-bottom:   48px;
     }
-
-    #bm-hiw-page .bm-footer-bottom p,
-    #bm-hiw-page .bm-footer-bottom a {
-      color:       var(--bm-text-soft);
-      font-size:   17px;
-      line-height: 1.6;
-      margin:      0;
-    }
-
-    #bm-hiw-page .bm-footer-bottom strong {
-      color:       var(--bm-yellow);
-      font-weight: 700;
-    }
-
-    #bm-hiw-page .bm-legal {
-      display:   flex;
-      gap:       26px;
-      flex-wrap: wrap;
-    }
-
-    /* ============ SCROLL TOP ============ */
-    #bm-hiw-page .bm-scroll-top {
-      position:        fixed;
-      right:           22px;
-      bottom:          22px;
-      width:           88px;
-      height:          88px;
-      border-radius:   26px;
-      border:          none;
-      background:      var(--bm-yellow);
-      color:           #05103a;
+    .mm-btn {
+      width:           46px;
+      height:          46px;
+      border-radius:   50%;
+      border:          1.5px solid rgba(255,255,255,0.18);
+      background:      transparent;
+      color:           var(--white);
+      font-size:       20px;
+      cursor:          pointer;
       display:         flex;
       align-items:     center;
       justify-content: center;
-      box-shadow:      0 0 38px rgba(255, 214, 31, 0.24);
+    }
+    .mm nav {
+      display:        flex;
+      flex-direction: column;
+    }
+    .mm nav a {
+      color:         rgba(255,255,255,0.72);
+      font-family:   var(--font-h);
+      font-size:     26px;
+      font-weight:   600;
+      padding:       18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      transition:    color .2s;
+    }
+    .mm nav a:hover  { color: var(--white); }
+    .mm nav a.mm-cta { color: var(--yellow); border-bottom: none; margin-top: 4px; }
+
+    /* ===== HEADER ===== */
+    header {
+      background:    var(--bg-dark);
+      position:      sticky;
+      top:           0;
+      z-index:       1000;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      width:         100%;
+    }
+    .hdr {
+      max-width:       1200px;
+      margin:          0 auto;
+      padding:         0 28px;
+      height:          70px;
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+    }
+    .logo img { height: 34px; width: auto; }
+    .nav-d {
+      display:     flex;
+      align-items: center;
+      gap:         32px;
+    }
+    .nav-d a {
+      color:       rgba(255,255,255,0.82);
+      font-size:   15px;
+      font-weight: 500;
+      transition:  color .2s;
+      font-family: var(--font-b);
+    }
+    .nav-d a:hover { color: #fff; }
+    .nav-pill {
+      color:         var(--yellow);
+      border:        1.5px solid var(--yellow);
+      border-radius: 100px;
+      padding:       8px 20px;
+      font-size:     14px;
+      font-weight:   700;
+      transition:    background .2s, color .2s;
+    }
+    .nav-pill:hover {
+      background: var(--yellow);
+      color:      var(--bg-dark);
+    }
+    .burger {
+      display:        none;
+      flex-direction: column;
+      gap:            5px;
+      background:     none;
+      border:         none;
+      cursor:         pointer;
+      padding:        4px;
+    }
+    .burger span {
+      display:       block;
+      width:         26px;
+      height:        2px;
+      background:    var(--white);
+      border-radius: 2px;
+    }
+
+    /* ===== SECTION TAG ===== */
+    .stag {
+      display:        flex;
+      align-items:    center;
+      gap:            12px;
+      font-size:      11.5px;
+      font-weight:    700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color:          var(--yellow);
+      margin-bottom:  14px;
+    }
+    .stag::before {
+      content:     '';
+      display:     block;
+      width:       28px;
+      height:      2px;
+      background:  var(--yellow);
+      flex-shrink: 0;
+    }
+
+    /* ===== PAGE HERO ===== */
+    .hero {
+      background:    var(--bg-main);
+      padding:       68px 28px 72px;
+      width:         100%;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .hero-in { max-width: 1200px; margin: 0 auto; }
+    .hero h1 {
+      font-family:   var(--font-h);
+      font-weight:   800;
+      line-height:   1.06;
+      font-size:     clamp(40px, 7vw, 72px);
+      margin-bottom: 22px;
+    }
+    .hero h1 .wh { display: block; color: var(--white); }
+    .hero h1 .yl { display: block; color: var(--yellow); }
+    .hero-sub {
+      font-size:   16px;
+      color:       var(--dim);
+      max-width:   520px;
+      line-height: 1.75;
+    }
+
+    /* ===== ROLE SECTION ===== */
+    .roles    { padding: 72px 28px 80px; width: 100%; }
+    .roles-in { max-width: 1200px; margin: 0 auto; }
+    .roles-head {
+      font-family:   var(--font-h);
+      font-weight:   800;
+      line-height:   1.08;
+      font-size:     clamp(32px, 5vw, 52px);
+      margin-bottom: 38px;
+    }
+    .roles-head .wh { display: block; color: var(--white); }
+    .roles-head .yl { display: block; color: var(--yellow); }
+
+    /* Role tab selector */
+    .role-tabs {
+      display:               grid;
+      grid-template-columns: repeat(3, 1fr);
+      background:            var(--card);
+      border-radius:         18px;
+      padding:               6px;
+      gap:                   6px;
+      margin-bottom:         48px;
+      width:                 100%;
+    }
+    .role-tab {
+      display:         flex;
+      flex-direction:  column;
+      align-items:     center;
+      justify-content: center;
+      gap:             8px;
+      padding:         20px 12px;
+      border-radius:   13px;
+      border:          none;
+      background:      transparent;
+      color:           rgba(255,255,255,0.45);
       cursor:          pointer;
+      transition:      all .22s;
+      font-family:     var(--font-h);
+      font-size:       13px;
+      font-weight:     800;
+      letter-spacing:  .06em;
+      text-transform:  uppercase;
+    }
+    .role-tab .tab-icon { font-size: 26px; line-height: 1; }
+    .role-tab:hover     { color: rgba(255,255,255,0.75); }
+    .role-tab.active {
+      background: var(--lime);
+      color:      #111;
+    }
+
+    /* Role panels */
+    .role-panel        { display: none; }
+    .role-panel.active { display: block; }
+
+    /* Step cards */
+    .steps-list { display: flex; flex-direction: column; gap: 14px; }
+    .step-card {
+      background:    var(--card);
+      border:        1px solid rgba(255,255,255,0.07);
+      border-radius: 18px;
+      padding:       26px 24px;
+      display:       flex;
+      align-items:   flex-start;
+      gap:           20px;
+    }
+    .step-card.highlighted {
+      border-color: rgba(204,255,0,0.35);
+      box-shadow:   0 0 0 1px rgba(204,255,0,0.12);
+    }
+    .step-num {
+      min-width:       66px;
+      height:          66px;
+      background:      var(--lime);
+      border-radius:   14px;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      font-family:     var(--font-h);
+      font-size:       24px;
+      font-weight:     800;
+      color:           #111;
+      flex-shrink:     0;
+    }
+    .step-body {}
+    .step-title {
+      font-family:    var(--font-h);
+      font-size:      14px;
+      font-weight:    800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color:          var(--white);
+      margin-bottom:  8px;
+    }
+    .step-desc {
+      font-size:   14.5px;
+      color:       var(--dim);
+      line-height: 1.72;
+    }
+
+    /* ===== PLATFORM FEATURES ===== */
+    .features    {
+      background: var(--bg-dark);
+      padding:    76px 28px 80px;
+      width:      100%;
+    }
+    .features-in { max-width: 1200px; margin: 0 auto; }
+    .feat-head {
+      font-family:   var(--font-h);
+      font-weight:   800;
+      line-height:   1.08;
+      font-size:     clamp(30px, 5vw, 50px);
+      margin-bottom: 48px;
+    }
+    .feat-head .wh { display: block; color: var(--white); }
+    .feat-head .yl { display: block; color: var(--yellow); }
+    .feat-grid {
+      display:               grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:                   16px;
+    }
+    .feat-card {
+      background:     var(--card);
+      border:         1px solid rgba(255,255,255,0.07);
+      border-radius:  18px;
+      padding:        34px 28px;
+      display:        flex;
+      flex-direction: column;
+      align-items:    center;
+      text-align:     center;
+    }
+    .feat-icon  { font-size: 42px; margin-bottom: 16px; line-height: 1; }
+    .feat-title {
+      font-family:   var(--font-h);
+      font-size:     18px;
+      font-weight:   700;
+      color:         var(--white);
+      margin-bottom: 12px;
+      line-height:   1.2;
+    }
+    .feat-desc { font-size: 14px; color: var(--dim); line-height: 1.72; }
+
+    /* ===== BOTTOM CTA ===== */
+    .bottom-cta {
+      background:  var(--bg-main);
+      padding:     76px 28px 80px;
+      width:       100%;
+      border-top:  1px solid rgba(255,255,255,0.06);
+    }
+    .bottom-cta-in { max-width: 1200px; margin: 0 auto; }
+    .bcta-h {
+      font-family:   var(--font-h);
+      font-weight:   800;
+      line-height:   1.08;
+      font-size:     clamp(28px, 4.5vw, 46px);
+      margin-bottom: 14px;
+    }
+    .bcta-h .wh { display: block; color: var(--white); }
+    .bcta-h .yl { display: block; color: var(--yellow); }
+    .bcta-p {
+      font-size:     15px;
+      color:         var(--dim);
+      max-width:     540px;
+      line-height:   1.72;
+      margin-bottom: 34px;
+    }
+    .cta-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-yl {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           8px;
+      background:    var(--yellow);
+      color:         var(--bg-dark);
+      border-radius: 100px;
+      padding:       14px 28px;
+      font-weight:   700;
+      font-size:     14px;
+      transition:    opacity .2s;
+      font-family:   var(--font-b);
+    }
+    .btn-yl:hover { opacity: .88; }
+    .btn-out {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           8px;
+      background:    transparent;
+      color:         var(--white);
+      border-radius: 100px;
+      padding:       14px 28px;
+      font-weight:   700;
+      font-size:     14px;
+      border:        1.5px solid rgba(255,255,255,0.22);
+      transition:    border-color .2s;
+      font-family:   var(--font-b);
+    }
+    .btn-out:hover { border-color: rgba(255,255,255,.5); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background:  var(--bg-dark);
+      border-top:  1px solid rgba(255,255,255,0.07);
+      padding:     58px 28px 0;
+      width:       100%;
+    }
+    .ft-in  { max-width: 1200px; margin: 0 auto; }
+    .ft-top {
+      display:               grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+      gap:                   44px;
+      padding-bottom:        44px;
+      border-bottom:         1px solid rgba(255,255,255,0.07);
+    }
+    .ft-brand img { height: 32px; width: auto; margin-bottom: 14px; }
+    .ft-tag {
+      font-size:     13.5px;
+      color:         rgba(255,255,255,.48);
+      line-height:   1.72;
+      margin-bottom: 22px;
+      max-width:     270px;
+    }
+    .socials { display: flex; gap: 10px; }
+    .soc {
+      width:           42px;
+      height:          42px;
+      border-radius:   10px;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      flex-shrink:     0;
+      overflow:        hidden;
+    }
+    .soc-ig { background: linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+    .soc-x  { background: #000; }
+    .soc-fb { background: #1877F2; }
+    .soc-tt { background: #010101; }
+    .ft-col h4 {
+      font-family:    var(--font-b);
+      font-size:      11px;
+      font-weight:    700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom:  18px;
+      color:          var(--white);
+    }
+    .ft-col a {
+      display:       block;
+      font-size:     14px;
+      color:         rgba(255,255,255,.55);
+      margin-bottom: 12px;
+      transition:    color .2s;
+    }
+    .ft-col a:hover { color: var(--white); }
+    .ft-contact p {
+      font-size:     13.5px;
+      color:         rgba(255,255,255,.55);
+      line-height:   1.7;
+      margin-bottom: 8px;
+    }
+    .ft-bot {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      padding:         18px 0;
+      flex-wrap:       wrap;
+      gap:             10px;
+    }
+    .ft-bot p { font-size: 12.5px; color: rgba(255,255,255,.35); }
+    .ft-legal { display: flex; gap: 18px; }
+    .ft-legal a {
+      font-size:  12.5px;
+      color:      rgba(255,255,255,.35);
+      transition: color .2s;
+    }
+    .ft-legal a:hover { color: rgba(255,255,255,.65); }
+
+    /* ===== SCROLL-TO-TOP ===== */
+    .stb {
+      position:        fixed;
+      bottom:          22px;
+      right:           22px;
+      width:           38px;
+      height:          38px;
+      background:      var(--yellow);
+      border:          none;
+      border-radius:   9px;
+      cursor:          pointer;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
       z-index:         999;
-      transition:      0.25s ease;
+      opacity:         0;
+      transform:       translateY(16px);
+      transition:      opacity .3s, transform .3s;
     }
-
-    #bm-hiw-page .bm-scroll-top:hover {
-      transform:  translateY(-2px);
-      background: #ffe45c;
-    }
-
-    #bm-hiw-page .bm-scroll-top svg {
-      width:  34px;
-      height: 34px;
-      fill:   #05103a;
-    }
-
-    /* ============ REVEAL ============ */
-    #bm-hiw-page .bm-reveal {
-      opacity:    0;
-      transform:  translateY(26px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-
-    #bm-hiw-page .bm-reveal.is-visible {
+    .stb.on {
       opacity:   1;
       transform: translateY(0);
     }
-
-    /* ============ FORCE PAGE MATCH ============ */
-    #bm-hiw-page {
-      background:       #040b3d !important;
-      background-image: none !important;
+    .stb svg {
+      width:  15px;
+      height: 15px;
+      color:  var(--bg-dark);
     }
 
-    #bm-hiw-page::before,
-    #bm-hiw-page::after {
-      display: none !important;
-      content: none !important;
+    /* ===== RESPONSIVE ===== */
+    @media (min-width: 960px) {
+      .steps-list { display: grid; grid-template-columns: 1fr 1fr; }
     }
-
-    #bm-hiw-page .bm-header {
-      background:              #02083a !important;
-      background-image:        none !important;
-      backdrop-filter:         none !important;
-      -webkit-backdrop-filter: none !important;
-      border-bottom:           1px solid rgba(255, 255, 255, 0.08) !important;
-      box-shadow:              none !important;
+    @media (max-width: 960px) {
+      .nav-d     { display: none; }
+      .burger    { display: flex; }
+      .ft-top    { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .feat-grid { grid-template-columns: 1fr 1fr; }
     }
-
-    #bm-hiw-page .bm-header-inner {
-      background: transparent !important;
-    }
-
-    #bm-hiw-page .bm-footer {
-      background:       #02083a !important;
-      background-image: none !important;
-      border-top:       1px solid rgba(255, 255, 255, 0.07) !important;
-    }
-
-    #bm-hiw-page .bm-footer::before,
-    #bm-hiw-page .bm-footer::after {
-      display: none !important;
-      content: none !important;
-    }
-
-    #bm-hiw-page .bm-panel,
-    #bm-hiw-page .bm-section,
-    #bm-hiw-page .bm-shell {
-      background:       transparent !important;
-      background-image: none !important;
-    }
-
-    #bm-hiw-page .bm-container {
-      background: transparent !important;
-    }
-
-    #bm-hiw-page .bm-header,
-    #bm-hiw-page .bm-footer,
-    #bm-hiw-page,
-    #bm-hiw-page .bm-panel,
-    #bm-hiw-page .bm-section {
-      box-shadow: none !important;
-    }
-
-    /* Fix: smaller yellow scroll-up button */
-    #bm-hiw-page .bm-scroll-top {
-      width:         72px !important;
-      height:        72px !important;
-      border-radius: 20px !important;
-      right:         20px !important;
-      bottom:        20px !important;
-      box-shadow:    0 0 28px rgba(255, 208, 0, 0.22) !important;
-    }
-
-    #bm-hiw-page .bm-scroll-top svg {
-      width:  26px !important;
-      height: 26px !important;
-    }
-
-    /* ============ RESPONSIVE — 1180px ============ */
-    @media (max-width: 1180px) {
-      #bm-hiw-page .bm-header-inner,
-      #bm-hiw-page .bm-container {
-        width: calc(100% - 34px);
-      }
-
-      #bm-hiw-page .bm-step-grid,
-      #bm-hiw-page .bm-feature-grid,
-      #bm-hiw-page .bm-footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      #bm-hiw-page .bm-footer-grid > :first-child {
-        grid-column: 1 / -1;
-      }
-    }
-
-    /* ============ RESPONSIVE — 900px ============ */
-    @media (max-width: 900px) {
-      #bm-hiw-page .bm-nav      { display: none; }
-      #bm-hiw-page .bm-menu-btn { display: inline-flex; }
-
-      #bm-hiw-page .bm-header-inner { min-height: 92px; }
-      #bm-hiw-page .bm-hero         { padding: 78px 0 70px; }
-      #bm-hiw-page .bm-section      { padding: 68px 0; }
-
-      #bm-hiw-page .bm-tabs {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      #bm-hiw-page .bm-step-grid,
-      #bm-hiw-page .bm-feature-grid,
-      #bm-hiw-page .bm-footer-grid {
-        grid-template-columns: 1fr;
-      }
-
-      #bm-hiw-page .bm-step-title   { font-size: 24px; }
-
-      #bm-hiw-page .bm-step-copy,
-      #bm-hiw-page .bm-feature-copy,
-      #bm-hiw-page .bm-footer-copy,
-      #bm-hiw-page .bm-footer-links a,
-      #bm-hiw-page .bm-footer-links div {
-        font-size: 18px;
-      }
-
-      #bm-hiw-page .bm-feature-title { font-size: 32px; }
-      #bm-hiw-page .bm-feature-card  { min-height: auto; }
-    }
-
-    /* ============ RESPONSIVE — 640px ============ */
-    @media (max-width: 640px) {
-      #bm-hiw-page .bm-container,
-      #bm-hiw-page .bm-header-inner {
-        width: calc(100% - 26px);
-      }
-
-      #bm-hiw-page .bm-logo      { width: min(64vw, 300px); }
-
-      #bm-hiw-page .bm-menu-btn  { width: 58px; height: 58px; }
-      #bm-hiw-page .bm-menu-btn span { width: 30px; }
-
-      #bm-hiw-page .bm-kicker {
-        font-size:     12px;
-        letter-spacing: 2px;
-        gap:           12px;
-        margin-bottom: 24px;
-      }
-
-      #bm-hiw-page .bm-kicker::before { width: 28px; height: 3px; }
-
-      #bm-hiw-page .bm-hero-title {
-        font-size:      44px;
-        line-height:    0.98;
-        letter-spacing: -1.4px;
-      }
-
-      #bm-hiw-page .bm-hero-sub {
-        font-size:   16px;
-        line-height: 1.65;
-        margin-top:  24px;
-      }
-
-      #bm-hiw-page .bm-section-title {
-        font-size:      34px;
-        line-height:    0.98;
-        letter-spacing: -1px;
-        margin-bottom:  24px;
-      }
-
-      #bm-hiw-page .bm-tabs {
-        padding:       10px;
-        gap:           8px;
-        border-radius: 22px;
-      }
-
-      #bm-hiw-page .bm-tab-btn {
-        min-height:    118px;
-        font-size:     17px;
-        padding:       16px 10px;
-        border-radius: 18px;
-      }
-
-      #bm-hiw-page .bm-tab-btn .bm-tab-emoji { font-size: 24px; }
-      #bm-hiw-page .bm-tab-panels            { min-height: auto; }
-
-      #bm-hiw-page .bm-step-grid,
-      #bm-hiw-page .bm-feature-grid {
-        gap: 18px;
-      }
-
-      #bm-hiw-page .bm-step-card,
-      #bm-hiw-page .bm-feature-card {
-        border-radius: 24px;
-        padding:       24px 22px 26px;
-      }
-
-      #bm-hiw-page .bm-step-head {
-        gap:         16px;
-        align-items: flex-start;
-      }
-
-      #bm-hiw-page .bm-step-badge {
-        width:         58px;
-        height:        58px;
-        border-radius: 16px;
-        font-size:     24px;
-      }
-
-      #bm-hiw-page .bm-step-title {
-        font-size:     18px;
-        line-height:   1.35;
-        margin-bottom: 10px;
-      }
-
-      #bm-hiw-page .bm-step-copy { font-size: 14px; line-height: 1.75; }
-
-      #bm-hiw-page .bm-owner-cta {
-        min-width:     100%;
-        width:         100%;
-        padding:       20px 24px;
-        font-size:     17px;
-        border-radius: 18px;
-      }
-
-      #bm-hiw-page .bm-feature-card {
-        text-align: center;
-        min-height: auto;
-        gap:        12px;
-      }
-
-      #bm-hiw-page .bm-feature-icon  { font-size: 38px; }
-
-      #bm-hiw-page .bm-feature-title {
-        font-size:   22px;
-        line-height: 1.2;
-      }
-
-      #bm-hiw-page .bm-feature-copy {
-        font-size:   14px;
-        line-height: 1.8;
-        max-width:   100%;
-      }
-
-      #bm-hiw-page .bm-footer {
-        margin-top: 70px;
-        padding:    58px 0 24px;
-      }
-
-      #bm-hiw-page .bm-footer-logo img { width: min(72vw, 280px); }
-
-      #bm-hiw-page .bm-footer-copy {
-        font-size:     15px;
-        line-height:   1.7;
-        margin-bottom: 22px;
-      }
-
-      #bm-hiw-page .bm-socials a {
-        width:         48px;
-        height:        48px;
-        border-radius: 15px;
-      }
-
-      #bm-hiw-page .bm-socials svg { width: 20px; height: 20px; }
-
-      #bm-hiw-page .bm-footer h4 { font-size: 14px; letter-spacing: 3px; }
-
-      #bm-hiw-page .bm-footer-links a,
-      #bm-hiw-page .bm-footer-links div {
-        font-size:   15px;
-        line-height: 1.7;
-      }
-
-      #bm-hiw-page .bm-footer-bottom p,
-      #bm-hiw-page .bm-footer-bottom a {
-        font-size: 14px;
-      }
-
-      #bm-hiw-page .bm-legal { gap: 16px 22px; }
-
-      #bm-hiw-page .bm-scroll-top {
-        width:         82px;
-        height:        82px;
-        border-radius: 24px;
-      }
-
-      #bm-hiw-page .bm-scroll-top svg { width: 30px; height: 30px; }
+    @media (max-width: 580px) {
+      .hdr                { height: 60px; padding: 0 16px; }
+      .logo img           { height: 28px; }
+      .hero               { padding: 44px 16px 52px; }
+      .roles              { padding: 52px 16px 60px; }
+      .features           { padding: 56px 16px 60px; }
+      .bottom-cta         { padding: 56px 16px 60px; }
+      footer              { padding: 46px 16px 0; }
+      .ft-top             { grid-template-columns: 1fr; gap: 24px; }
+      .ft-bot             { flex-direction: column; align-items: flex-start; }
+      .feat-grid          { grid-template-columns: 1fr; }
+      .role-tab           { padding: 16px 8px; font-size: 11px; }
+      .role-tab .tab-icon { font-size: 22px; }
+      .step-num           { min-width: 56px; height: 56px; font-size: 20px; border-radius: 12px; }
+      .step-card          { padding: 20px 18px; gap: 16px; }
+      .stb                { width: 34px; height: 34px; bottom: 14px; right: 14px; }
+      .cta-btns           { flex-direction: column; }
     }
 
   </style>
 </head>
 <body>
 
-<div id="bm-hiw-page">
-  <div class="bm-shell">
+<!-- ===== MOBILE MENU OVERLAY ===== -->
+<div class="mm" id="mm">
+  <div class="mm-top">
+    <button class="mm-btn" onclick="mmClose()">&#10005;</button>
+    <button class="mm-btn">&middot;&middot;&middot;</button>
+  </div>
+  <nav>
+    <a href="https://brodameko.app/">Home</a>
+    <a href="https://brodameko.app/how-it-works/">How It Works</a>
+    <a href="https://brodameko.app/about-us/">About Us</a>
+    <a href="https://brodameko.app/contact/">Contact</a>
+    <a href="https://brodameko.app/car-owner-join-waitlist/" class="mm-cta">Car Owner? Join Waitlist &#8594;</a>
+  </nav>
+</div>
 
-    <!-- HEADER -->
-    <header class="bm-header">
-      <div class="bm-header-inner">
-        <a class="bm-logo-link" href="https://brodameko.app/">
-          <img class="bm-logo" src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko logo">
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="hdr">
+    <a href="https://brodameko.app/" class="logo">
+      <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko">
+    </a>
+    <nav class="nav-d">
+      <a href="https://brodameko.app/">Home</a>
+      <a href="https://brodameko.app/how-it-works/">How It Works</a>
+      <a href="https://brodameko.app/about-us/">About Us</a>
+      <a href="https://brodameko.app/contact/">Contact</a>
+      <a href="https://brodameko.app/car-owner-join-waitlist/" class="nav-pill">Car Owner? Join Waitlist &#8594;</a>
+    </nav>
+    <button class="burger" onclick="mmOpen()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-in">
+    <p class="stag">Platform Guide</p>
+    <h1>
+      <span class="wh">How</span>
+      <span class="yl">BrodaMeko</span>
+      <span class="wh">Works.</span>
+    </h1>
+    <p class="hero-sub">One platform. Three user types. Every step explained for mechanics, sellers, and car owners.</p>
+  </div>
+</section>
+
+<!-- ===== ROLE JOURNEYS ===== -->
+<section class="roles">
+  <div class="roles-in">
+
+    <h2 class="roles-head">
+      <span class="wh">Pick Your Role.</span>
+      <span class="yl">See Your Journey.</span>
+    </h2>
+
+    <!-- Role Tabs -->
+    <div class="role-tabs">
+      <button class="role-tab active" onclick="switchRole('mechanic', this)">
+        <span class="tab-icon">&#128295;</span>
+        Mechanic
+      </button>
+      <button class="role-tab" onclick="switchRole('seller', this)">
+        <span class="tab-icon">&#128230;</span>
+        Seller
+      </button>
+      <button class="role-tab" onclick="switchRole('owner', this)">
+        <span class="tab-icon">&#128663;</span>
+        Car Owner
+      </button>
+    </div>
+
+    <!-- MECHANIC STEPS -->
+    <div class="role-panel active" id="rp-mechanic">
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Download the Mechanic App</div>
+            <p class="step-desc">Get BrodaMeko Mechanic from the App Store or Google Play. It&rsquo;s completely free to download and to join.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Create Your Profile</div>
+            <p class="step-desc">Enter your details, upload a profile photo, and describe your service specialties and areas of coverage.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Submit Verification</div>
+            <p class="step-desc">Upload your valid Nigerian ID and trade documentation. Our team reviews and approves within 24 hours.</p>
+          </div>
+        </div>
+        <div class="step-card highlighted">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Go Live on the Map</div>
+            <p class="step-desc">Once approved, toggle online. Your verified profile appears on the BrodaMeko map for car owners in your area.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">Receive &amp; Accept Job Requests</div>
+            <p class="step-desc">Car owners send job requests. You get a notification with job details, location, and the car issue. Accept or decline.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">06</div>
+          <div class="step-body">
+            <div class="step-title">Navigate, Complete &amp; Get Paid</div>
+            <p class="step-desc">Use in-app navigation to reach the customer. Chat if needed. Mark job complete. Payment is released instantly to your wallet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SELLER STEPS -->
+    <div class="role-panel" id="rp-seller">
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Download the Seller App</div>
+            <p class="step-desc">Get BrodaMeko Seller from the App Store or Google Play. It&rsquo;s completely free to download and register your shop.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Register Your Business</div>
+            <p class="step-desc">Enter your shop name, address, and contact details. Upload a valid Nigerian ID and business information.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">List Your Parts</div>
+            <p class="step-desc">Add your inventory &mdash; photos, part names, descriptions, and prices. No technical knowledge required. It takes minutes.</p>
+          </div>
+        </div>
+        <div class="step-card highlighted">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Go Live on the Marketplace</div>
+            <p class="step-desc">Once approved, your shop appears on the BrodaMeko map. Nearby mechanics and car owners will discover your parts first.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">Receive Orders In-App</div>
+            <p class="step-desc">Buyers place and pay for orders directly through BrodaMeko. You get notified instantly with order details and delivery info.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">06</div>
+          <div class="step-body">
+            <div class="step-title">Fulfil &amp; Get Paid</div>
+            <p class="step-desc">Confirm the order, dispatch the part, and mark it as delivered. Payment is credited to your wallet after the 7-day verification window.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CAR OWNER STEPS -->
+    <div class="role-panel" id="rp-owner">
+      <div class="steps-list">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <div class="step-title">Join the Waitlist</div>
+            <p class="step-desc">The car owner app is coming very soon. Sign up for early access now so you&rsquo;re first in line when it goes live.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <div class="step-title">Download &amp; Create Account</div>
+            <p class="step-desc">Download the BrodaMeko car owner app. Register with your name, phone number, and email. Takes under 2 minutes.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <div class="step-title">Describe Your Car Issue</div>
+            <p class="step-desc">Tell BrodaMeko what&rsquo;s wrong with your car &mdash; engine, tyres, electrical, or any other issue. Pin your location.</p>
+          </div>
+        </div>
+        <div class="step-card highlighted">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <div class="step-title">Get Matched Instantly</div>
+            <p class="step-desc">BrodaMeko finds the nearest verified mechanic in real time and sends them your request. See their profile, ratings, and ETA.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <div class="step-title">Track &amp; Communicate</div>
+            <p class="step-desc">Track your mechanic live on the map. Chat directly through the app without sharing your personal phone number.</p>
+          </div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">06</div>
+          <div class="step-body">
+            <div class="step-title">Pay Safely &amp; Rate</div>
+            <p class="step-desc">Confirm job completion. Payment is released from escrow to the mechanic. Rate the service and help others find the best mechanics.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== PLATFORM FEATURES ===== -->
+<section class="features">
+  <div class="features-in">
+    <p class="stag">Platform Features</p>
+    <h2 class="feat-head">
+      <span class="wh">Everything You Need.</span>
+      <span class="yl">Nothing You Don&rsquo;t.</span>
+    </h2>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-icon">&#128205;</div>
+        <div class="feat-title">Real-Time GPS Matching</div>
+        <p class="feat-desc">Automatically finds verified mechanics and sellers within your area using live location data.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#128274;</div>
+        <div class="feat-title">Escrow Payment</div>
+        <p class="feat-desc">All payments are held safely until job completion. No one gets paid until the work is confirmed done.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#128172;</div>
+        <div class="feat-title">In-App Chat</div>
+        <p class="feat-desc">Car owners and mechanics communicate directly through the app without sharing personal phone numbers.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#128506;</div>
+        <div class="feat-title">Turn-by-Turn Navigation</div>
+        <p class="feat-desc">Mechanics get in-app navigation to the customer&rsquo;s exact location. No address confusion, no wasted time.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#11088;</div>
+        <div class="feat-title">Ratings &amp; Reviews</div>
+        <p class="feat-desc">Both parties rate each other after every job. Quality is rewarded. Bad actors are removed from the platform.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#128188;</div>
+        <div class="feat-title">Earnings Wallet</div>
+        <p class="feat-desc">Mechanics and sellers have a built-in wallet showing all earnings, deductions, and payout history in real time.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#128737;</div>
+        <div class="feat-title">Dispute Resolution</div>
+        <p class="feat-desc">Dedicated admin review for any job disputes. Evidence-based, fair, and fast &mdash; protecting both sides honestly.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">&#128230;</div>
+        <div class="feat-title">Spare Parts Marketplace</div>
+        <p class="feat-desc">Car owners and mechanics can order verified auto parts from nearby sellers directly through the app.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOTTOM CTA ===== -->
+<section class="bottom-cta">
+  <div class="bottom-cta-in">
+    <p class="stag">Get Started</p>
+    <h2 class="bcta-h">
+      <span class="wh">Ready to Join</span>
+      <span class="yl">BrodaMeko?</span>
+    </h2>
+    <p class="bcta-p">Whether you&rsquo;re a mechanic looking for more jobs, a spare parts seller wanting more orders, or a car owner who wants reliable help &mdash; BrodaMeko has a place for you.</p>
+    <div class="cta-btns">
+      <!-- FLAG: replace # with Mechanic app download URL (App Store or Play Store) -->
+      <a href="#" class="btn-yl">&#11015; Download Mechanic App</a>
+      <!-- FLAG: replace # with Seller app download URL (App Store or Play Store) -->
+      <a href="#" class="btn-yl">&#128230; Download Seller App</a>
+      <a href="https://brodameko.app/car-owner-join-waitlist/" class="btn-out">&#128663; Car Owner? Join Waitlist &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-top">
+
+      <div class="ft-brand">
+        <a href="https://brodameko.app/">
+          <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko">
         </a>
-        <nav class="bm-nav">
-          <a href="https://brodameko.app/">Home</a>
-          <a href="/how-it-works/" class="bm-active">How It Works</a>
-          <a href="/about-us/">About Us</a>
-          <a href="/contact/">Contact</a>
-          <a href="/car-owner-join-waitlist/" class="bm-waitlist-link">Car Owner? Join Waitlist &#8594;</a>
-        </nav>
-        <button class="bm-menu-btn" id="bmMenuBtn" aria-label="Open menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-      <div class="bm-mobile-menu" id="bmMobileMenu">
-        <a href="https://brodameko.app/">Home</a>
-        <a href="/how-it-works/">How It Works</a>
-        <a href="/about-us/">About Us</a>
-        <a href="/contact/">Contact</a>
-        <a href="/car-owner-join-waitlist/">Car Owner? Join Waitlist &#8594;</a>
-      </div>
-    </header>
-
-    <!-- HERO -->
-    <section class="bm-hero">
-      <div class="bm-container">
-        <div class="bm-kicker bm-reveal">Platform Guide</div>
-        <h1 class="bm-hero-title bm-reveal">
-          How <span class="bm-yellow">BrodaMeko</span><br>Works.
-        </h1>
-        <p class="bm-hero-sub bm-reveal">
-          One platform. Three user types. Every step explained for mechanics, sellers, and car owners.
-        </p>
-      </div>
-    </section>
-
-    <!-- PICK YOUR ROLE -->
-    <section class="bm-panel">
-      <div class="bm-container">
-        <section class="bm-section">
-          <h2 class="bm-section-title bm-reveal">
-            Pick Your Role.<br><span class="bm-yellow">See Your Journey.</span>
-          </h2>
-
-          <div class="bm-tab-wrap">
-            <div class="bm-tabs bm-reveal" id="bmTabs">
-              <button class="bm-tab-btn bm-active" data-tab="mechanic">
-                <span class="bm-tab-emoji">&#128295;</span>
-                <span>Mechanic</span>
-              </button>
-              <button class="bm-tab-btn" data-tab="seller">
-                <span class="bm-tab-emoji">&#128230;</span>
-                <span>Seller</span>
-              </button>
-              <button class="bm-tab-btn" data-tab="owner">
-                <span class="bm-tab-emoji">&#128663;</span>
-                <span>Car Owner</span>
-              </button>
-            </div>
-
-            <div class="bm-tab-panels">
-
-              <!-- MECHANIC -->
-              <div class="bm-tab-panel bm-show" data-panel="mechanic">
-                <div class="bm-step-grid">
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">01</div>
-                      <div>
-                        <h3 class="bm-step-title">Download the Mechanic App</h3>
-                        <p class="bm-step-copy">Get BrodaMeko Mechanic from the App Store or Google Play. It&rsquo;s completely free to download and to join.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">02</div>
-                      <div>
-                        <h3 class="bm-step-title">Create Your Profile</h3>
-                        <p class="bm-step-copy">Enter your details, upload a profile photo, and describe your service specialties and areas of coverage.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">03</div>
-                      <div>
-                        <h3 class="bm-step-title">Submit Verification</h3>
-                        <p class="bm-step-copy">Upload your valid Nigerian ID and trade documentation. Our team reviews and approves within 24 hours.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">04</div>
-                      <div>
-                        <h3 class="bm-step-title">Go Live on the Map</h3>
-                        <p class="bm-step-copy">Once approved, toggle online. Your verified profile appears on the BrodaMeko map for car owners in your area.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">05</div>
-                      <div>
-                        <h3 class="bm-step-title">Receive &amp; Accept Job Requests</h3>
-                        <p class="bm-step-copy">Car owners send job requests. You get a notification with job details, location, and the car issue. Accept or decline.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">06</div>
-                      <div>
-                        <h3 class="bm-step-title">Navigate, Complete &amp; Get Paid</h3>
-                        <p class="bm-step-copy">Use in-app navigation to reach the customer. Chat if needed. Mark job complete. Payment is released instantly to your wallet.</p>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </div>
-
-              <!-- SELLER -->
-              <div class="bm-tab-panel" data-panel="seller">
-                <div class="bm-step-grid">
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">01</div>
-                      <div>
-                        <h3 class="bm-step-title">Download the Seller App</h3>
-                        <p class="bm-step-copy">Get BrodaMeko Seller from the App Store or Google Play. Free to download, free to join.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">02</div>
-                      <div>
-                        <h3 class="bm-step-title">Register Your Business</h3>
-                        <p class="bm-step-copy">Enter your shop name, contact details, and business location. Upload a shop photo and basic business information.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">03</div>
-                      <div>
-                        <h3 class="bm-step-title">Business Verification</h3>
-                        <p class="bm-step-copy">Submit your business ID and registration details. Our team verifies your shop within 24&ndash;48 hours.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">04</div>
-                      <div>
-                        <h3 class="bm-step-title">List Your Parts Catalog</h3>
-                        <p class="bm-step-copy">Add your parts inventory &mdash; photos, names, descriptions, and prices. Start with your fastest-moving items.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">05</div>
-                      <div>
-                        <h3 class="bm-step-title">Receive Order Requests</h3>
-                        <p class="bm-step-copy">Car owners and mechanics near you send order requests through the app. You get a notification with full order details.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">06</div>
-                      <div>
-                        <h3 class="bm-step-title">Confirm, Fulfill &amp; Get Paid</h3>
-                        <p class="bm-step-copy">Accept the order, confirm availability, arrange delivery or pickup. Payment is released to your wallet on confirmation.</p>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-              </div>
-
-              <!-- OWNER -->
-              <div class="bm-tab-panel" data-panel="owner">
-                <div class="bm-step-grid">
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">01</div>
-                      <div>
-                        <h3 class="bm-step-title">Join the Waitlist First</h3>
-                        <p class="bm-step-copy">The car owner app is launching soon. Join the waitlist now to get early access when your area goes live.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">02</div>
-                      <div>
-                        <h3 class="bm-step-title">Download &amp; Open the App</h3>
-                        <p class="bm-step-copy">When launched, download BrodaMeko from the App Store or Google Play. Open it &mdash; your location is detected automatically.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">03</div>
-                      <div>
-                        <h3 class="bm-step-title">Describe Your Car Issue</h3>
-                        <p class="bm-step-copy">Know the problem? Describe it and get matched to the right mechanic. Not sure? Book a diagnostics expert first.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">04</div>
-                      <div>
-                        <h3 class="bm-step-title">Get Matched to a Verified Mechanic</h3>
-                        <p class="bm-step-copy">BrodaMeko shows you nearby verified mechanics with ratings, specialties, and estimated arrival time. You choose.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">05</div>
-                      <div>
-                        <h3 class="bm-step-title">Track in Real Time &amp; Chat</h3>
-                        <p class="bm-step-copy">Watch your mechanic&rsquo;s location update live. Use in-app chat to communicate directly. No phone number needed.</p>
-                      </div>
-                    </div>
-                  </article>
-                  <article class="bm-step-card bm-reveal">
-                    <div class="bm-step-head">
-                      <div class="bm-step-badge">06</div>
-                      <div>
-                        <h3 class="bm-step-title">Confirm &amp; Pay Securely</h3>
-                        <p class="bm-step-copy">Agree to the price before work starts. Pay through secure escrow. Release payment after you confirm the job is done.</p>
-                      </div>
-                    </div>
-                  </article>
-                </div>
-                <div class="bm-owner-cta-wrap bm-reveal">
-                  <a class="bm-owner-cta" href="/car-owner-join-waitlist/">Join Car Owner Waitlist &#8594;</a>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="bm-section">
-      <div class="bm-container">
-        <div class="bm-kicker bm-reveal">Platform Features</div>
-        <h2 class="bm-section-title bm-reveal">
-          Everything You Need.<br><span class="bm-yellow">Nothing You Don&rsquo;t.</span>
-        </h2>
-        <div class="bm-feature-grid">
-          <article class="bm-feature-card bm-reveal">
-            <div class="bm-feature-icon">&#128205;</div>
-            <h3 class="bm-feature-title">Real-Time GPS Matching</h3>
-            <p class="bm-feature-copy">Automatically finds verified mechanics and sellers within your area using live location data.</p>
-          </article>
-          <article class="bm-feature-card bm-reveal">
-            <div class="bm-feature-icon">&#128274;</div>
-            <h3 class="bm-feature-title">Escrow Payment</h3>
-            <p class="bm-feature-copy">All payments are held safely until job completion. No one gets paid until the work is confirmed done.</p>
-          </article>
-          <article class="bm-feature-card bm-reveal">
-            <div class="bm-feature-icon">&#128172;</div>
-            <h3 class="bm-feature-title">In-App Chat</h3>
-            <p class="bm-feature-copy">Car owners and mechanics communicate directly through the app without sharing personal phone numbers.</p>
-          </article>
-          <article class="bm-feature-card bm-reveal">
-            <div class="bm-feature-icon">&#128506;</div>
-            <h3 class="bm-feature-title">Turn-by-Turn Navigation</h3>
-            <p class="bm-feature-copy">Mechanics get in-app navigation to the customer&rsquo;s exact location. No address confusion, no wasted time.</p>
-          </article>
-          <article class="bm-feature-card bm-reveal">
-            <div class="bm-feature-icon">&#11088;</div>
-            <h3 class="bm-feature-title">Ratings &amp; Reviews</h3>
-            <p class="bm-feature-copy">Both parties rate each other after every job. Quality is rewarded. Bad actors are removed from the platform.</p>
-          </article>
-          <article class="bm-feature-card bm-reveal">
-            <div class="bm-feature-icon">&#128188;</div>
-            <h3 class="bm-feature-title">Earnings Wallet</h3>
-            <p class="bm-feature-copy">Mechanics and sellers have a built-in wallet showing all earnings, deductions, and payout history in real time.</p>
-          </article>
-          <article class="bm-feature-card bm-reveal">
-            <div class="bm-feature-icon">&#128737;</div>
-            <h3 class="bm-feature-title">Dispute Resolution</h3>
-            <p class="bm-feature-copy">Dedicated admin review for any job disputes. Evidence-based, fair, and fast &mdash; protecting both sides honestly.</p>
-          </article>
-          <article class="bm-feature-card bm-reveal">
-            <div class="bm-feature-icon">&#128230;</div>
-            <h3 class="bm-feature-title">Spare Parts Marketplace</h3>
-            <p class="bm-feature-copy">Car owners and mechanics can order verified auto parts from nearby sellers directly through the app.</p>
-          </article>
+        <p class="ft-tag">Your Car&rsquo;s Best Friend, Anywhere. Building Africa&rsquo;s most trusted auto-services network, starting in Lagos.</p>
+        <div class="socials">
+          <!-- FLAG: replace # with Brodameko Instagram profile URL -->
+          <a href="#" class="soc soc-ig" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="1.6"/>
+              <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.6"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko X (Twitter) profile URL -->
+          <a href="#" class="soc soc-x" aria-label="X">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko Facebook profile URL -->
+          <a href="#" class="soc soc-fb" aria-label="Facebook">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="white">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko TikTok profile URL -->
+          <a href="#" class="soc soc-tt" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.2 8.2 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/>
+            </svg>
+          </a>
         </div>
       </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer class="bm-footer">
-      <div class="bm-container">
-        <div class="bm-footer-grid">
-
-          <!-- Brand + socials -->
-          <div>
-            <a class="bm-footer-logo" href="https://brodameko.app/">
-              <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko logo">
-            </a>
-            <p class="bm-footer-copy">
-              Your Car&rsquo;s Best Friend, Anywhere. Building Africa&rsquo;s most trusted auto-services network, starting in Lagos.
-            </p>
-            <div class="bm-socials">
-              <!-- FLAG: replace # with BrodaMeko Instagram profile URL -->
-              <a href="#" target="_blank" aria-label="Instagram">
-                <svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.65 1.65a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"/></svg>
-              </a>
-              <!-- FLAG: replace # with BrodaMeko X (Twitter) profile URL -->
-              <a href="#" target="_blank" aria-label="X">
-                <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.25l-4.9-6.41L6.46 22H3.35l7.25-8.29L1 2h6.4l4.43 5.84L18.9 2Zm-1.1 18h1.72L6.46 3.9H4.61L17.8 20Z"/></svg>
-              </a>
-              <!-- FLAG: replace # with BrodaMeko Facebook profile URL -->
-              <a href="#" target="_blank" aria-label="Facebook">
-                <svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.76c0-.92.25-1.55 1.57-1.55H16.6V4.35c-.28-.03-1.24-.11-2.36-.11-2.34 0-3.94 1.43-3.94 4.06v2.48H7.65V14h2.65v8h3.2Z"/></svg>
-              </a>
-              <!-- FLAG: replace # with BrodaMeko TikTok profile URL -->
-              <a href="#" target="_blank" aria-label="TikTok">
-                <svg viewBox="0 0 24 24"><path d="M14.8 3c.2 1.7 1.2 3.1 2.8 3.9 1 .5 2 .7 3 .7v3.1c-1.3 0-2.5-.3-3.6-.8v5.8c0 3.2-2.6 5.8-5.8 5.8S5.4 18.9 5.4 15.7 8 9.9 11.2 9.9c.3 0 .6 0 .9.1v3.2a2.9 2.9 0 0 0-.9-.15 2.65 2.65 0 0 0 0 5.3 2.65 2.65 0 0 0 2.65-2.65V3h.95Z"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Platform -->
-          <div>
-            <h4>Platform</h4>
-            <div class="bm-footer-links">
-              <a href="https://brodameko.app/#download-section">Download App</a>
-              <a href="/how-it-works/">How It Works</a>
-              <a href="/car-owner-join-waitlist/">Car Owner Waitlist</a>
-              <a href="https://brodameko.app/#why-join-now">For Mechanics</a>
-              <a href="https://brodameko.app/#why-join-now">For Sellers</a>
-            </div>
-          </div>
-
-          <!-- Company -->
-          <div>
-            <h4>Company</h4>
-            <div class="bm-footer-links">
-              <a href="/about-us/">About Us</a>
-              <a href="/contact/">Contact</a>
-              <!-- FLAG: replace # with BrodaMeko FAQ page URL -->
-              <a href="#">FAQ</a>
-              <!-- FLAG: replace # with BrodaMeko Press &amp; Media page URL -->
-              <a href="#">Press &amp; Media</a>
-              <!-- FLAG: replace # with BrodaMeko Careers page URL -->
-              <a href="#">Careers</a>
-            </div>
-          </div>
-
-          <!-- Contact -->
-          <div>
-            <h4>Contact</h4>
-            <div class="bm-footer-links">
-              <div class="bm-contact-highlight">294, Herbert Macaulay Way,<br>Sabo, Yaba, Lagos.</div>
-              <div>+234 706 245 2620</div>
-              <div>brodameko@gmail.com</div>
-            </div>
-          </div>
-
-        </div>
-        <div class="bm-footer-bottom">
-          <p>&copy; 2026 BrodaMeko. All rights reserved.</p>
-          <div class="bm-legal">
-            <!-- FLAG: replace # with BrodaMeko Privacy Policy page URL -->
-            <a href="#">Privacy Policy</a>
-            <!-- FLAG: replace # with BrodaMeko Terms of Use page URL -->
-            <a href="#">Terms of Use</a>
-            <!-- FLAG: replace # with BrodaMeko Cookie Policy page URL -->
-            <a href="#">Cookie Policy</a>
-          </div>
-        </div>
+      <div class="ft-col">
+        <h4>Platform</h4>
+        <!-- FLAG: replace # with Apple App Store download URL -->
+        <a href="#">Apple App Store</a>
+        <!-- FLAG: replace # with Google Play Store download URL -->
+        <a href="#">Google Play Store</a>
+        <a href="https://brodameko.app/car-owner-join-waitlist/">Car Owner Waitlist</a>
       </div>
-    </footer>
 
-  </div><!-- /.bm-shell -->
+      <div class="ft-col">
+        <h4>Company</h4>
+        <a href="https://brodameko.app/about-us/">About Us</a>
+        <a href="https://brodameko.app/contact/">Contact</a>
+        <!-- FLAG: replace # with FAQ page URL -->
+        <a href="#">FAQ</a>
+      </div>
 
-  <button class="bm-scroll-top" id="bmScrollTop" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24"><path d="M12 4l7 7-2.1 2.1-3.4-3.4V20h-3V9.7l-3.4 3.4L5 11l7-7Z"/></svg>
-  </button>
+      <div class="ft-col ft-contact">
+        <h4>Contact</h4>
+        <p>294, Herbert Macaulay Way,<br>Sabo, Yaba, Lagos.</p>
+        <p>+234 706 245 2620</p>
+        <p>brodameko@gmail.com</p>
+      </div>
 
-</div><!-- /#bm-hiw-page -->
+    </div>
+    <div class="ft-bot">
+      <p>&copy; 2026 BrodaMeko. All rights reserved.</p>
+      <div class="ft-legal">
+        <!-- FLAG: replace # with Privacy Policy page URL -->
+        <a href="#">Privacy Policy</a>
+        <!-- FLAG: replace # with Terms of Use page URL -->
+        <a href="#">Terms of Use</a>
+        <!-- FLAG: replace # with Cookie Policy page URL -->
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="stb" id="stb" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
 
 <script>
-  (function () {
-    var root = document.getElementById('bm-hiw-page');
-    if (!root) { return; }
+  /* Mobile menu */
+  function mmOpen()  { document.getElementById('mm').classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function mmClose() { document.getElementById('mm').classList.remove('open'); document.body.style.overflow = ''; }
 
-    // ── Mobile menu ────────────────────────────────────────────────────────────
-    var menuBtn    = root.querySelector('#bmMenuBtn');
-    var mobileMenu = root.querySelector('#bmMobileMenu');
+  /* Role switcher */
+  function switchRole(id, btn) {
+    document.querySelectorAll('.role-tab').forEach(function(t)   { t.classList.remove('active'); });
+    document.querySelectorAll('.role-panel').forEach(function(p) { p.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('rp-' + id).classList.add('active');
+  }
 
-    if (menuBtn && mobileMenu) {
-      menuBtn.addEventListener('click', function() {
-        menuBtn.classList.toggle('is-open');
-        mobileMenu.classList.toggle('is-open');
-      });
-    }
-
-    // ── Tabs ──────────────────────────────────────────────────────────────────
-    var tabButtons = root.querySelectorAll('.bm-tab-btn');
-    var tabPanels  = root.querySelectorAll('.bm-tab-panel');
-
-    function activateTab(tabName) {
-      tabButtons.forEach(function(btn) {
-        btn.classList.toggle('bm-active', btn.getAttribute('data-tab') === tabName);
-      });
-
-      tabPanels.forEach(function(panel) {
-        var show = panel.getAttribute('data-panel') === tabName;
-        panel.classList.remove('bm-show');
-        if (show) { panel.classList.add('bm-show'); }
-      });
-
-      setTimeout(function() { observeReveal(); }, 60);
-    }
-
-    tabButtons.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        activateTab(btn.getAttribute('data-tab'));
-      });
-
-      btn.addEventListener('touchstart', function() {
-        tabButtons.forEach(function(b) { b.classList.remove('is-touched'); });
-        btn.classList.add('is-touched');
-        setTimeout(function() { btn.classList.remove('is-touched'); }, 500);
-      }, { passive: true });
-    });
-
-    // ── Touch / click yellow border on cards ──────────────────────────────────
-    var touchCards = root.querySelectorAll('.bm-step-card, .bm-feature-card');
-    touchCards.forEach(function(card) {
-      card.addEventListener('touchstart', function() {
-        touchCards.forEach(function(c) { c.classList.remove('is-touched'); });
-        card.classList.add('is-touched');
-        setTimeout(function() { card.classList.remove('is-touched'); }, 700);
-      }, { passive: true });
-
-      card.addEventListener('click', function() {
-        touchCards.forEach(function(c) { c.classList.remove('is-touched'); });
-        card.classList.add('is-touched');
-        setTimeout(function() { card.classList.remove('is-touched'); }, 700);
-      });
-    });
-
-    // ── Scroll reveal ─────────────────────────────────────────────────────────
-    var observer;
-    function observeReveal() {
-      if (observer) { observer.disconnect(); }
-
-      var items = root.querySelectorAll('.bm-reveal');
-      observer  = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) { entry.target.classList.add('is-visible'); }
-        });
-      }, { threshold: 0.12 });
-
-      items.forEach(function(item) { observer.observe(item); });
-    }
-    observeReveal();
-
-    // ── Scroll to top ─────────────────────────────────────────────────────────
-    var scrollBtn = root.querySelector('#bmScrollTop');
-    if (scrollBtn) {
-      scrollBtn.addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  })();
+  /* Scroll-to-top */
+  var stb = document.getElementById('stb');
+  window.addEventListener('scroll', function() { stb.classList.toggle('on', window.scrollY > 300); });
 </script>
 </body>
 </html>
