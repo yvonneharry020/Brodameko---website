@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - BrodaMeko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    /* ===== TOKENS ===== */
+    :root {
+      --bg-main: #0d1645;
+      --bg-dark: #080e2c;
+      --card:    #1a2569;
+      --yellow:  #f5c518;
+      --pink:    #ff4d8d;
+      --white:   #ffffff;
+      --dim:     rgba(255,255,255,0.65);
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after {
+      margin:     0;
+      padding:    0;
+      box-sizing: border-box;
+    }
+    html, body {
+      overflow-x: hidden;
+      width:      100%;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background:  var(--bg-main);
+      color:       var(--white);
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.7;
+      min-height:  100vh;
+    }
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ===== MOBILE MENU ===== */
+    .mm {
+      position:       fixed;
+      inset:          0;
+      background:     var(--bg-dark);
+      z-index:        9999;
+      display:        flex;
+      flex-direction: column;
+      padding:        24px 28px;
+      transform:      translateX(100%);
+      transition:     transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .mm.open { transform: translateX(0); }
+    .mm-top {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      margin-bottom:   48px;
+    }
+    .mm-btn {
+      width:           46px;
+      height:          46px;
+      border-radius:   50%;
+      border:          1.5px solid rgba(255,255,255,0.18);
+      background:      transparent;
+      color:           var(--white);
+      font-size:       20px;
+      cursor:          pointer;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+    }
+    .mm nav {
+      display:        flex;
+      flex-direction: column;
+    }
+    .mm nav a {
+      color:         rgba(255,255,255,0.72);
+      font-family:   'Poppins', sans-serif;
+      font-size:     26px;
+      font-weight:   600;
+      padding:       18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.09);
+      transition:    color .2s;
+    }
+    .mm nav a:hover  { color: var(--white); }
+    .mm nav a.mm-cta { color: var(--yellow); border-bottom: none; margin-top: 4px; }
+
+    /* ===== HEADER ===== */
+    header {
+      background:    var(--bg-dark);
+      position:      sticky;
+      top:           0;
+      z-index:       1000;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      width:         100%;
+    }
+    .hdr {
+      max-width:       1200px;
+      margin:          0 auto;
+      padding:         0 28px;
+      height:          70px;
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+    }
+    .logo img { height: 34px; width: auto; }
+    .nav-d {
+      display:     flex;
+      align-items: center;
+      gap:         32px;
+    }
+    .nav-d a {
+      color:       rgba(255,255,255,0.82);
+      font-size:   15px;
+      font-weight: 500;
+      transition:  color .2s;
+    }
+    .nav-d a:hover { color: #fff; }
+    .nav-pill {
+      color:         var(--yellow);
+      border:        1.5px solid var(--yellow);
+      border-radius: 100px;
+      padding:       8px 20px;
+      font-size:     14px;
+      font-weight:   700;
+      transition:    background .2s, color .2s;
+    }
+    .nav-pill:hover {
+      background: var(--yellow);
+      color:      var(--bg-dark);
+    }
+    .burger {
+      display:        none;
+      flex-direction: column;
+      gap:            5px;
+      background:     none;
+      border:         none;
+      cursor:         pointer;
+      padding:        4px;
+    }
+    .burger span {
+      display:       block;
+      width:         26px;
+      height:        2px;
+      background:    var(--white);
+      border-radius: 2px;
+    }
+
+    /* ===== PAGE HERO ===== */
+    .page-hero {
+      background:    var(--bg-dark);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding:       64px 28px 56px;
+      width:         100%;
+    }
+    .page-hero-in { max-width: 1200px; margin: 0 auto; }
+    .doc-label {
+      display:        inline-block;
+      font-size:      11px;
+      font-weight:    600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color:          var(--yellow);
+      margin-bottom:  16px;
+    }
+    .page-title {
+      font-family:   'Cormorant Garamond', serif;
+      font-size:     clamp(40px, 6vw, 66px);
+      font-weight:   700;
+      line-height:   1.08;
+      color:         var(--white);
+      margin-bottom: 16px;
+    }
+    .page-title span { color: var(--yellow); }
+    .page-desc {
+      font-size:   15px;
+      color:       var(--dim);
+      max-width:   560px;
+      line-height: 1.75;
+    }
+
+    /* ===== CATEGORY TABS ===== */
+    .cat-wrap {
+      max-width:     1200px;
+      margin:        0 auto;
+      padding:       48px 28px 0;
+      width:         100%;
+    }
+    .cat-tabs {
+      display:       flex;
+      gap:           10px;
+      flex-wrap:     wrap;
+      margin-bottom: 40px;
+    }
+    .cat-btn {
+      display:      flex;
+      align-items:  center;
+      gap:          8px;
+      padding:      11px 24px;
+      border-radius: 100px;
+      border:        1.5px solid rgba(255,255,255,0.14);
+      background:    transparent;
+      color:         rgba(255,255,255,0.6);
+      font-family:   'Poppins', sans-serif;
+      font-size:     14px;
+      font-weight:   600;
+      cursor:        pointer;
+      transition:    all .22s;
+      white-space:   nowrap;
+    }
+    .cat-btn:hover  { border-color: rgba(255,255,255,0.35); color: var(--white); }
+    .cat-btn.active {
+      background:   var(--yellow);
+      border-color: var(--yellow);
+      color:        var(--bg-dark);
+    }
+
+    /* ===== FAQ SECTIONS ===== */
+    .faq-wrap {
+      max-width: 1200px;
+      margin:    0 auto;
+      padding:   0 28px 80px;
+      width:     100%;
+    }
+    .faq-section        { display: none; }
+    .faq-section.active { display: block; }
+
+    .section-label {
+      display:        flex;
+      align-items:    center;
+      gap:            12px;
+      font-size:      11px;
+      font-weight:    700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color:          var(--yellow);
+      margin-bottom:  10px;
+    }
+    .section-label::before {
+      content:     '';
+      display:     block;
+      width:       28px;
+      height:      2px;
+      background:  var(--yellow);
+      flex-shrink: 0;
+    }
+    .section-heading {
+      font-family:   'Cormorant Garamond', serif;
+      font-size:     clamp(26px, 3.5vw, 38px);
+      font-weight:   700;
+      color:         var(--white);
+      margin-bottom: 8px;
+      line-height:   1.1;
+    }
+    .section-heading span { color: var(--yellow); }
+    .section-sub {
+      font-size:     14px;
+      color:         var(--dim);
+      margin-bottom: 36px;
+      line-height:   1.7;
+    }
+
+    /* Accordion */
+    .faq-list { display: flex; flex-direction: column; gap: 0; }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .faq-item:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+    .faq-q {
+      width:           100%;
+      display:         flex;
+      align-items:     flex-start;
+      justify-content: space-between;
+      gap:             20px;
+      padding:         22px 0;
+      background:      none;
+      border:          none;
+      color:           var(--white);
+      cursor:          pointer;
+      text-align:      left;
+      transition:      color .2s;
+    }
+    .faq-q:hover { color: var(--yellow); }
+    .faq-q-text {
+      font-family: 'Poppins', sans-serif;
+      font-size:   15.5px;
+      font-weight: 600;
+      line-height: 1.5;
+      color:       inherit;
+      flex:        1;
+    }
+    .faq-icon {
+      width:         28px;
+      height:        28px;
+      min-width:     28px;
+      border-radius: 50%;
+      border:        1.5px solid rgba(255,255,255,0.2);
+      display:       flex;
+      align-items:   center;
+      justify-content: center;
+      transition:    all .25s;
+      margin-top:    1px;
+      flex-shrink:   0;
+    }
+    .faq-icon svg {
+      width:      13px;
+      height:     13px;
+      transition: transform .28s cubic-bezier(.4,0,.2,1);
+      stroke:     var(--white);
+    }
+    .faq-item.open .faq-icon {
+      background:   var(--yellow);
+      border-color: var(--yellow);
+    }
+    .faq-item.open .faq-icon svg { transform: rotate(180deg); stroke: var(--bg-dark); }
+    .faq-item.open .faq-q        { color: var(--yellow); }
+    .faq-a {
+      max-height: 0;
+      overflow:   hidden;
+      transition: max-height .38s cubic-bezier(.4,0,.2,1), padding .3s;
+    }
+    .faq-a-inner {
+      padding:     0 0 24px 0;
+      font-size:   14.5px;
+      color:       var(--dim);
+      line-height: 1.82;
+    }
+    .faq-a-inner strong { color: var(--white); font-weight: 600; }
+    .faq-a-inner ul     { padding-left: 18px; margin-top: 8px; }
+    .faq-a-inner ul li  { margin-bottom: 6px; }
+
+    /* ===== CONTACT CTA ===== */
+    .faq-cta {
+      width:       100%;
+      background:  var(--bg-dark);
+      border-top:  1px solid rgba(255,255,255,0.07);
+      padding:     64px 28px;
+    }
+    .faq-cta-in {
+      max-width:       1200px;
+      margin:          0 auto;
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      gap:             32px;
+      flex-wrap:       wrap;
+    }
+    .cta-text h3 {
+      font-family:   'Cormorant Garamond', serif;
+      font-size:     clamp(24px, 3vw, 34px);
+      font-weight:   700;
+      color:         var(--white);
+      margin-bottom: 8px;
+    }
+    .cta-text h3 span { color: var(--yellow); }
+    .cta-text p       { font-size: 14px; color: var(--dim); }
+    .btn-yellow {
+      display:       inline-flex;
+      align-items:   center;
+      gap:           8px;
+      background:    var(--yellow);
+      color:         var(--bg-dark);
+      border-radius: 100px;
+      padding:       14px 28px;
+      font-weight:   700;
+      font-size:     14px;
+      transition:    opacity .2s;
+      white-space:   nowrap;
+      flex-shrink:   0;
+    }
+    .btn-yellow:hover { opacity: .88; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background:  var(--bg-dark);
+      border-top:  1px solid rgba(255,255,255,0.07);
+      padding:     58px 28px 0;
+      width:       100%;
+    }
+    .ft-in  { max-width: 1200px; margin: 0 auto; }
+    .ft-top {
+      display:               grid;
+      grid-template-columns: 1.8fr 1fr 1fr 1.2fr;
+      gap:                   44px;
+      padding-bottom:        44px;
+      border-bottom:         1px solid rgba(255,255,255,0.07);
+    }
+    .ft-brand img { height: 32px; width: auto; margin-bottom: 14px; }
+    .ft-tag {
+      font-size:     13.5px;
+      color:         rgba(255,255,255,.48);
+      line-height:   1.72;
+      margin-bottom: 22px;
+      max-width:     270px;
+    }
+    .socials { display: flex; gap: 10px; }
+    .soc {
+      width:           42px;
+      height:          42px;
+      border-radius:   10px;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      flex-shrink:     0;
+      overflow:        hidden;
+    }
+    .soc-ig { background: linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+    .soc-x  { background: #000; }
+    .soc-fb { background: #1877F2; }
+    .soc-tt { background: #010101; }
+    .ft-col h4 {
+      font-family:    'Poppins', sans-serif;
+      font-size:      11px;
+      font-weight:    700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      margin-bottom:  18px;
+      color:          var(--white);
+    }
+    .ft-col a {
+      display:       block;
+      font-size:     14px;
+      color:         rgba(255,255,255,.55);
+      margin-bottom: 12px;
+      transition:    color .2s;
+    }
+    .ft-col a:hover { color: var(--white); }
+    .ft-contact p {
+      font-size:     13.5px;
+      color:         rgba(255,255,255,.55);
+      line-height:   1.7;
+      margin-bottom: 8px;
+    }
+    .ft-bot {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      padding:         18px 0;
+      flex-wrap:       wrap;
+      gap:             10px;
+    }
+    .ft-bot p { font-size: 12.5px; color: rgba(255,255,255,.35); }
+    .ft-legal { display: flex; gap: 18px; }
+    .ft-legal a {
+      font-size:  12.5px;
+      color:      rgba(255,255,255,.35);
+      transition: color .2s;
+    }
+    .ft-legal a:hover { color: rgba(255,255,255,.65); }
+
+    /* ===== SCROLL-TO-TOP ===== */
+    .stb {
+      position:        fixed;
+      bottom:          22px;
+      right:           22px;
+      width:           40px;
+      height:          40px;
+      background:      var(--yellow);
+      border:          none;
+      border-radius:   10px;
+      cursor:          pointer;
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      z-index:         999;
+      opacity:         0;
+      transform:       translateY(16px);
+      transition:      opacity .3s, transform .3s;
+    }
+    .stb.on {
+      opacity:   1;
+      transform: translateY(0);
+    }
+    .stb svg {
+      width:  16px;
+      height: 16px;
+      color:  var(--bg-dark);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 960px) {
+      .nav-d  { display: none; }
+      .burger { display: flex; }
+      .ft-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+    @media (max-width: 580px) {
+      .hdr              { height: 60px; padding: 0 16px; }
+      .logo img         { height: 28px; }
+      .page-hero        { padding: 44px 16px 40px; }
+      .cat-wrap,
+      .faq-wrap         { padding-left: 16px; padding-right: 16px; }
+      .faq-cta          { padding: 48px 16px; }
+      .faq-cta-in       { flex-direction: column; }
+      footer            { padding: 44px 16px 0; }
+      .ft-top           { grid-template-columns: 1fr; gap: 24px; }
+      .ft-bot           { flex-direction: column; align-items: flex-start; }
+      .stb              { width: 36px; height: 36px; bottom: 14px; right: 14px; }
+      .cat-tabs         { gap: 8px; }
+      .cat-btn          { padding: 9px 18px; font-size: 13px; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ===== MOBILE MENU OVERLAY ===== -->
+<div class="mm" id="mm">
+  <div class="mm-top">
+    <button class="mm-btn" onclick="mmClose()">&#10005;</button>
+    <button class="mm-btn">&middot;&middot;&middot;</button>
+  </div>
+  <nav>
+    <a href="https://brodameko.app/">Home</a>
+    <a href="https://brodameko.app/how-it-works/">How It Works</a>
+    <a href="https://brodameko.app/about-us/">About Us</a>
+    <a href="https://brodameko.app/contact/">Contact</a>
+    <a href="https://brodameko.app/car-owner-join-waitlist/" class="mm-cta">Car Owner? Join Waitlist &#8594;</a>
+  </nav>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="hdr">
+    <a href="https://brodameko.app/" class="logo">
+      <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko">
+    </a>
+    <nav class="nav-d">
+      <a href="https://brodameko.app/">Home</a>
+      <a href="https://brodameko.app/how-it-works/">How It Works</a>
+      <a href="https://brodameko.app/about-us/">About Us</a>
+      <a href="https://brodameko.app/contact/">Contact</a>
+      <a href="https://brodameko.app/car-owner-join-waitlist/" class="nav-pill">Car Owner? Join Waitlist &#8594;</a>
+    </nav>
+    <button class="burger" onclick="mmOpen()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== PAGE HERO ===== -->
+<div class="page-hero">
+  <div class="page-hero-in">
+    <span class="doc-label">Support Centre</span>
+    <h1 class="page-title">Frequently Asked<br><span>Questions</span></h1>
+    <p class="page-desc">Everything you need to know about BrodaMeko whether you&rsquo;re a car owner, mechanic, or spare parts seller. Can&rsquo;t find what you&rsquo;re looking for? <a href="https://brodameko.app/contact/" style="color:var(--yellow);font-weight:600;">Contact us.</a></p>
+  </div>
+</div>
+
+<!-- ===== CATEGORY TABS ===== -->
+<div class="cat-wrap">
+  <div class="cat-tabs">
+    <button class="cat-btn active" onclick="showSection('owners', this)">&#128663; Car Owners</button>
+    <button class="cat-btn" onclick="showSection('mechanics', this)">&#128295; Mechanics &amp; Technicians</button>
+    <button class="cat-btn" onclick="showSection('sellers', this)">&#128230; Spare Parts Sellers</button>
+  </div>
+</div>
+
+<!-- ===== FAQ CONTENT ===== -->
+<div class="faq-wrap">
+
+  <!-- ==================== CAR OWNERS ==================== -->
+  <div class="faq-section active" id="sec-owners">
+    <p class="section-label">Car Owners</p>
+    <h2 class="section-heading">Got a car question?<br><span>We&rsquo;ve got answers.</span></h2>
+    <p class="section-sub">Everything car owners need to know about using BrodaMeko to find mechanics and auto services near them.</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What is BrodaMeko and how does it work for car owners?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko is Lagos&rsquo;s on-demand auto-services platform that connects car owners with <strong>verified mechanics, auto technicians, and spare parts sellers</strong> near their location. Think of it like Uber but for your vehicle. When your car breaks down or needs servicing, simply open the app, describe the issue, and a vetted mechanic is dispatched to your location. Everything from booking to payment happens within the app.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Is the BrodaMeko car owner app available to download right now?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">The car owner app is <strong>coming very soon</strong>. Mechanics and spare parts sellers are already registering on the platform now, so by the time the car owner app launches, a full network of verified professionals will already be live and ready to serve you. You can <a href="https://brodameko.app/car-owner-join-waitlist/" style="color:var(--yellow);font-weight:600;">join the early waitlist</a> today to be the first to get access.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How do I join the car owner waitlist?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Joining is simple. Visit <a href="https://brodameko.app/car-owner-join-waitlist/" style="color:var(--yellow);font-weight:600;">brodameko.app/car-owner-join-waitlist</a>, fill in your name, email, phone number, and location, then tap <strong>&ldquo;Secure My Spot.&rdquo;</strong> You&rsquo;ll be among the first car owners notified the moment the app goes live. There are already over 1,840 car owners on the waitlist across Lagos.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Are the mechanics on BrodaMeko verified and trustworthy?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Every mechanic and technician on BrodaMeko is <strong>manually reviewed and verified</strong> before their profile goes live on the platform. This includes identity verification, trade verification, and background review. No fake accounts. Real identities. Real accountability. You can also see their ratings and reviews from other car owners before booking.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How does payment work? Is my money safe?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko uses a <strong>secure escrow payment system</strong>. When you pay for a service, your money is held safely in escrow and is only released to the mechanic after the job is confirmed complete. This means you are never at risk of paying for a service that wasn&rsquo;t delivered. All payments are processed through the app &mdash; no cash required.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What happens if I&rsquo;m not satisfied with the service I receive?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko has a built-in <strong>dispute resolution system</strong>. If you are unsatisfied with a completed service, you can raise a formal complaint through the app within 24 hours of service completion. BrodaMeko&rsquo;s admin team will review both sides impartially, examine evidence, and issue a fair resolution within 48 hours. During this window, payment remains in escrow until the dispute is settled.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Can I track the mechanic after booking?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Once your booking is confirmed, you can track the mechanic&rsquo;s <strong>real-time GPS location</strong> directly from within the app. You&rsquo;ll always know exactly where the mechanic is and how long until they arrive. You can also communicate directly with the mechanic via the in-app chat or in-app call feature without sharing your personal phone number.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What areas in Lagos does BrodaMeko currently cover?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko is launching first in Lagos with mechanics already registering in <strong>Lekki Phase 1, Surulere, Ikeja, Yaba, Victoria Island, Ajah, Festac Town,</strong> and more. There are currently 12 active Lagos areas on the platform. Coverage will expand rapidly as more mechanics join. Our goal is to cover every major area of Lagos before we expand to other Nigerian cities.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Can I cancel a booking after I&rsquo;ve made it?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">You can cancel a pending booking before the service start time. However, <strong>no refunds are issued for cancellations made at or after the scheduled service start time.</strong> Repeated late-stage cancellations may result in restrictions on your booking privileges or temporary account suspension. Please cancel early if your plans change to avoid any penalties.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What types of auto services can I book through BrodaMeko?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko connects you with a wide range of auto professionals including <strong>mechanics, auto technicians, towing operators, and spare parts sellers.</strong> Whether you need an emergency roadside fix, a routine service, engine diagnostics, tyre change, or you need to order a specific spare part, BrodaMeko has you covered &mdash; all from your phone.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How do ratings and reviews work for car owners?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">After every completed job, both you and the mechanic <strong>rate each other</strong>. Your honest review helps other car owners make informed decisions, and it helps the best mechanics rise to the top and get more jobs. Mechanics with consistently low ratings or unresolved complaints are reviewed and may be removed from the platform.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What payment methods are accepted on BrodaMeko?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko accepts <strong>debit cards and credit cards</strong> for all in-app payments. All prices are listed in <strong>Naira (&#8358;)</strong>. All payments are processed through the platform&rsquo;s secure payment channel &mdash; paying a mechanic directly with cash for a job initiated on BrodaMeko is not permitted and is not covered by our protection policies.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Is my personal data safe with BrodaMeko?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Absolutely. BrodaMeko is fully compliant with the <strong>Nigeria Data Protection Act (NDPA) 2023.</strong> We do not sell or rent your personal data to third parties. Your data is stored securely and only shared with service providers where necessary to complete your booking. You can delete your account and data at any time from the app settings. Read our full <a href="https://brodameko.app/privacy-policy/" style="color:var(--yellow);font-weight:600;">Privacy Policy</a> for details.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What happens if the mechanic doesn&rsquo;t show up?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">If a mechanic fails to show up for a confirmed booking without prior notice or justifiable reason, <strong>they are charged a penalty fee of 5% of the total service fee.</strong> Repeated no-shows can lead to the mechanic&rsquo;s account being suspended or permanently deactivated. You as the car owner are protected, and your payment held in escrow will not be released to the mechanic.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How do I create a car owner account?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Once the car owner app launches, creating an account is simple. Download the BrodaMeko app from the <strong>App Store or Google Play</strong>, tap &ldquo;Create Account,&rdquo; enter your name, email, phone number, and set a password. You&rsquo;ll receive a verification OTP to confirm your number, and you can start booking services immediately. You must be at least <strong>18 years old</strong> to register.</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== MECHANICS ==================== -->
+  <div class="faq-section" id="sec-mechanics">
+    <p class="section-label">Mechanics &amp; Technicians</p>
+    <h2 class="section-heading">Built for mechanics<br><span>who want more work.</span></h2>
+    <p class="section-sub">Everything mechanics and auto technicians need to know about joining BrodaMeko and growing their business.</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How do I register as a mechanic on BrodaMeko?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Download the <strong>BrodaMeko mechanic app</strong> from the App Store or Google Play &mdash; it&rsquo;s free to download. Create your profile, upload your government-issued ID and trade verification documents, and submit. Our team reviews and approves applications <strong>within 24 hours</strong>. Once approved, toggle online and your profile becomes visible to car owners near you.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Is there a registration or subscription fee to join BrodaMeko?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><strong>Absolutely not.</strong> BrodaMeko does not charge any registration fee, monthly subscription, or upfront cost to join. It is completely free to download and register. The only fee you ever pay is a <strong>10% commission deducted only after you successfully complete a paid job.</strong> No job, no charge. No hidden fees. Ever.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How much commission does BrodaMeko charge per job?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko charges a flat <strong>10% commission on the total service fee</strong> for every successfully completed job. This commission is automatically deducted before the payment is disbursed to your wallet. So if you charge &#8358;10,000 for a job, &#8358;1,000 is deducted and &#8358;9,000 is credited to your wallet. There are no upfront costs, no subscription, and no other hidden deductions.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How and when do I get paid for completed jobs?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Once a job is marked as <strong>completed and confirmed</strong> by the car owner, payment is automatically released from escrow and credited directly to your BrodaMeko wallet. For mechanics and towing operators, this happens in line with BrodaMeko&rsquo;s standard settlement timelines &mdash; no week-long wait. You can withdraw your wallet balance to your bank account at any time through the app.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Can I control when I receive job requests and which jobs I accept?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes, completely. You have full control. You can <strong>toggle online or offline</strong> at any time &mdash; if you&rsquo;re offline, no job requests come through. When online, you can choose your service radius, accept or decline individual job requests based on your availability, and manage your schedule entirely from the app. BrodaMeko does not force any job on you.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What documents do I need to register as a mechanic?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">To complete registration you will need to provide: <ul><li>A valid government-issued ID (National ID, driver&rsquo;s licence, voter&rsquo;s card, or passport)</li><li>Trade verification document showing your skill or experience as a mechanic or auto technician</li><li>A clear profile photo</li><li>Your phone number and email address for account setup</li></ul>All documentation is reviewed manually by the BrodaMeko team within 24 hours.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What happens if a customer disputes a completed job?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko has a <strong>fair dispute resolution process</strong>. If a customer raises a complaint, BrodaMeko admin reviews evidence from both sides impartially within 48 hours. You will be given the opportunity to present your case, share service records, communication logs, or any evidence of the work done. The platform protects honest mechanics &mdash; unfair claims are investigated thoroughly before any decision is made.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How does location tracking work and is it mandatory?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Location services must be enabled while you are <strong>actively using the platform.</strong> Location data is used to match you with nearby car owners, confirm service delivery, and protect both parties. Disabling location tracking while on an active job may lead to temporary suspension of features including job acceptance and payment disbursement. Location data is used for operational purposes only and handled in line with our Privacy Policy.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What happens if I miss a scheduled job without notice?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">If you fail to show up for a confirmed booking without prior notice or a justifiable reason, you will be charged a <strong>penalty fee of 5% of the total service fee</strong> for that job. Repeated no-shows may result in temporary suspension or permanent deactivation of your account. Always update the app and notify support in advance if you are unable to fulfil a booking.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Can I operate outside the BrodaMeko app with customers I meet through the platform?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No. All services for customers you connect with through BrodaMeko must be delivered and paid through the platform. <strong>Off-platform transactions are strictly prohibited</strong> without prior written consent from BrodaMeko. Any unauthorized service delivered outside the app may result in a cumulative penalty fee. This policy exists to protect both mechanics and car owners through escrow, tracking, and dispute coverage.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How do I build my reputation on BrodaMeko?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Your BrodaMeko reputation is built through <strong>real ratings from real customers</strong> after every completed job. The higher your rating, the more priority job matches you receive from the algorithm. Mechanics who register early, complete jobs consistently, and maintain great customer ratings will be positioned at the top of the platform when car owners flood in at launch. Start early &mdash; start strong.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Is BrodaMeko only for Lagos-based mechanics?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko is <strong>launching first in Lagos</strong> as an MVP (Minimum Viable Product) strategy focusing on building the most trusted auto-services network in Lagos before scaling. However, BrodaMeko&rsquo;s mission is to build Africa&rsquo;s most trusted auto-services network, which means expansion to other Nigerian cities and eventually beyond is already in the roadmap. Register now to be part of the founding mechanic community.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Can I use the BrodaMeko name or logo to market my services?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner"><strong>No.</strong> Unauthorised use of the BrodaMeko name, logo, branding, or intellectual property to market or deliver services that have not been authorized through the platform is subject to immediate legal action. BrodaMeko will pursue injunctions, compensation, and enforcement under applicable trademark and business protection laws. Contact BrodaMeko officially if you wish to co-promote your listing.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How do I communicate with a customer before or during a job?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko has a built-in <strong>in-app chat and in-app calling</strong> feature. You can message or call customers directly through the app without sharing your personal phone number. This keeps all service-related communication within the platform, protects your privacy, and creates a clear record of all communications in the event of any dispute.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Why should I register now before the car owner app launches?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Mechanics who register and build their profiles now get <strong>priority placement</strong> on the BrodaMeko map when car owners open the app at launch. Early registrants are shown first, receive more job matches, and build their ratings before the platform becomes competitive. There are already <strong>247 mechanics registered</strong> across Lagos. Every day you wait, someone else is taking your spot.</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== SELLERS ==================== -->
+  <div class="faq-section" id="sec-sellers">
+    <p class="section-label">Spare Parts Sellers</p>
+    <h2 class="section-heading">Turn your shop into<br><span>a digital storefront.</span></h2>
+    <p class="section-sub">Everything spare parts dealers and auto parts shops need to know about listing on BrodaMeko and receiving orders in-app.</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How does BrodaMeko work for spare parts sellers?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko allows spare parts sellers to <strong>list their products on the platform</strong> and receive orders directly from mechanics and car owners who are physically near their shop. When a user searches for a part on BrodaMeko, nearby sellers appear first based on proximity. Orders are placed and paid for in-app, and sellers manage everything &mdash; listings, orders, payouts &mdash; from the seller dashboard.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Is there a fee to list my shop on BrodaMeko?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">There is <strong>no subscription fee or upfront listing cost</strong> to join BrodaMeko as a spare parts seller. Registration and listing are free. BrodaMeko only charges a commission of <strong>5&ndash;15% on confirmed, completed orders</strong>. The exact commission rate depends on the product category. No sale, no charge. It&rsquo;s that simple.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What is the commission structure for spare parts sellers?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko charges a commission of <strong>5% to 15%</strong> on confirmed completed orders for spare parts sellers. This commission varies by product type and category and is automatically deducted before your wallet is credited. There are no hidden fees, no monthly charges, and no upfront costs. Your full commission breakdown is always visible in your seller dashboard.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">When do I receive payment for my orders?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">For spare parts sellers, payment disbursement occurs <strong>seven (7) days</strong> after the transaction is marked as completed on the platform. This waiting period allows BrodaMeko to verify the transaction, monitor for disputes, and confirm product authenticity and quality. After the 7-day window clears without a valid dispute, your wallet is credited and you can withdraw to your bank account.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How do I list my spare parts on the BrodaMeko platform?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Listing is straightforward. After downloading the seller app and completing registration, go to <strong>&ldquo;My Products&rdquo;</strong> in your dashboard and tap &ldquo;Add New Part.&rdquo; Upload clear photos of the part, add the part name, description, price, and available quantity. No technical experience is needed &mdash; the process is simple enough for any shop owner to manage themselves. Your listings become visible to nearby buyers immediately after being approved.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What documents do I need to register my spare parts shop?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">To register your spare parts business on BrodaMeko you will need: <ul><li>A valid government-issued ID of the business owner</li><li>Your business name and address</li><li>Contact details (phone number and email)</li><li>Photos of your shop or products</li></ul>Additionally, as a spare parts seller, you are required by BrodaMeko&rsquo;s Terms of Use to retain <strong>verifiable proof of purchase or importation</strong> (invoices, import documents, or supplier receipts) for the parts you sell, available on request in the event of a dispute.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What is the 7-day warranty and how does it affect me as a seller?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">All spare part purchases on BrodaMeko come with a <strong>7-day warranty period</strong> from the date the transaction is marked as completed. Within this window, buyers can raise complaints about the quality, authenticity, fitness, or performance of the part. As a seller, you are expected to respond to complaints in good faith, provide supporting purchase documentation, and cooperate with BrodaMeko&rsquo;s dispute process. Selling authentic parts and keeping your invoices ready protects you completely.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Who will be ordering parts from me on the platform?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Your buyers on BrodaMeko include both <strong>car owners</strong> who need specific parts for their vehicles and <strong>verified mechanics</strong> on the platform who need to source parts to complete jobs. This dual buyer base &mdash; retail and wholesale &mdash; means you can grow both your individual customer sales and your B2B mechanic orders from a single platform.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How does BrodaMeko&rsquo;s proximity-based discovery work for my shop?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko uses <strong>GPS-based proximity matching</strong> to show buyers the nearest available spare parts sellers first. When someone searches for a part, they see sellers ranked by how close they are physically. This means that car owners and mechanics near your shop will discover you first &mdash; even without you spending anything on marketing. Being on BrodaMeko gives you <strong>instant local visibility</strong> to high-intent buyers in your area.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What happens if a buyer raises a dispute about my part?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">If a buyer raises a dispute within the 7-day warranty window, BrodaMeko will <strong>hold the payment in escrow</strong> and begin an investigation within 48 hours. You will be contacted to provide supporting documentation (invoice, import papers, supplier receipt) proving the authenticity and origin of the part. If you provide satisfactory evidence, the dispute is resolved in your favour and payment is released. Sellers who cannot provide documentation risk partial or full refunds to the buyer, penalties, or suspension.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Can I see my sales, orders, and earnings in one place?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Every seller gets access to a <strong>clean seller dashboard</strong> within the app that shows all your orders, sales history, pending payouts, wallet balance, and every deduction &mdash; transparently. No surprises, no hidden charges. You always know exactly what you&rsquo;ve earned, what&rsquo;s pending, and what&rsquo;s been deducted in commissions.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Can I sell any type of auto part on BrodaMeko?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">BrodaMeko supports the sale of <strong>all genuine auto parts and accessories</strong> including engine components, tyres, brake pads, batteries, electrical parts, filters, body parts, and more. However, counterfeit, stolen, or unverifiable parts are strictly prohibited. Sellers found to be listing fraudulent parts face immediate suspension and legal action. BrodaMeko is committed to being a trusted marketplace &mdash; authenticity is non-negotiable.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">What markets and locations are already active on BrodaMeko for spare parts?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Sellers from <strong>Trade Fair Complex, Ladipo Market, and Apapa Auto Parts</strong> are already joining the platform. These are the biggest auto parts markets in Lagos, and early registrants from these hubs are positioning themselves to receive orders before the full car owner launch. If your business is in or near these markets &mdash; or anywhere in Lagos &mdash; register now to be part of the first wave.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">Is BrodaMeko safe for financial transactions as a seller?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. All financial transactions on BrodaMeko go through a <strong>secure payment channel with escrow protection</strong>. Buyers pay through the app, funds are held in escrow, and your wallet is credited upon confirmed delivery. You are never at risk of bad debt or customers refusing to pay. Your full transaction history and wallet balance are always visible and transparent in your seller dashboard.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggle(this)">
+          <span class="faq-q-text">How do I handle an order where the customer is in a location with poor network connectivity?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">If a delivery is heading to an area with limited or no network coverage (&ldquo;Off-Grid&rdquo;), it must be <strong>pre-flagged as an Off-Grid Service</strong> during the booking process. As soon as network connectivity is restored, you must manually confirm service commencement and completion within the platform. BrodaMeko may subject Off-Grid bookings to additional verification for safety and accuracy. Always update the app as soon as you regain connectivity.</div></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTACT CTA ===== -->
+<div class="faq-cta">
+  <div class="faq-cta-in">
+    <div class="cta-text">
+      <h3>Still have a <span>question?</span></h3>
+      <p>Can&rsquo;t find what you&rsquo;re looking for? Our support team is here to help.</p>
+    </div>
+    <a href="https://brodameko.app/contact/" class="btn-yellow">Contact Support &#8594;</a>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="ft-in">
+    <div class="ft-top">
+
+      <div class="ft-brand">
+        <a href="https://brodameko.app/">
+          <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko">
+        </a>
+        <p class="ft-tag">Your Car&rsquo;s Best Friend, Anywhere. Building Africa&rsquo;s most trusted auto-services network, starting in Lagos.</p>
+        <div class="socials">
+          <!-- FLAG: replace # with Brodameko Instagram profile URL -->
+          <a href="#" class="soc soc-ig" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <rect x="2" y="2" width="20" height="20" rx="6" stroke="white" stroke-width="1.6"/>
+              <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.6"/>
+              <circle cx="17.5" cy="6.5" r="1.2" fill="white"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko X (Twitter) profile URL -->
+          <a href="#" class="soc soc-x" aria-label="X">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.259 5.63L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko Facebook profile URL -->
+          <a href="#" class="soc soc-fb" aria-label="Facebook">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="white">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+          <!-- FLAG: replace # with Brodameko TikTok profile URL -->
+          <a href="#" class="soc soc-tt" aria-label="TikTok">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.3 6.3 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.2 8.2 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="ft-col">
+        <h4>Platform</h4>
+        <!-- FLAG: replace # with Apple App Store download URL -->
+        <a href="#">Apple App Store</a>
+        <!-- FLAG: replace # with Google Play Store download URL -->
+        <a href="#">Google Play Store</a>
+        <a href="https://brodameko.app/car-owner-join-waitlist/">Car Owner Waitlist</a>
+      </div>
+
+      <div class="ft-col">
+        <h4>Company</h4>
+        <a href="https://brodameko.app/about-us/">About Us</a>
+        <a href="https://brodameko.app/contact/">Contact</a>
+        <a href="https://brodameko.app/faq/">FAQ</a>
+      </div>
+
+      <div class="ft-col ft-contact">
+        <h4>Contact</h4>
+        <p>294, Herbert Macaulay Way,<br>Sabo, Yaba, Lagos.</p>
+        <p>+234 706 245 2620</p>
+        <p>brodameko@gmail.com</p>
+      </div>
+
+    </div>
+    <div class="ft-bot">
+      <p>&copy; 2026 BrodaMeko. All rights reserved.</p>
+      <div class="ft-legal">
+        <a href="https://brodameko.app/privacy-policy">Privacy Policy</a>
+        <a href="https://brodameko.app/terms-of-use">Terms of Use</a>
+        <!-- FLAG: replace # with Cookie Policy page URL -->
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button class="stb" id="stb" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>
+
+<script>
+  /* Mobile menu */
+  function mmOpen()  { document.getElementById('mm').classList.add('open');    document.body.style.overflow = 'hidden'; }
+  function mmClose() { document.getElementById('mm').classList.remove('open'); document.body.style.overflow = ''; }
+
+  /* Category tabs */
+  function showSection(id, btn) {
+    document.querySelectorAll('.cat-btn').forEach(function(b)     { b.classList.remove('active'); });
+    document.querySelectorAll('.faq-section').forEach(function(s) { s.classList.remove('active'); });
+    btn.classList.add('active');
+    document.getElementById('sec-' + id).classList.add('active');
+    document.querySelectorAll('.faq-item.open').forEach(function(item) {
+      item.classList.remove('open');
+      item.querySelector('.faq-a').style.maxHeight = null;
+    });
+  }
+
+  /* Accordion toggle */
+  function toggle(btn) {
+    var item   = btn.closest('.faq-item');
+    var answer = item.querySelector('.faq-a');
+    var inner  = item.querySelector('.faq-a-inner');
+    var isOpen = item.classList.contains('open');
+
+    var section = item.closest('.faq-section');
+    section.querySelectorAll('.faq-item.open').forEach(function(other) {
+      if (other !== item) {
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight = null;
+      }
+    });
+
+    if (isOpen) {
+      item.classList.remove('open');
+      answer.style.maxHeight = null;
+    } else {
+      item.classList.add('open');
+      answer.style.maxHeight = inner.scrollHeight + 'px';
+    }
+  }
+
+  /* Scroll-to-top */
+  var stb = document.getElementById('stb');
+  window.addEventListener('scroll', function() { stb.classList.toggle('on', window.scrollY > 300); });
+</script>
+</body>
+</html>
