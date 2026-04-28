@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us &mdash; BrodaMeko</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="bm-contact-page">
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bm-bg:       #04134f;
+      --bm-bg-2:     #071a63;
+      --bm-header:   #03103f;
+      --bm-footer:   #020c33;
+      --bm-card:     #1d2d7a;
+      --bm-card-2:   #17256a;
+      --bm-line:     rgba(255,255,255,.08);
+      --bm-line-2:   rgba(255,255,255,.12);
+      --bm-text:     #f3f5ff;
+      --bm-muted:    #b8c0e6;
+      --bm-yellow:   #ffd52e;
+      --bm-yellow-2: #ffd52e;
+      --bm-input:    #07124a;
+      --bm-radius:   28px;
+      --bm-shadow:   0 20px 60px rgba(0,0,0,.22);
+      --bm-shell:    min(1200px, calc(100vw - 40px));
+    }
+
+    /* ── RESET ──────────────────────────────────────────────── */
+    #bm-contact-page,
+    #bm-contact-page * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin:     0 !important;
+      padding:    0 !important;
+      background: var(--bm-bg) !important;
+      overflow-x: hidden !important;
+    }
+
+    body.elementor-page,
+    body.page,
+    body {
+      background: var(--bm-bg) !important;
+    }
+
+    .elementor-section-wrap,
+    .elementor-widget-wrap,
+    .elementor-column,
+    .elementor-container,
+    .elementor {
+      overflow: visible !important;
+    }
+
+    /* ── PAGE WRAPPER ───────────────────────────────────────── */
+    #bm-contact-page {
+      position:    relative;
+      width:       100vw;
+      margin-left: calc(50% - 50vw);
+      background:
+        radial-gradient(circle at 20% 0%, rgba(28,63,180,.18) 0%, rgba(28,63,180,0) 34%),
+        linear-gradient(180deg, var(--bm-bg-2) 0%, var(--bm-bg) 26%, var(--bm-bg) 100%);
+      color:       var(--bm-text);
+      font-family: "Instrument Sans", system-ui, sans-serif;
+    }
+
+    #bm-contact-page a {
+      text-decoration: none;
+      color:           inherit;
+    }
+
+    .bm-shell {
+      width:  var(--bm-shell);
+      margin: 0 auto;
+    }
+
+    /* ── HEADER ─────────────────────────────────────────────── */
+    .bm-header {
+      position:        sticky;
+      top:             0;
+      z-index:         80;
+      background:      rgba(3,16,63,.96);
+      backdrop-filter: blur(10px);
+      border-bottom:   1px solid var(--bm-line);
+    }
+
+    .bm-header-inner {
+      width:           var(--bm-shell);
+      margin:          0 auto;
+      min-height:      96px;
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      gap:             18px;
+    }
+
+    .bm-brand {
+      display:     flex;
+      align-items: center;
+      gap:         14px;
+      min-width:   0;
+    }
+
+    .bm-brand img {
+      display:   block;
+      width:     auto;
+      height:    52px;
+      max-width: 100%;
+    }
+
+    .bm-nav {
+      display:     flex;
+      align-items: center;
+      gap:         10px;
+    }
+
+    .bm-nav a {
+      color:         #e9edff;
+      font-size:     16px;
+      font-weight:   700;
+      padding:       12px 16px;
+      border-radius: 14px;
+      transition:    .2s ease;
+      white-space:   nowrap;
+    }
+
+    .bm-nav a:hover {
+      background: rgba(255,255,255,.05);
+    }
+
+    .bm-nav a.bm-waitlist-link {
+      border:  1px solid rgba(255,213,46,.26);
+      color:   var(--bm-yellow);
+      padding: 12px 18px;
+    }
+
+    .bm-menu-btn {
+      display:         none;
+      width:           58px;
+      height:          58px;
+      border-radius:   16px;
+      border:          1px solid var(--bm-line-2);
+      background:      transparent;
+      color:           #fff;
+      align-items:     center;
+      justify-content: center;
+      cursor:          pointer;
+      padding:         0;
+      flex:            none;
+    }
+
+    .bm-menu-btn svg {
+      width:        30px;
+      height:       30px;
+      stroke:       currentColor;
+      stroke-width: 2.4;
+      fill:         none;
+    }
+
+    /* ── MOBILE DRAWER ──────────────────────────────────────── */
+    .bm-drawer {
+      position:        fixed;
+      inset:           0;
+      z-index:         120;
+      background:      rgba(2,8,32,.64);
+      opacity:         0;
+      visibility:      hidden;
+      pointer-events:  none;
+      transition:      .22s ease;
+    }
+
+    .bm-drawer.open {
+      opacity:        1;
+      visibility:     visible;
+      pointer-events: auto;
+    }
+
+    .bm-drawer-panel {
+      position:    absolute;
+      inset:       0 0 0 auto;
+      width:       min(100vw, 420px);
+      background:  #07195f;
+      padding:     28px 28px 36px;
+      transform:   translateX(100%);
+      transition:  .26s ease;
+      border-left: 1px solid var(--bm-line);
+      overflow-y:  auto;
+    }
+
+    .bm-drawer.open .bm-drawer-panel {
+      transform: translateX(0);
+    }
+
+    .bm-drawer-top {
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      gap:             16px;
+      margin-bottom:   26px;
+    }
+
+    .bm-drawer-top img {
+      height:    46px;
+      width:     auto;
+      max-width: 220px;
+    }
+
+    .bm-drawer-close {
+      width:         54px;
+      height:        54px;
+      border-radius: 50%;
+      border:        1px solid var(--bm-line-2);
+      background:    transparent;
+      color:         #fff;
+      display:       grid;
+      place-items:   center;
+      cursor:        pointer;
+      flex:          none;
+    }
+
+    .bm-drawer-close svg {
+      width:        26px;
+      height:       26px;
+      stroke:       currentColor;
+      stroke-width: 2.2;
+      fill:         none;
+    }
+
+    .bm-drawer-links {
+      display: grid;
+      gap:     0;
+    }
+
+    .bm-drawer-links a {
+      padding:       24px 0;
+      border-bottom: 1px solid var(--bm-line);
+      font-size:     32px;
+      line-height:   1.15;
+      font-weight:   700;
+      color:         #dfe5ff;
+    }
+
+    .bm-drawer-links a:last-child {
+      color:       var(--bm-yellow);
+      font-weight: 800;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    .bm-hero {
+      padding: 112px 0 44px;
+    }
+
+    .bm-kicker {
+      display:         flex;
+      align-items:     center;
+      justify-content: center;
+      gap:             16px;
+      color:           var(--bm-yellow);
+      font-size:       18px;
+      font-weight:     800;
+      letter-spacing:  .16em;
+      text-transform:  uppercase;
+      margin-bottom:   34px;
+    }
+
+    .bm-kicker::before {
+      content:       "";
+      width:         56px;
+      height:        4px;
+      border-radius: 999px;
+      background:    var(--bm-yellow);
+      display:       block;
+    }
+
+    .bm-hero h1 {
+      margin:         0 auto 26px;
+      max-width:      980px;
+      text-align:     center;
+      font-family:    "Syne", sans-serif;
+      font-size:      clamp(52px, 8vw, 112px);
+      line-height:    .92;
+      letter-spacing: -.05em;
+      font-weight:    800;
+      color:          var(--bm-text);
+    }
+
+    .bm-hero h1 .bm-accent {
+      color: var(--bm-yellow);
+    }
+
+    .bm-hero p {
+      margin:      0 auto;
+      max-width:   960px;
+      text-align:  center;
+      font-size:   clamp(22px, 2.2vw, 32px);
+      line-height: 1.55;
+      color:       var(--bm-muted);
+    }
+
+    .bm-rule {
+      border-top: 1px solid var(--bm-line);
+      margin:     74px 0 0;
+    }
+
+    /* ── CONTACT CARDS ──────────────────────────────────────── */
+    .bm-section {
+      padding: 58px 0 0;
+    }
+
+    .bm-section-title {
+      margin:         0 0 26px;
+      font-family:    "Syne", sans-serif;
+      font-size:      clamp(38px, 5vw, 76px);
+      line-height:    .95;
+      letter-spacing: -.04em;
+      color:          var(--bm-text);
+    }
+
+    .bm-contact-grid {
+      display: grid;
+      gap:     22px;
+    }
+
+    .bm-contact-card {
+      display:               grid;
+      grid-template-columns: 78px 1fr;
+      gap:                   22px;
+      align-items:           flex-start;
+      background:            linear-gradient(180deg, rgba(33,48,129,.98), rgba(26,40,110,.98));
+      border:                1px solid rgba(255,255,255,.08);
+      border-radius:         30px;
+      padding:               28px 30px;
+      box-shadow:            var(--bm-shadow);
+      transition:            .22s ease;
+    }
+
+    .bm-contact-card:hover,
+    .bm-contact-card:focus-within {
+      border-color: rgba(255,213,46,.85);
+      box-shadow:   0 0 0 1px rgba(255,213,46,.18), var(--bm-shadow);
+      transform:    translateY(-1px);
+    }
+
+    .bm-icon-box {
+      width:         64px;
+      height:        64px;
+      border-radius: 18px;
+      background:    rgba(255,255,255,.03);
+      display:       grid;
+      place-items:   center;
+      font-size:     34px;
+      line-height:   1;
+    }
+
+    .bm-contact-label {
+      margin:         0 0 10px;
+      font-size:      20px;
+      font-weight:    800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color:          #aeb7e7;
+    }
+
+    .bm-contact-text {
+      margin:      0;
+      font-size:   clamp(22px, 2.2vw, 38px);
+      line-height: 1.52;
+      color:       #ffffff;
+    }
+
+    /* ── SOCIALS ────────────────────────────────────────────── */
+    .bm-social-row {
+      display:   flex;
+      flex-wrap: wrap;
+      gap:       16px;
+      padding:   28px 0 10px;
+    }
+
+    .bm-social {
+      width:         96px;
+      height:        96px;
+      border-radius: 22px;
+      background:    rgba(255,255,255,.04);
+      border:        1px solid rgba(255,255,255,.08);
+      color:         #fff;
+      display:       grid;
+      place-items:   center;
+      transition:    .2s ease;
+    }
+
+    .bm-social:hover {
+      border-color: rgba(255,213,46,.7);
+      color:        var(--bm-yellow);
+      transform:    translateY(-2px);
+    }
+
+    .bm-social svg {
+      width:   34px;
+      height:  34px;
+      fill:    currentColor;
+      display: block;
+    }
+
+    /* ── FORM CARD ──────────────────────────────────────────── */
+    .bm-form-wrap {
+      padding: 34px 0 0;
+    }
+
+    .bm-form-card {
+      background:    linear-gradient(180deg, rgba(33,48,129,.98), rgba(26,40,110,.98));
+      border:        1px solid rgba(255,255,255,.08);
+      border-radius: 34px;
+      padding:       38px 40px 42px;
+      box-shadow:    var(--bm-shadow);
+      overflow:      hidden;
+    }
+
+    .bm-form-title {
+      margin:         0 0 28px;
+      font-family:    "Syne", sans-serif;
+      font-size:      clamp(34px, 4vw, 72px);
+      line-height:    .95;
+      letter-spacing: -.04em;
+      color:          var(--bm-text);
+    }
+
+    .bm-fluent-wrap {
+      margin: 0;
+    }
+
+    /* ── FLUENT FORM ────────────────────────────────────────── */
+    .bm-fluent-wrap .ff-el-group,
+    .bm-fluent-wrap .ff-t-cell,
+    .bm-fluent-wrap .ff-column-container,
+    .bm-fluent-wrap .ff-el-form-control {
+      width: 100%;
+    }
+
+    .bm-fluent-wrap .ff-el-group {
+      margin-bottom: 22px;
+    }
+
+    .bm-fluent-wrap .ff-el-input--label,
+    .bm-fluent-wrap .ff-el-form-label {
+      display:        block !important;
+      margin:         0 0 10px !important;
+      color:          #aeb7e7 !important;
+      font-size:      20px !important;
+      font-weight:    800 !important;
+      letter-spacing: .06em !important;
+      text-transform: uppercase !important;
+      line-height:    1.2 !important;
+    }
+
+    .bm-fluent-wrap input[type="text"],
+    .bm-fluent-wrap input[type="email"],
+    .bm-fluent-wrap input[type="tel"],
+    .bm-fluent-wrap input[type="number"],
+    .bm-fluent-wrap select,
+    .bm-fluent-wrap textarea {
+      width:         100% !important;
+      background:    var(--bm-input) !important;
+      color:         #f4f6ff !important;
+      border:        1px solid rgba(255,255,255,.1) !important;
+      border-radius: 22px !important;
+      padding:       0 26px !important;
+      box-shadow:    none !important;
+      outline:       none !important;
+      font-family:   "Instrument Sans", sans-serif !important;
+      font-size:     18px !important;
+      transition:    .2s ease !important;
+    }
+
+    .bm-fluent-wrap input[type="text"],
+    .bm-fluent-wrap input[type="email"],
+    .bm-fluent-wrap input[type="tel"],
+    .bm-fluent-wrap input[type="number"],
+    .bm-fluent-wrap select {
+      min-height:  72px !important;
+      line-height: 72px !important;
+    }
+
+    .bm-fluent-wrap textarea {
+      min-height:     180px !important;
+      padding-top:    22px !important;
+      padding-bottom: 22px !important;
+      line-height:    1.5 !important;
+      resize:         vertical !important;
+    }
+
+    .bm-fluent-wrap input::placeholder,
+    .bm-fluent-wrap textarea::placeholder {
+      color:   #8f98c7 !important;
+      opacity: 1 !important;
+    }
+
+    .bm-fluent-wrap input:focus,
+    .bm-fluent-wrap select:focus,
+    .bm-fluent-wrap textarea:focus {
+      border-color: rgba(255,213,46,.92) !important;
+      box-shadow:   0 0 0 2px rgba(255,213,46,.12) !important;
+    }
+
+    .bm-fluent-wrap .ff-btn,
+    .bm-fluent-wrap button[type="submit"],
+    .bm-fluent-wrap input[type="submit"] {
+      width:         100% !important;
+      min-height:    78px !important;
+      border:        none !important;
+      border-radius: 24px !important;
+      background:    var(--bm-yellow) !important;
+      color:         #06144f !important;
+      font-family:   "Instrument Sans", sans-serif !important;
+      font-size:     24px !important;
+      font-weight:   800 !important;
+      line-height:   1 !important;
+      padding:       0 24px !important;
+      box-shadow:    none !important;
+      transition:    .2s ease !important;
+    }
+
+    .bm-fluent-wrap .ff-btn:hover,
+    .bm-fluent-wrap button[type="submit"]:hover,
+    .bm-fluent-wrap input[type="submit"]:hover {
+      filter:    brightness(.98) !important;
+      transform: translateY(-1px);
+    }
+
+    .bm-fluent-wrap .ff-message-success,
+    .bm-fluent-wrap .ff-message-error {
+      border-radius: 18px !important;
+      font-size:     16px !important;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    .bm-footer {
+      margin-top: 72px;
+      background: linear-gradient(180deg, rgba(2,12,51,.98), rgba(1,8,36,1));
+      border-top: 1px solid var(--bm-line);
+      padding:    58px 0 34px;
+    }
+
+    .bm-footer-grid {
+      display:               grid;
+      grid-template-columns: 1.25fr .9fr .9fr .95fr;
+      gap:                   30px;
+    }
+
+    .bm-footer-brand img {
+      height:        54px;
+      width:         auto;
+      max-width:     100%;
+      display:       block;
+      margin-bottom: 20px;
+    }
+
+    .bm-footer-text {
+      margin:      0 0 24px;
+      color:       var(--bm-muted);
+      font-size:   18px;
+      line-height: 1.7;
+      max-width:   420px;
+    }
+
+    .bm-footer-socials {
+      display:   flex;
+      flex-wrap: wrap;
+      gap:       14px;
+    }
+
+    .bm-footer-socials .bm-social {
+      width:         82px;
+      height:        82px;
+      border-radius: 20px;
+    }
+
+    .bm-footer-title {
+      margin:         0 0 18px;
+      color:          #fff;
+      font-size:      20px;
+      font-weight:    800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .bm-footer-links {
+      display: grid;
+      gap:     14px;
+    }
+
+    .bm-footer-links a {
+      color:       var(--bm-muted);
+      font-size:   18px;
+      line-height: 1.5;
+      transition:  .2s ease;
+    }
+
+    .bm-footer-links a:hover {
+      color: #fff;
+    }
+
+    .bm-footer-contact {
+      display:     grid;
+      gap:         14px;
+      color:       var(--bm-muted);
+      font-size:   18px;
+      line-height: 1.7;
+    }
+
+    .bm-footer-contact .bm-highlight {
+      color: var(--bm-yellow);
+    }
+
+    .bm-footer-bottom {
+      margin-top:      34px;
+      padding-top:     24px;
+      border-top:      1px solid var(--bm-line);
+      display:         flex;
+      align-items:     center;
+      justify-content: space-between;
+      gap:             20px;
+      flex-wrap:       wrap;
+    }
+
+    .bm-copyright {
+      color:       #aeb7e7;
+      font-size:   16px;
+      line-height: 1.6;
+    }
+
+    .bm-legal {
+      display:   flex;
+      flex-wrap: wrap;
+      gap:       26px;
+    }
+
+    .bm-legal a {
+      color:     #aeb7e7;
+      font-size: 16px;
+    }
+
+    .bm-legal a:hover {
+      color: #fff;
+    }
+
+    /* ── BACK TO TOP ────────────────────────────────────────── */
+    .bm-to-top {
+      position:      fixed;
+      right:         18px;
+      bottom:        18px;
+      z-index:       70;
+      width:         64px;
+      height:        64px;
+      border-radius: 18px;
+      background:    var(--bm-yellow);
+      color:         #06144f;
+      display:       grid;
+      place-items:   center;
+      box-shadow:    0 0 24px rgba(255,213,46,.22);
+      border:        1px solid rgba(255,255,255,.16);
+      transition:    .2s ease;
+    }
+
+    .bm-to-top:hover {
+      transform: translateY(-2px);
+    }
+
+    .bm-to-top svg {
+      width:        20px;
+      height:       20px;
+      stroke:       currentColor;
+      stroke-width: 2.5;
+      fill:         none;
+    }
+
+    /* ── RESPONSIVE: TABLET ─────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .bm-nav { display: none; }
+
+      .bm-menu-btn {
+        display: inline-flex;
+      }
+
+      .bm-footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ── RESPONSIVE: MOBILE ─────────────────────────────────── */
+    @media (max-width: 767px) {
+      :root {
+        --bm-shell: min(100vw - 28px, 1000px);
+      }
+
+      .bm-header-inner {
+        min-height: 84px;
+      }
+
+      .bm-brand img {
+        height: 42px;
+      }
+
+      .bm-menu-btn {
+        width:         56px;
+        height:        56px;
+        border-radius: 16px;
+      }
+
+      .bm-menu-btn svg {
+        width:  28px;
+        height: 28px;
+      }
+
+      .bm-drawer-links a {
+        font-size: 26px;
+      }
+
+      .bm-hero {
+        padding: 74px 0 28px;
+      }
+
+      .bm-kicker {
+        font-size:     14px;
+        gap:           12px;
+        margin-bottom: 24px;
+      }
+
+      .bm-kicker::before {
+        width:  34px;
+        height: 3px;
+      }
+
+      .bm-hero h1 {
+        font-size: clamp(42px, 15vw, 74px);
+      }
+
+      .bm-hero p {
+        font-size:   16px;
+        line-height: 1.75;
+      }
+
+      .bm-rule {
+        margin-top: 42px;
+      }
+
+      .bm-section {
+        padding-top: 38px;
+      }
+
+      .bm-section-title {
+        font-size:     clamp(28px, 10vw, 50px);
+        margin-bottom: 18px;
+      }
+
+      .bm-contact-card {
+        grid-template-columns: 56px 1fr;
+        gap:                   16px;
+        padding:               22px 20px;
+        border-radius:         24px;
+      }
+
+      .bm-icon-box {
+        width:         48px;
+        height:        48px;
+        border-radius: 14px;
+        font-size:     26px;
+      }
+
+      .bm-contact-label {
+        font-size:     12px;
+        margin-bottom: 8px;
+      }
+
+      .bm-contact-text {
+        font-size:   16px;
+        line-height: 1.7;
+      }
+
+      .bm-social-row {
+        gap:         12px;
+        padding-top: 22px;
+      }
+
+      .bm-social {
+        width:         82px;
+        height:        82px;
+        border-radius: 18px;
+      }
+
+      .bm-social svg {
+        width:  30px;
+        height: 30px;
+      }
+
+      .bm-form-wrap {
+        padding-top: 24px;
+      }
+
+      .bm-form-card {
+        padding:       24px 18px 24px;
+        border-radius: 26px;
+      }
+
+      .bm-form-title {
+        font-size:     clamp(26px, 9vw, 44px);
+        margin-bottom: 18px;
+      }
+
+      .bm-fluent-wrap .ff-el-group {
+        margin-bottom: 18px;
+      }
+
+      .bm-fluent-wrap .ff-el-input--label,
+      .bm-fluent-wrap .ff-el-form-label {
+        font-size:     12px !important;
+        margin-bottom: 8px !important;
+      }
+
+      .bm-fluent-wrap input[type="text"],
+      .bm-fluent-wrap input[type="email"],
+      .bm-fluent-wrap input[type="tel"],
+      .bm-fluent-wrap input[type="number"],
+      .bm-fluent-wrap select {
+        min-height:    60px !important;
+        line-height:   60px !important;
+        border-radius: 18px !important;
+        font-size:     16px !important;
+        padding:       0 18px !important;
+      }
+
+      .bm-fluent-wrap textarea {
+        min-height:    150px !important;
+        border-radius: 18px !important;
+        font-size:     16px !important;
+        padding:       18px !important;
+      }
+
+      .bm-fluent-wrap .ff-btn,
+      .bm-fluent-wrap button[type="submit"],
+      .bm-fluent-wrap input[type="submit"] {
+        min-height:    64px !important;
+        border-radius: 20px !important;
+        font-size:     18px !important;
+      }
+
+      .bm-footer {
+        margin-top: 46px;
+        padding:    42px 0 26px;
+      }
+
+      .bm-footer-grid {
+        grid-template-columns: 1fr;
+        gap:                   30px;
+      }
+
+      .bm-footer-brand img {
+        height: 42px;
+      }
+
+      .bm-footer-text,
+      .bm-footer-links a,
+      .bm-footer-contact {
+        font-size: 16px;
+      }
+
+      .bm-footer-title {
+        font-size:     14px;
+        margin-bottom: 14px;
+      }
+
+      .bm-footer-socials .bm-social {
+        width:  74px;
+        height: 74px;
+      }
+
+      .bm-footer-bottom {
+        margin-top:  28px;
+        padding-top: 18px;
+        align-items: flex-start;
+      }
+
+      .bm-copyright,
+      .bm-legal a {
+        font-size: 14px;
+      }
+
+      .bm-legal {
+        gap: 18px;
+      }
+
+      .bm-to-top {
+        width:         60px;
+        height:        60px;
+        border-radius: 18px;
+        right:         14px;
+        bottom:        16px;
+      }
+
+      .bm-to-top svg {
+        width:  18px;
+        height: 18px;
+      }
+    }
+  </style>
+
+  <!-- HEADER -->
+  <header class="bm-header">
+    <div class="bm-header-inner">
+      <a class="bm-brand" href="/">
+        <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko logo">
+      </a>
+
+      <nav class="bm-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us/">About Us</a>
+        <a href="/contact/">Contact</a>
+        <a class="bm-waitlist-link" href="/car-owner-join-waitlist/">Car Owner? Join Waitlist &#8594;</a>
+      </nav>
+
+      <button class="bm-menu-btn" type="button" aria-label="Open menu" id="bmOpenMenu">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 6h18M3 12h18M3 18h18"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER -->
+  <div class="bm-drawer" id="bmDrawer">
+    <div class="bm-drawer-panel">
+      <div class="bm-drawer-top">
+        <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko logo">
+        <button class="bm-drawer-close" type="button" aria-label="Close menu" id="bmCloseMenu">
+          <svg viewBox="0 0 24 24">
+            <path d="M6 6l12 12M18 6L6 18"></path>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="bm-drawer-links" aria-label="Mobile">
+        <a href="/">Home</a>
+        <a href="/how-it-works/">How It Works</a>
+        <a href="/about-us/">About Us</a>
+        <a href="/contact/">Contact</a>
+        <a href="/car-owner-join-waitlist/">Car Owner? Join Waitlist &#8594;</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="bm-hero">
+    <div class="bm-shell">
+      <div class="bm-kicker">Get In Touch</div>
+      <h1>We&rsquo;re <span class="bm-accent">Real People.</span><br>Talk to Us.</h1>
+      <p>Questions about the platform, onboarding support, press inquiries, or partnership opportunities &mdash; we respond fast.</p>
+      <div class="bm-rule"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT INFO -->
+  <section class="bm-section">
+    <div class="bm-shell">
+      <h2 class="bm-section-title">Contact Information</h2>
+
+      <div class="bm-contact-grid">
+        <div class="bm-contact-card">
+          <div class="bm-icon-box">&#128205;</div>
+          <div>
+            <p class="bm-contact-label">Address</p>
+            <p class="bm-contact-text">294, Herbert Macaulay Way, Sabo, Yaba, Lagos, Nigeria.</p>
+          </div>
+        </div>
+
+        <div class="bm-contact-card">
+          <div class="bm-icon-box">&#128222;</div>
+          <div>
+            <p class="bm-contact-label">Phone</p>
+            <p class="bm-contact-text">+234 706 245 2620</p>
+          </div>
+        </div>
+
+        <div class="bm-contact-card">
+          <div class="bm-icon-box">&#9993;</div>
+          <div>
+            <p class="bm-contact-label">Email</p>
+            <p class="bm-contact-text">brodameko@gmail.com</p>
+          </div>
+        </div>
+
+        <div class="bm-contact-card">
+          <div class="bm-icon-box">&#128172;</div>
+          <div>
+            <p class="bm-contact-label">WhatsApp Community</p>
+            <p class="bm-contact-text">Join our active Lagos driver and mechanic community on WhatsApp for updates and support.</p>
+          </div>
+        </div>
+
+        <div class="bm-contact-card">
+          <div class="bm-icon-box">&#9200;</div>
+          <div>
+            <p class="bm-contact-label">Response Time</p>
+            <p class="bm-contact-text">We respond to all inquiries within 2&ndash;4 business hours. Mechanic onboarding calls within 24 hours.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bm-social-row">
+        <!-- FLAG: replace https://instagram.com/ with Brodameko Instagram URL -->
+        <a class="bm-social" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.75 1.65a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"/>
+          </svg>
+        </a>
+
+        <!-- FLAG: replace https://x.com/ with Brodameko X (Twitter) URL -->
+        <a class="bm-social" href="https://x.com/" target="_blank" rel="noopener" aria-label="X">
+          <svg viewBox="0 0 24 24">
+            <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.26l-4.9-6.41L6.4 22H3.28l7.24-8.28L.8 2h6.42l4.43 5.85L18.9 2Zm-1.1 18h1.73L6.27 3.9H4.4L17.8 20Z"/>
+          </svg>
+        </a>
+
+        <!-- FLAG: replace https://facebook.com/ with Brodameko Facebook URL -->
+        <a class="bm-social" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24">
+            <path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.93c0-.9.25-1.51 1.54-1.51H16.6V4.65c-.28-.04-1.23-.12-2.34-.12-2.31 0-3.89 1.41-3.89 4v2.24H7.75V14h2.62v8h3.13Z"/>
+          </svg>
+        </a>
+
+        <a class="bm-social" href="https://wa.me/2347062452620" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg viewBox="0 0 32 32">
+            <path d="M19.11 17.21c-.29-.14-1.69-.83-1.95-.92-.26-.1-.45-.14-.64.14-.19.29-.73.92-.9 1.11-.17.19-.33.21-.62.07-.29-.14-1.2-.44-2.29-1.41-.85-.76-1.42-1.69-1.58-1.98-.17-.29-.02-.45.12-.59.13-.13.29-.33.43-.5.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.36-.26.29-1 1-.98 2.43.02 1.43 1.03 2.81 1.18 3 .14.19 2.03 3.1 4.91 4.35.69.29 1.22.47 1.64.6.69.22 1.31.19 1.81.12.55-.08 1.69-.69 1.93-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33Z" fill="currentColor"/>
+            <path d="M16.03 3.2c-6.98 0-12.64 5.66-12.64 12.64 0 2.22.58 4.39 1.67 6.29L3.2 28.8l6.83-1.79a12.6 12.6 0 0 0 6 1.53h.01c6.98 0 12.64-5.66 12.64-12.64S23.01 3.2 16.03 3.2Zm0 23.2h-.01a10.5 10.5 0 0 1-5.36-1.47l-.38-.23-4.05 1.06 1.08-3.95-.25-.41a10.44 10.44 0 0 1-1.6-5.49c0-5.78 4.71-10.49 10.5-10.49 2.8 0 5.43 1.09 7.41 3.08a10.4 10.4 0 0 1 3.07 7.41c0 5.79-4.71 10.5-10.49 10.5Z" fill="currentColor"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="bm-form-wrap">
+        <div class="bm-form-card">
+          <h2 class="bm-form-title">Send Us a Message</h2>
+          <div class="bm-fluent-wrap">
+            [fluentform id="2"]
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bm-footer">
+    <div class="bm-shell">
+      <div class="bm-footer-grid">
+        <div class="bm-footer-brand">
+          <img src="https://brodameko.app/wp-content/uploads/2026/03/20260313_105436-scaled-e1773797467946.png" alt="BrodaMeko logo">
+          <p class="bm-footer-text">Your Car&rsquo;s Best Friend, Anywhere. Building Africa&rsquo;s most trusted auto-services network, starting in Lagos.</p>
+
+          <div class="bm-footer-socials">
+            <!-- FLAG: replace https://instagram.com/ with Brodameko Instagram URL -->
+            <a class="bm-social" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.75 1.65a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"/>
+              </svg>
+            </a>
+
+            <!-- FLAG: replace https://x.com/ with Brodameko X (Twitter) URL -->
+            <a class="bm-social" href="https://x.com/" target="_blank" rel="noopener" aria-label="X">
+              <svg viewBox="0 0 24 24">
+                <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.26l-4.9-6.41L6.4 22H3.28l7.24-8.28L.8 2h6.42l4.43 5.85L18.9 2Zm-1.1 18h1.73L6.27 3.9H4.4L17.8 20Z"/>
+              </svg>
+            </a>
+
+            <!-- FLAG: replace https://facebook.com/ with Brodameko Facebook URL -->
+            <a class="bm-social" href="https://facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24">
+                <path d="M13.5 22v-8h2.7l.4-3.1h-3.1V8.93c0-.9.25-1.51 1.54-1.51H16.6V4.65c-.28-.04-1.23-.12-2.34-.12-2.31 0-3.89 1.41-3.89 4v2.24H7.75V14h2.62v8h3.13Z"/>
+              </svg>
+            </a>
+
+            <a class="bm-social" href="https://wa.me/2347062452620" target="_blank" rel="noopener" aria-label="WhatsApp">
+              <svg viewBox="0 0 32 32">
+                <path d="M19.11 17.21c-.29-.14-1.69-.83-1.95-.92-.26-.1-.45-.14-.64.14-.19.29-.73.92-.9 1.11-.17.19-.33.21-.62.07-.29-.14-1.2-.44-2.29-1.41-.85-.76-1.42-1.69-1.58-1.98-.17-.29-.02-.45.12-.59.13-.13.29-.33.43-.5.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.64-1.55-.88-2.12-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.5.07-.76.36-.26.29-1 1-.98 2.43.02 1.43 1.03 2.81 1.18 3 .14.19 2.03 3.1 4.91 4.35.69.29 1.22.47 1.64.6.69.22 1.31.19 1.81.12.55-.08 1.69-.69 1.93-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33Z" fill="currentColor"/>
+                <path d="M16.03 3.2c-6.98 0-12.64 5.66-12.64 12.64 0 2.22.58 4.39 1.67 6.29L3.2 28.8l6.83-1.79a12.6 12.6 0 0 0 6 1.53h.01c6.98 0 12.64-5.66 12.64-12.64S23.01 3.2 16.03 3.2Zm0 23.2h-.01a10.5 10.5 0 0 1-5.36-1.47l-.38-.23-4.05 1.06 1.08-3.95-.25-.41a10.44 10.44 0 0 1-1.6-5.49c0-5.78 4.71-10.49 10.5-10.49 2.8 0 5.43 1.09 7.41 3.08a10.4 10.4 0 0 1 3.07 7.41c0 5.79-4.71 10.5-10.49 10.5Z" fill="currentColor"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="bm-footer-title">Platform</h3>
+          <nav class="bm-footer-links">
+            <a href="/">Download App</a>
+            <a href="/how-it-works/">How It Works</a>
+            <a href="/car-owner-join-waitlist/">Car Owner Waitlist</a>
+            <a href="/#mechanics">For Mechanics</a>
+            <a href="/#sellers">For Sellers</a>
+          </nav>
+        </div>
+
+        <div>
+          <h3 class="bm-footer-title">Company</h3>
+          <nav class="bm-footer-links">
+            <a href="/about-us/">About Us</a>
+            <a href="/contact/">Contact</a>
+            <a href="/faq/">FAQ</a>
+            <a href="/press-media/">Press &amp; Media</a>
+            <a href="/careers/">Careers</a>
+          </nav>
+        </div>
+
+        <div>
+          <h3 class="bm-footer-title">Contact</h3>
+          <div class="bm-footer-contact">
+            <div class="bm-highlight">294, Herbert Macaulay Way,<br>Sabo, Yaba, Lagos.</div>
+            <div>+234 706 245 2620</div>
+            <div>brodameko@gmail.com</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bm-footer-bottom">
+        <div class="bm-copyright">&copy; 2026 BrodaMeko. All rights reserved.</div>
+        <div class="bm-legal">
+          <a href="/privacy-policy/">Privacy Policy</a>
+          <a href="/terms-of-use/">Terms of Use</a>
+          <a href="/cookie-policy/">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a class="bm-to-top" href="#bm-contact-page" aria-label="Back to top">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 19V5M6 11l6-6 6 6"></path>
+    </svg>
+  </a>
+
+  <script>
+    (function() {
+      var openBtn  = document.getElementById('bmOpenMenu');
+      var closeBtn = document.getElementById('bmCloseMenu');
+      var drawer   = document.getElementById('bmDrawer');
+
+      if (openBtn && closeBtn && drawer) {
+        openBtn.addEventListener('click', function() {
+          drawer.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', function() {
+          drawer.classList.remove('open');
+          document.body.style.overflow = '';
+        });
+
+        drawer.addEventListener('click', function(e) {
+          if (e.target === drawer) {
+            drawer.classList.remove('open');
+            document.body.style.overflow = '';
+          }
+        });
+
+        document.querySelectorAll('.bm-drawer a').forEach(function(link) {
+          link.addEventListener('click', function() {
+            drawer.classList.remove('open');
+            document.body.style.overflow = '';
+          });
+        });
+      }
+    })();
+  </script>
+</div>
+</body>
+</html>
